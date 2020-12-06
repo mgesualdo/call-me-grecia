@@ -5,19 +5,15 @@ import { appointmentLogout } from './appointment'
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
-    const resp = await fetchSinToken('auth', { email, password }, 'POST')
+    const resp = await fetchSinToken(
+      'client/login',
+      { email, password },
+      'POST'
+    )
     const body = await resp.json()
 
     if (body.ok) {
-      localStorage.setItem('token', body.token)
-      localStorage.setItem('token-init-date', new Date().getTime())
-
-      dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      )
+      dispatch(login(body.client))
     } else {
       Swal.fire('Error', body.msg, 'error')
     }
@@ -83,10 +79,10 @@ export const startChecking = () => {
 
 const checkingFinish = () => ({ type: types.authCheckingFinish })
 
-const login = (user) => ({
-  type: types.authLogin,
-  payload: user,
-})
+const login = (user) => {
+  localStorage.setItem('loggedClient', JSON.stringify(user))
+  return { type: types.authLogin, payload: user }
+}
 
 export const startLogout = () => {
   return (dispatch) => {
@@ -96,4 +92,7 @@ export const startLogout = () => {
   }
 }
 
-const logout = () => ({ type: types.authLogout })
+const logout = () => {
+  localStorage.removeItem('loggedClient')
+  return { type: types.authLogout }
+}

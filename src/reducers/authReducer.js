@@ -2,7 +2,9 @@ import { types } from '../types/types'
 
 const initialState = {
   checking: false,
-  loggedClient: {},
+  loggedClient:
+    typeof localStorage !== 'undefined' &&
+    JSON.parse(localStorage.getItem('loggedClient')),
 }
 
 export const authReducer = (state = initialState, action) => {

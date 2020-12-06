@@ -7,3 +7,13 @@ export const prepareAppointments = (appointments = []) => {
     start: moment(a.start).toDate(),
   }))
 }
+
+export const prepareAppointment = (appointment = {}) => {
+  return {
+    ...appointment,
+    end: moment(appointment.end).toDate(),
+    start: moment(appointment.start).toDate(),
+    updatedAt: moment(appointment.updatedAt).toDate(),
+    createdAtd: moment(appointment.createdAtd).toDate(),
+  }
+}

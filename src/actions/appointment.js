@@ -2,25 +2,22 @@ import Swal from 'sweetalert2'
 
 import { types } from '../types/types'
 import { fetchSinToken } from '../helpers/fetch'
-import { prepareAppointments } from '../helpers/prepareAppointments'
+import {
+  prepareAppointments,
+  prepareAppointment,
+} from '../helpers/prepareAppointments'
 
 export const appointmentStartAddNew = (appointment) => {
   return async (dispatch, getState) => {
-    const { uid, name } = getState().auth
+    const { loggedClient } = getState().auth
+
+    appointment.client = loggedClient._id
 
     try {
       const resp = await fetchSinToken('appointment', appointment, 'POST')
       const body = await resp.json()
 
-      console.log(body)
-
       if (body.ok) {
-        appointment.id = body.appointmento.id
-        appointment.user = {
-          _id: uid,
-          name: name,
-        }
-        console.log(appointment)
         dispatch(appointmentAddNew(appointment))
       }
     } catch (error) {
@@ -43,19 +40,26 @@ export const clearActiveAppointment = () => ({
   type: types.clearActiveAppointment,
 })
 
-export const appointmentStartUpdate = (appointment) => {
-  return async (dispatch) => {
+export const appointmentStartUpdate = (appointment, appointmentId) => {
+  return async (dispatch, getState) => {
+    const { loggedClient } = getState().auth
+
+    appointment.client = loggedClient._id
+
+    console.log(appointment)
     try {
       const resp = await fetchSinToken(
-        `appointments/${appointment.id}`,
+        `appointment/${appointmentId}`,
         appointment,
         'PUT'
       )
       const body = await resp.json()
+      const { updatedAppointment } = body
 
       if (body.ok) {
-        dispatch(appointmentUpdated(appointment))
+        dispatch(appointmentUpdated(prepareAppointment(updatedAppointment)))
       } else {
+        console.log(body)
         Swal.fire('Error', body.msg, 'error')
       }
     } catch (error) {
@@ -71,9 +75,9 @@ const appointmentUpdated = (appointment) => ({
 
 export const appointmentStartDelete = () => {
   return async (dispatch, getState) => {
-    const { id } = getState().calendar.activeAppointment
+    const { _id } = getState().calendar.activeAppointment
     try {
-      const resp = await fetchSinToken(`appointments/${id}`, {}, 'DELETE')
+      const resp = await fetchSinToken(`appointment/${_id}`, {}, 'DELETE')
       const body = await resp.json()
 
       if (body.ok) {
@@ -97,6 +101,7 @@ export const appointmentStartLoading = () => {
 
       const appointments = prepareAppointments(body.appointments)
       dispatch(appointmentLoaded(appointments))
+      dispatch(appointmentStartLoading())
     } catch (error) {
       console.log(error)
     }

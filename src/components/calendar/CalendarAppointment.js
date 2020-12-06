@@ -1,12 +1,10 @@
 import React from 'react'
 
-export const CalendarAppointment = ({ appointment }) => {
-  const { client } = appointment
-
+export const CalendarAppointment = ({ event }) => {
   return (
     <div>
-      <strong> Hola </strong>
-      <span>- {client} </span>
+      <strong> {event.artist.name} </strong>
+      <span>{event.service.name}</span>
     </div>
   )
 }

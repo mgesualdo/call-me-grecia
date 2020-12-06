@@ -26,18 +26,24 @@ export const calendarReducer = (state = initialState, action) => {
       }
 
     case types.appointmentUpdated:
+      console.log(action.payload)
+      console.log(state.appointments)
       return {
         ...state,
-        appointments: state.appointments.map((e) =>
-          e.id === action.payload.id ? action.payload : e
-        ),
+        appointments: state.appointments.map((appointment) => {
+          if (appointment._id === action.payload._id) {
+            return action.payload
+          } else {
+            return appointment
+          }
+        }),
       }
 
     case types.appointmentDeleted:
       return {
         ...state,
         appointments: state.appointments.filter(
-          (e) => e.id !== state.activeAppointment.id
+          (a) => a._id !== state.activeAppointment._id
         ),
         activeAppointment: null,
       }
