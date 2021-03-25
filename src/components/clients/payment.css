@@ -1,0 +1,64 @@
+.payment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+
+.payment-time-and-status-container {
+  display: flex;
+  align-items: center;
+}
+
+.payment-detail {
+  color: #3b3;
+  font-size: 0.9rem;
+  min-width: 3rem;
+  text-align: right;
+}
+
+.payment-detail.time {
+  color: #08d;
+}
+
+.payment-type {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.payment-made {
+  padding-right: 0.05rem;
+}
+
+button.pay {
+  padding: 0.2rem 1rem;
+  font-weight: bolder;
+  font-size: 0.7rem;
+  min-width: 5rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  transition: background 0.1s ease;
+  background: var(--linear-gradient-primary-green);
+  border: none;
+  outline: none !important;
+}
+
+button.pay:hover {
+  background: var(--linear-gradient-primary-blue);
+  color: #fff;
+}
+
+button.pay-bigger {
+  min-width: 9rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  margin-right: 0;
+}
+
+.pending-payment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,18 +1,25 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { appointmentStartDelete } from '../../actions/appointment'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  appointmentStartCancelation,
+  clearActiveAppointment,
+} from '../../actions/appointment'
+import { getUserAppointments } from '../../actions/users'
 
 export const DeleteAppointmentFab = () => {
+  const { loggedUser } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   const handleDelete = () => {
-    dispatch(appointmentStartDelete())
+    dispatch(appointmentStartCancelation())
+    dispatch(getUserAppointments(loggedUser._id))
+    dispatch(clearActiveAppointment())
   }
 
   return (
     <button className='btn btn-danger fab-danger' onClick={handleDelete}>
       <i className='fas fa-trash'></i>
-      <span> Borrar turno </span>
+      <span> Cancelar turno </span>
     </button>
   )
 }

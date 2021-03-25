@@ -1,0 +1,87 @@
+import React from 'react'
+import { months } from '../../../utils/constants'
+import './DaysDropDown.css'
+
+const DaysDropDown = ({
+  active,
+  setDaysActive,
+  setMonthsActive,
+  setYearsActive,
+  selectedMonth,
+  setSelectedMonth,
+}) => {
+  const handleClick = () => {
+    if (!active) {
+      setMonthsActive(true)
+      setDaysActive(false)
+      setYearsActive(false)
+    } else {
+      setMonthsActive(false)
+    }
+  }
+
+  const handleOptionClick = (e, m) => {
+    setSelectedMonth(m)
+    const opcionSeleccionada = document.getElementById(m).innerHTML
+    const contenidoSelect = document.getElementById('contenido-select-month')
+
+    if (m === selectedMonth) {
+      contenidoSelect.firstChild.innerHTML = `<h4 id='titulo-month'> Mes </h4>`
+    } else {
+      contenidoSelect.firstChild.innerHTML = opcionSeleccionada
+    }
+    if (!active) {
+      setMonthsActive(true)
+      setDaysActive(false)
+      setYearsActive(false)
+    } else {
+      setMonthsActive(false)
+    }
+  }
+
+  return (
+    <div className={`contenedor-days bigger ${active ? 'active' : ''}`}>
+      <div className='selectbox-days'>
+        <div
+          className={`day-select ${active ? 'active' : ''}`}
+          id='select-month'
+          onClick={handleClick}
+        >
+          <div
+            className={`contenido-day-select ${
+              selectedMonth ? 'something-selected' : ''
+            }`}
+            id='contenido-select-month'
+          >
+            <div>
+              <h4 id='titulo-month' className={`titulo`}>
+                Mes
+              </h4>
+            </div>
+          </div>
+          <i className='fas fa-angle-down' aria-hidden='true'></i>
+        </div>
+        <div
+          className={`days-to-select months ${active ? 'active' : ''} ${
+            active && selectedMonth ? 'something-selected' : ''
+          }`}
+        >
+          {months.map((m) => (
+            <div
+              key={m}
+              id={m}
+              className={`opcion ${
+                m === selectedMonth ? 'opcion-selected' : ''
+              }`}
+              onClick={(e) => handleOptionClick(e, m)}
+            >
+              <h4 className='titulo-opcion-day'>{m}</h4>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default React.memo(DaysDropDown)

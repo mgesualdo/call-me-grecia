@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import moment from 'moment'
 import Modal from 'react-modal'
-import DateTimePicker from 'react-datetime-picker'
 
 import { uiCloseModal } from '../../actions/ui'
 import {
@@ -11,8 +10,13 @@ import {
   appointmentStartAddNew,
   appointmentStartUpdate,
 } from '../../actions/appointment'
-import ServiceList from '../services/ServiceList'
-import ArtistList from '../artists/ArtistList'
+
+import './calendarModal.css'
+import PaymentTypesOptions from '../payments/PaymentTypesDropDown'
+import ImageAndName from '../ui/ImageAndName'
+import AppointmentPrice from '../clients/AppointmentPrice'
+import AppointmentTime from '../clients/AppointmentTime'
+import Spinner from '../ui/Spinner'
 
 moment.locale('ar')
 const customStyles = {
@@ -28,77 +32,72 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 export const CalendarModal = ({ selectedDate }) => {
-  const { modalOpen } = useSelector((state) => state.ui)
+  const { modalOpen, loadingGoingToMercadoPago } = useSelector(
+    (state) => state.ui
+  )
+  const { selectedUser, activeAppointment } = useSelector((state) => state.user)
+  const { selectedService } = useSelector((state) => state.service)
   const dispatch = useDispatch()
 
+  const [paymentType, setPaymentType] = useState('SEÑA')
   const [formValues, setFormValues] = useState({
-    start: selectedDate,
-    end: moment(selectedDate).add(1, 'hours').toDate(),
+    start: '',
+    end: '',
     service: '',
     artist: '',
+    price: 0,
+    payments: [],
   })
-  const { activeAppointment } = useSelector((state) => state.calendar)
-
-  const { artist, service, start } = formValues
 
   useEffect(() => {
-    if (!!activeAppointment) {
-      setFormValues({
-        ...formValues,
-        start: activeAppointment.start,
-        end: activeAppointment.end,
-        service: activeAppointment.service._id,
-        artist: activeAppointment.artist._id,
-      })
-    } else {
-      setFormValues({
-        start: selectedDate,
-        end: moment(selectedDate).add(1, 'hours').toDate(),
-        service: '',
-        artist: '',
-      })
-    }
-  }, [activeAppointment, setFormValues])
-
-  useEffect(() => {
-    setFormValues({
+    const userService = selectedUser?.services.find(
+      (s) => s.service._id === selectedService?._id
+    )
+    setFormValues(() => ({
       start: selectedDate,
-      end: moment(selectedDate).add(1, 'hours').toDate(),
-      service: '',
-      artist: '',
-    })
-  }, [selectedDate])
-
-  const handleInputChange = ({ target }) => {
-    setFormValues({
-      ...formValues,
-      [target.name]: target.value,
-    })
-  }
+      end: moment(selectedDate)
+        .add(Math.ceil(selectedService?.duration / 60) * 60, 'minutes')
+        .toDate(),
+      service: selectedService?._id,
+      artist: selectedUser?._id,
+      price: userService?.price,
+      isValid: true,
+      cancelled: false,
+      hasReserved: false,
+      createdByClient: true,
+      payments: [
+        {
+          method: 'Mercado Pago',
+          kind: paymentType,
+          amount:
+            paymentType === 'SEÑA'
+              ? selectedService?.reservationCost
+              : userService?.price,
+          status: 'PENDIENTE',
+        },
+      ],
+    }))
+  }, [
+    activeAppointment,
+    selectedDate,
+    paymentType,
+    selectedService,
+    selectedUser,
+  ])
 
   const closeModal = () => {
-    // TODO: cerrar el modal
     dispatch(uiCloseModal())
     dispatch(clearActiveAppointment())
   }
 
-  const handleStartDateChange = (e) => {
-    setFormValues({
-      ...formValues,
-      start: e,
-      end: moment(e).add(4, 'hours').toDate(),
-    })
-  }
-
-  const handleSubmitForm = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-
     if (activeAppointment) {
       dispatch(appointmentStartUpdate(formValues, activeAppointment._id))
     } else {
+      console.log(formValues)
       dispatch(appointmentStartAddNew(formValues))
     }
-    closeModal()
   }
 
   return (
@@ -110,42 +109,52 @@ export const CalendarModal = ({ selectedDate }) => {
       className='modal'
       overlayClassName='modal-fondo'
     >
-      <h1 className='text-center'>
-        {' '}
-        {activeAppointment ? 'Editar turno' : 'Nuevo turno'}{' '}
-      </h1>
-      <hr />
-      <form className='container' onSubmit={handleSubmitForm}>
-        <div className='form-group'>
-          <label>Fecha y hora de inicio</label>
-          <DateTimePicker
-            onChange={handleStartDateChange}
-            value={start}
-            disabled
-            className='form-control form-control-lg'
-          />
-          <label className='mt-4'>Artista</label>
-          <ArtistList
-            handleInputChange={handleInputChange}
-            artistValue={artist}
-          />
-        </div>
-        <div className='form-group'>
-          <div className='form-group'>
-            <label>Servicio</label>
-
-            <ServiceList
-              serviceValue={service}
-              handleInputChange={handleInputChange}
+      <div
+        key={selectedService?._id}
+        id={selectedService?._id}
+        className='modal-container'
+      >
+        <div className='service-and-price-modal'>
+          <div className='service-and-price-modal'>
+            <ImageAndName
+              name={selectedService?.name}
+              imageName={selectedService?.images[0]}
+            />
+            <AppointmentPrice
+              price={formValues.price}
+              reservationCost={selectedService?.reservationCost}
             />
           </div>
         </div>
-
-        <button type='submit' className='btn btn-primary btn-block mt-4 btn-lg'>
-          <i className='far fa-save'></i>
-          <span> Guardar</span>
+      </div>
+      <div className='user-and-date-container'>
+        <ImageAndName
+          name={selectedUser?.name}
+          imageName={selectedUser?.avatarName}
+          user
+        />
+        <AppointmentTime start={formValues.start} />
+      </div>
+      <PaymentTypesOptions
+        setPaymentType={setPaymentType}
+        paymentType={paymentType}
+      />
+      <div className='buttons-container'>
+        <button
+          type='submit'
+          className='modal-button full-payment-button'
+          onClick={handleSubmit}
+        >
+          {loadingGoingToMercadoPago ? (
+            <Spinner />
+          ) : (
+            <>
+              <i className='fas fa-money-check-alt mr-2'></i>
+              <span>Reservar (${formValues?.payments[0]?.amount})</span>
+            </>
+          )}
         </button>
-      </form>
+      </div>
     </Modal>
   )
 }

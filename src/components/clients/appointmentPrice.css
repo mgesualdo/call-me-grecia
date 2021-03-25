@@ -1,0 +1,22 @@
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--price);
+}
+
+.reservation-cost {
+  font-size: 0.6rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.appointment-price {
+  font-size: 1rem;
+  color: #3b3;
+}

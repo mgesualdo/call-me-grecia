@@ -1,0 +1,77 @@
+.user-form-fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 5vh;
+  padding: 0.625rem 3.12rem;
+}
+
+.form-container {
+  box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+  background-color: white;
+  padding: 1.25rem 2rem 0.625rem 2rem;
+  border-radius: 0px 0.625rem 0.625rem 0.625rem;
+  min-width: 37rem;
+}
+
+.form-check-label {
+  cursor: pointer;
+}
+
+.user-form-right-side {
+  align-items: flex-start;
+  width: 50%;
+}
+
+.form-control {
+  color: black;
+  font-weight: 500;
+}
+
+.form-control::placeholder {
+  color: #aaa;
+  font-weight: normal;
+}
+
+@media (max-width: 650px) {
+  .view-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 3vh;
+    padding: 0 0;
+  }
+
+  .user-form-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .form-container {
+    box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+    background-color: white;
+    padding: 1.25rem;
+    border-radius: 0 0.625rem 0.625rem 0.625rem;
+    min-width: 0;
+    max-width: 95vw;
+    margin-bottom: 1rem;
+  }
+
+  .user-form-right-side {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .form-and-tabs-container {
+    min-width: 90%;
+  }
+}

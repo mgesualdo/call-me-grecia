@@ -1,0 +1,168 @@
+.menu-box {
+  height: 100%;
+  width: 13rem;
+  max-height: 25rem;
+  display: block;
+  position: relative;
+  margin-right: 0.625rem;
+  color: #444;
+  z-index: 1900;
+}
+
+.background-overlay {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 115;
+}
+
+.show-overlay {
+  display: block;
+}
+
+.menu-user-info {
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+}
+
+.menu-header,
+.menu-header h6,
+.menu-header i,
+.menu-header::before {
+  transition: all 0.1s ease-in-out;
+  margin-bottom: 0;
+}
+
+.menu-header i {
+  color: white;
+}
+
+.menu-header h6 {
+  margin-right: 1rem;
+  color: white;
+}
+
+.menu-header:hover,
+.menu-header.active {
+  background-color: #007bff;
+}
+
+.menu-header:hover h6,
+.menu-header.active h6,
+.menu-header:hover i,
+.menu-header.active i {
+  color: white;
+}
+
+.menu-header img {
+  margin-right: 1rem;
+  background-color: #eee;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+}
+
+.menu-box .options {
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  top: 4rem;
+  overflow: hidden;
+  display: none;
+  box-shadow: 0.31rem 0.31rem 1.25rem rgba(0, 0, 0, 0.16);
+  z-index: 200;
+}
+
+.menu-header.active::before {
+  content: '';
+  position: absolute;
+  bottom: -1.25rem;
+  left: calc(50% -0.625rem);
+  height: 0;
+  width: 0;
+  border-top: 0.625rem solid #fff;
+  border-right: 0.625rem solid transparent;
+  border-bottom: 0.625rem solid transparent;
+  border-left: 0.625rem solid transparent;
+}
+
+.menu-header.active::before,
+.menu-header:hover::before {
+  border-top: 0.625rem solid #007bff;
+}
+
+.options.active {
+  background-color: #fff;
+  border-radius: 0.31rem;
+  width: 100%;
+  display: block;
+  animation: showMenu 0.3s forwards;
+}
+
+.options .option {
+  padding: 0.625rem 1rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.options .option span::selection {
+  background-color: transparent;
+}
+
+.options .option:hover {
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.options .option:hover span,
+.options .option:hover i {
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+
+.options .option i {
+  margin-right: 1rem;
+}
+
+.options .option.logout {
+  color: #ee4444;
+}
+
+.options .option.logout:hover {
+  background-color: #eee;
+}
+
+.options .option.logout:hover span,
+.options .option.logout:hover i {
+  color: #ee4444;
+}
+
+@keyframes showMenu {
+  from {
+    transform: translateY(-3.75rem) scale(0.5);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 550px) {
+ 
+  .menu-box {
+    min-width: 5.6rem;
+  }
+}

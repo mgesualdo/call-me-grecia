@@ -13,7 +13,7 @@ export const useForm = (initialState = {}) => {
     if (!target) {
       setValues({
         ...values,
-        rDob: e,
+        dob: e,
       })
     } else {
       setValues({

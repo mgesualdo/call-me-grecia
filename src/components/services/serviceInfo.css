@@ -1,0 +1,12 @@
+.service-images-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 3rem;
+}
+
+.service-title {
+  font-weight: bolder;
+  margin-top: 1rem;
+  text-decoration: underline;
+}

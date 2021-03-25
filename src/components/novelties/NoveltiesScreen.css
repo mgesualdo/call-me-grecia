@@ -1,0 +1,105 @@
+.novelties-screen-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 3vh;
+  padding-right: 3vw;
+}
+
+.from-to-text {
+  display: inline-block;
+  width: 4rem;
+  font-weight: bolder;
+}
+
+.from-time {
+  color: #d33;
+}
+
+.to-time {
+  color: #08d;
+}
+
+.date-picker-novelty {
+  margin-bottom: 1rem;
+}
+
+.icn-date-picker-container {
+  position: relative;
+}
+
+.react-datepicker-popper {
+  z-index: 12;
+}
+
+.react-datepicker__close-icon {
+  padding-bottom: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.react-datepicker__close-icon::after {
+  font-size: 1rem !important;
+  line-height: 1rem !important;
+  display: block;
+  padding: 0.2rem !important;
+  padding-top: 0.3rem !important;
+  width: 1.7rem;
+  height: 1.6rem;
+  background-color: #08d !important;
+}
+
+.novelties-container {
+  padding: 0 0 0 2rem;
+  width: 60%;
+}
+
+.novelties-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 1rem;
+  margin-left: 2rem;
+  width: 40%;
+  box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+  background-color: white;
+  padding: 1.25rem 2rem 0.625rem 2rem;
+  border-radius: 0.625rem;
+}
+
+.from-to-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.novelty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 950px) {
+  .novelties-screen-container {
+    flex-direction: column;
+  }
+
+  .react-datepicker__month-container {
+    min-width: 19rem !important;
+  }
+
+  .novelties-form {
+    width: 98%;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+  }
+
+  .novelties-container {
+    width: 98%;
+    padding: 0 0 6rem 0;
+    margin-left: 1rem;
+  }
+}

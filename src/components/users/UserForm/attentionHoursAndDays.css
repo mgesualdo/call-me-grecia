@@ -1,0 +1,51 @@
+.work-week-hour {
+  padding: 0.2rem 0.3rem;
+  align-items: start;
+  margin-bottom: 0.19rem;
+  margin-right: 0;
+  background-color: #eee;
+  font-weight: 700;
+  border-radius: 0.2rem;
+  text-align: center;
+  width: 50%;
+  -o-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.work-week-hour-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  width: 100%;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox']:checked + label {
+  background-color: #007bff;
+  color: white;
+}
+
+input[type='checkbox']:checked + label::selection,
+input[type='checkbox'] + label::selection {
+  background-color: transparent;
+}
+
+@media screen and (min-width: 650px) {
+  .work-week-hour:hover {
+    background-color: #007bff;
+    color: white;
+  }
+}

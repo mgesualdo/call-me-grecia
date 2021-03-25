@@ -1,0 +1,44 @@
+.user-image-label {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  border-radius: 0.625rem;
+  min-width: 13rem;
+  width: 100%;
+  transition: all 0.1s ease-in-out;
+}
+
+.user-image-label:hover {
+  background-color: #0263ca;
+}
+
+.user-image-label input {
+  outline: none;
+  width: 0%;
+  opacity: 0;
+}
+
+#user-image {
+  cursor: pointer;
+}
+
+.choose-image {
+  display: block;
+  padding: 0.625rem;
+  cursor: pointer;
+  text-align: center;
+  z-index: 1;
+}
+
+.choose-image:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+  .user-image-label {
+    width: 100%;
+  }
+}

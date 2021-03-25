@@ -1,0 +1,44 @@
+.user-services-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.service-input-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.19rem 0;
+}
+
+.user-services-container label {
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 0.3rem;
+  background-color: #eee;
+  font-weight: 700;
+  border-radius: 0.19rem;
+  max-width: 12.5rem;
+  -o-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox']:checked + label {
+  background-color: #007bff;
+  color: white;
+}
+
+input[type='checkbox']:checked + label::selection,
+input[type='checkbox'] + label::selection {
+  background-color: transparent;
+}
+
+.price-input {
+  width: 6rem;
+  padding: 0.06rem 0.33rem;
+  border-radius: 0.19rem;
+  border: 0.06rem solid #ddd;
+}

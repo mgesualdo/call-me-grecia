@@ -1,0 +1,10 @@
+button.fab-success:hover,
+button.fab-success:hover i {
+  background: var(--linear-gradient-primary-blue);
+  color: #fff;
+}
+
+button.fab-success i {
+  font-size: 2rem;
+  color: #333;
+}

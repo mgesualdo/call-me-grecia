@@ -1,0 +1,247 @@
+.contenedor form {
+  position: relative;
+  width: 95vw;
+  max-width: 30rem;
+  margin-right: 2rem 0 0 0;
+}
+
+.selectbox {
+  width: 95%;
+}
+
+#select.select {
+  display: flex;
+  min-width: 25vw !important;
+  width: 36.5rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.16);
+  border: 2px solid transparent;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  padding: 1rem;
+  transition: box-shadow 0.1s ease;
+  position: relative;
+  margin-bottom: 2rem;
+  z-index: 107;
+}
+.select h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.select:hover {
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.16);
+  /* border: 2px solid #3366bb; */
+}
+
+.select.active {
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.16);
+}
+
+.select.active:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 1rem solid #fff;
+  border-bottom: 1rem solid transparent;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  bottom: -2rem;
+  left: calc(50% - 2rem);
+  transition: all 0.5 ease;
+  z-index: 108;
+}
+
+.contenido-select {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  z-index: 1;
+}
+
+.first-child-contenido-select {
+  display: flex;
+  align-items: center;
+}
+
+.first-child-contenido-select.active {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.first-child-contenido-select.active img {
+  width: 6.1rem;
+  border-radius: 50%;
+  margin-left: 1rem;
+}
+.first-child-contenido-select.active h4 {
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.contenido-select.something-selected {
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#titulo-user,
+#titulo-service {
+  position: relative;
+  font-size: 1.2rem;
+  padding: 0.64rem 0;
+  width: 13rem;
+  transition: all 0.5s ease;
+  left: 1rem;
+  z-index: -1;
+}
+
+.opciones {
+  position: absolute;
+  min-width: 30vw !important;
+  width: 36.5rem;
+  transform: scale(0.25);
+  opacity: 0;
+  height: 10rem;
+  top: -5rem;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
+  border-radius: 1rem;
+  backdrop-filter: blur(0.5rem);
+  overflow-y: auto;
+  box-shadow: 0.2rem 0.5rem 1rem rgba(0, 0, 0, 0.6);
+  max-height: 40rem;
+  transition: all 0.5s ease;
+  z-index: 109;
+}
+
+.opciones.active.something-selected {
+  top: 9.5rem;
+}
+
+.opciones.active {
+  position: absolute;
+  opacity: 1;
+  transform: scale(0.9);
+  height: auto;
+  top: 6.6rem;
+  margin-bottom: 2rem;
+}
+
+.opcion {
+  transition: all 0.1s ease;
+}
+
+.opcion.opcion-selected {
+  background: var(--linear-gradient-primary-blue);
+}
+.opcion.opcion-selected img {
+  color: #fff;
+  border-color: #fff;
+  background-color: transparent;
+}
+.opcion.opcion-selected h4 {
+  color: #fff;
+}
+
+.opcion:hover {
+  cursor: pointer;
+  background: var(--linear-gradient-primary-blue);
+  backdrop-filter: blur(0.5rem);
+}
+
+.opcion:hover h4 {
+  color: #fff;
+}
+
+.opcion.titulo {
+  pointer-events: none;
+}
+
+.opcion img,
+.contenido-select img {
+  font-size: 1.5rem;
+  border: 1px solid #bbb;
+  color: #666;
+  background-color: #eee;
+  border-radius: 1.8rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  transition: all 0.1s ease;
+}
+
+.contenido-select img {
+  margin-left: 0;
+}
+
+.opcion-parte-derecha {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.titulo-opcion {
+  max-width: 90%;
+  margin-right: 1rem;
+  color: var(--black);
+}
+
+.buscar-servicio,
+.buscar-usuario {
+  position: relative;
+  opacity: 1;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  width: 90%;
+  border: none;
+  border-bottom: 1px solid #eee;
+  outline: none;
+  padding: 0.5rem;
+  left: 1rem;
+}
+
+#buscar-servicio.no-mostrar,
+#buscar-usuario.no-mostrar {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#titulo-user.no-mostrar,
+#titulo-service.no-mostrar {
+  display: none;
+}
+
+.no-padding {
+  padding: 0;
+  width: 100%;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  z-index: 1300;
+}
+
+@media screen and (max-width: 950px) {
+  #select.select {
+    min-width: 90vw !important;
+    width: 90vw !important;
+  }
+
+  .opciones {
+    width: 95vw;
+  }
+}

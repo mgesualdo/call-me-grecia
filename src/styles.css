@@ -1,17 +1,82 @@
+:root {
+  --p-1: 0.31rem;
+  --p-2: 0.625rem;
+  --linear-gradient-primary-grey: linear-gradient(
+    45deg,
+    rgba(200, 200, 200, 1),
+    rgba(230, 230, 230, 0.6)
+  );
+  --linear-gradient-primary-blue: linear-gradient(
+    45deg,
+    rgba(10, 55, 255, 1),
+    rgba(10, 200, 255, 0.6)
+  );
+  --linear-gradient-primary-green: linear-gradient(
+    45deg,
+    rgba(10, 255, 55, 1),
+    rgba(10, 255, 200, 0.6)
+  );
+
+  --black: #333;
+  --price: rgb(36, 179, 102);
+  --small-img-size: 1.6rem;
+  --medium-img-size: 2.4rem;
+  --large-img-size: 5rem;
+}
+
 html,
 body {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
+  background-color: #eee;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h6.logo {
+  margin-left: 0.5rem;
+  margin-bottom: 0;
+  font-weight: bolder;
 }
 
 .calendar-screen {
   display: flex;
   flex-flow: column;
-  height: 100vh;
+  height: 90vh;
+  width: calc(100vw - 40rem);
+}
+
+.user-calendar-screen {
+  display: flex;
+  flex-flow: column;
+  height: 93.5vh;
+  width: 100%;
+}
+
+.reference-container {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.rbc-month-row {
+  max-height: 7rem;
+}
+
+.rbc-month-view {
+  max-height: 35rem;
+}
+
+.rbc-row.rbc-date-cell > a {
+  z-index: 22 !important;
 }
 
 .rbc-calendar {
   height: 100%;
+  width: 100%;
+  padding: 0.625rem;
 }
 
 /* Modal */
@@ -19,11 +84,15 @@ body {
   opacity: 0;
 }
 
+.rbc-events-container {
+  margin-right: 0 !important;
+}
+
 .ReactModalPortal .ReactModal__Overlay {
   align-items: center;
   display: flex;
   justify-content: center;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
   z-index: 999;
 }
 
@@ -44,16 +113,36 @@ body {
   opacity: 0;
 }
 
-.modal {
-  background: white;
-  border-radius: 5px;
-  color: rgb(51, 51, 51);
-  height: 500px;
-  display: inline;
-  max-height: 620px;
-  max-width: 500px;
-  outline: none;
-  padding: 10px;
+.modal-user {
+  height: 26rem;
+}
+
+.img-logo {
+  width: 20vw;
+  max-width: 11rem;
+  cursor: pointer;
+}
+
+.service-container {
+  border-radius: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0.15rem 0.15rem 0.625rem rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in;
+  background-color: #fff;
+  min-height: 19rem;
+}
+
+.service-container:hover {
+  box-shadow: 0.15rem 0.15rem 20px rgba(0, 0, 0, 0.4);
+}
+
+.service-name {
+  color: #555;
+  width: 100%;
+}
+
+.service-text {
+  color: #777;
 }
 
 /* Datepicker */
@@ -68,16 +157,188 @@ body {
 /* FABS */
 .fab {
   border-radius: 100%;
-  bottom: 25px;
-  font-size: 30px;
-  padding: 25px;
+  bottom: 1.6rem;
+  font-size: 2rem;
+  padding: 1.6rem;
   position: fixed;
-  right: 25px;
+  right: 1.6rem;
 }
 
 .fab-danger {
-  bottom: 25px;
-  padding: 10px;
+  bottom: 1.6rem;
+  padding: 0.625rem;
   position: fixed;
-  left: 25px;
+  left: 1.6rem;
+}
+
+.fab-warning {
+  bottom: 1.6rem;
+  padding: 0.625rem;
+  position: fixed;
+  left: 12rem;
+}
+
+button.fab-success {
+  background: var(--linear-gradient-primary-green);
+  border: 0.08px solid var(--linear-gradient-primary-green);
+  outline: none;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 0.625rem;
+  position: fixed;
+  cursor: pointer;
+  -webkit-transition: background 0.4s ease;
+  -moz-transition: background 0.4s ease;
+  -o-transition: background 0.4s ease;
+  transition: background 0.4s ease;
+  z-index: 30000;
+}
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.25rem;
+  justify-items: space-between;
+  align-items: flex-end;
+  width: 95vw;
+}
+
+.rbc-toolbar-label {
+  color: #2277ff;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.rbc-time-view .rbc-row {
+  min-height: 0px !important;
+}
+
+.rbc-day-bg {
+  z-index: 5;
+}
+
+.rbc-events-container {
+  user-select: none;
+}
+
+.artist-list {
+  width: 12.5rem;
+}
+
+.client-name {
+  color: #444444;
+  font-weight: bolder;
+}
+
+.branch-name {
+  color: #2b323a;
+  line-height: 3.15rem;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.nav-item {
+  list-style: none;
+  font-size: 1.15rem;
+  cursor: pointer;
+  font-weight: bolder;
+  transition: all 0.1s ease-in;
+}
+
+.nav-option:hover {
+  color: #4d96e3 !important;
+}
+
+@media screen and (max-width: 950px) {
+  html {
+    font-size: 14px;
+  }
+
+  .calendar-screen {
+    display: flex;
+    flex-flow: column;
+    width: 92%;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .rbc-calendar {
+    width: 98%;
+    margin-left: 0.5rem;
+  }
+
+  .service-container {
+    width: 90%;
+  }
+
+  .service-name {
+    font-size: 1.5rem;
+  }
+
+  .service-text {
+    font-size: 0.9rem;
+  }
+
+  .service-container {
+    min-height: 15.6rem;
+  }
+
+  .client-name {
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+
+  .rbc-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+  }
+
+  .rbc-btn-group {
+    padding: 0rem;
+  }
+
+  .rbc-toolbar .rbc-btn-group button {
+    font-size: 0.8rem;
+    font-weight: bolder;
+  }
+
+  .rbc-toolbar .rbc-toolbar-label {
+    flex-grow: 1;
+    width: 30%;
+    font-size: 1rem;
+  }
+
+  .navbar {
+    min-height: 3.15rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 11.7px;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  html {
+    font-size: 11.3px;
+  }
 }

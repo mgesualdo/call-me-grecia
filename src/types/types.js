@@ -1,6 +1,15 @@
 export const types = {
+  uiRefreshImage: '[ui] Refresh image on menus',
+  uiLoadingDeleting: '[ui] Loading while deleting something',
   uiOpenModal: '[ui] Open modal',
   uiCloseModal: '[ui] Close modal',
+  uiLoading: '[ui] Loading',
+  uiLoadingRegister: '[ui] LoadingRegister',
+  uiLoadingLogin: '[ui] LoadingLogin',
+  uiLoadingUpdatingClient: '[ui] Loading updating client',
+  uiLoadingClients: '[ui] Loading clients',
+  uiLoadingChangingPassword: '[ui] Loading changing password',
+  uiLoadingGoingToMercadoPago: '[ui] Loading goint to mercado pago',
 
   appointmentSetActive: '[appointment] Set Active',
   appointmentLogout: '[appointment] Logout appointment',
@@ -12,10 +21,21 @@ export const types = {
   appointmentDeleted: '[appointment] Appointment deleted',
   appointmentLoaded: '[appointment] Appointments loaded',
 
-  authCheckingFinish: '[auth] Finish checking login state',
-  authStartLogin: '[auth] Start login',
-  authLogin: '[auth] Login',
-  authStartRegister: '[auth] Start Register',
-  authStartStartTokenRenew: '[auth] Start token renew',
-  authLogout: '[auth] Logout',
+  getClients: '[client] Get all clients',
+  clientSelected: '[client] Set the selected client',
+  clientStartLogin: '[client] Start login',
+  clientLogin: '[client] Login',
+  clientStartRegister: '[client] Start Register',
+  clientLogout: '[client] Logout',
+  clientAppointments: '[client] Set the current client appointments',
+
+  getServices: '[services] Get all services',
+  serviceSelected: '[services] Set the selected service',
+
+  getUsers: '[users] Get all users',
+  userSelected: '[users] Set the selected user',
+  userAppointments: '[users] Set the selected user appointments',
+  userStartLogin: '[users] Start login',
+  userLogin: '[users] Login',
+  userLogout: '[users] Logout',
 }

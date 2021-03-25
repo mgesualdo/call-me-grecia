@@ -1,0 +1,17 @@
+.client-profile-form {
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  width: 90%;
+  max-width: 37, 5rem;
+  margin: auto;
+}
+
+.upload-image-container.profile {
+  width: 100%;
+  padding-bottom: 0.93rem;
+}
+
+.upload-image-container.profile .user-image-label{
+  width: 60%;
+}

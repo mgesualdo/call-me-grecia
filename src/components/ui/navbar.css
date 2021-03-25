@@ -1,0 +1,21 @@
+.nav-container {
+  display: block;
+  min-width: 100% !important;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  min-height: 3rem;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  padding-left: 0.625rem;
+}
+
+.logo:hover {
+  cursor: pointer;
+}

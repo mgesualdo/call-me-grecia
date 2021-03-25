@@ -2,34 +2,50 @@ import Swal from 'sweetalert2'
 
 import { types } from '../types/types'
 import { fetchSinToken } from '../helpers/fetch'
-import {
-  prepareAppointments,
-  prepareAppointment,
-} from '../helpers/prepareAppointments'
+import { getUserAppointments } from '../actions/users'
+import { uiCloseModal, uiLoading, uiLoadingGoingToMercadoPago } from './ui'
 
 export const appointmentStartAddNew = (appointment) => {
   return async (dispatch, getState) => {
-    const { loggedClient } = getState().auth
-
-    appointment.client = loggedClient._id
+    const { loggedClient, loggedUser } = getState().auth
+    if (appointment.createdByClient) {
+      appointment.client = loggedClient._id
+    }
 
     try {
+      dispatch(uiLoadingGoingToMercadoPago(true))
+      dispatch(uiLoading(true))
+
+      console.log({
+        isValid: appointment.isValid,
+        cancelled: appointment.cancelled,
+      })
       const resp = await fetchSinToken('appointment', appointment, 'POST')
       const body = await resp.json()
 
-      if (body.ok) {
-        dispatch(appointmentAddNew(appointment))
+      if (appointment.createdByClient && body.ok) {
+        const resp2 = await fetchSinToken(
+          'mercadopago',
+          body.addedAppointment,
+          'PUT'
+        )
+        const { url } = await resp2.json()
+
+        window.location = url
+        dispatch(getUserAppointments(body.addedAppointment.artist))
+      } else if (!body.ok && body.error.code === 11000) {
+        dispatch(getUserAppointments(appointment.artist))
+        Swal.fire('Lo sentimos!', 'Ese turno ya no está disponible!', 'info')
       }
+      dispatch(uiLoadingGoingToMercadoPago(false))
+      dispatch(uiLoading(false))
+      dispatch(uiCloseModal())
+      if (!!loggedUser) dispatch(getUserAppointments(loggedUser._id))
     } catch (error) {
       console.log(error)
     }
   }
 }
-
-const appointmentAddNew = (appointment) => ({
-  type: types.appointmentAddNew,
-  payload: appointment,
-})
 
 export const appointmentSetActive = (appointment) => ({
   type: types.appointmentSetActive,
@@ -40,13 +56,19 @@ export const clearActiveAppointment = () => ({
   type: types.clearActiveAppointment,
 })
 
-export const appointmentStartUpdate = (appointment, appointmentId) => {
+export const appointmentStartUpdate = (
+  appointment,
+  appointmentId,
+  isUser = false
+) => {
   return async (dispatch, getState) => {
-    const { loggedClient } = getState().auth
+    const { loggedClient } = getState().client
 
-    appointment.client = loggedClient._id
+    if (!isUser) {
+      appointment.client = loggedClient._id
+    }
+    dispatch(uiLoading(true))
 
-    console.log(appointment)
     try {
       const resp = await fetchSinToken(
         `appointment/${appointmentId}`,
@@ -57,31 +79,33 @@ export const appointmentStartUpdate = (appointment, appointmentId) => {
       const { updatedAppointment } = body
 
       if (body.ok) {
-        dispatch(appointmentUpdated(prepareAppointment(updatedAppointment)))
+        dispatch(getUserAppointments(updatedAppointment.artist))
       } else {
         console.log(body)
-        Swal.fire('Error', body.msg, 'error')
+        Swal.fire('Error', 'Algo falló!', 'error')
       }
     } catch (error) {
       console.log(error)
     }
+    dispatch(uiLoading(false))
+    dispatch(uiCloseModal())
   }
 }
 
-const appointmentUpdated = (appointment) => ({
-  type: types.appointmentUpdated,
-  payload: appointment,
-})
-
-export const appointmentStartDelete = () => {
+export const appointmentStartCancelation = () => {
   return async (dispatch, getState) => {
-    const { _id } = getState().calendar.activeAppointment
+    const { _id } = getState().user.activeAppointment
+    const { loggedUser } = getState().auth
     try {
-      const resp = await fetchSinToken(`appointment/${_id}`, {}, 'DELETE')
+      const resp = await fetchSinToken(
+        `appointment/${_id}/${loggedUser._id}`,
+        {},
+        'PUT'
+      )
       const body = await resp.json()
 
       if (body.ok) {
-        dispatch(appointmentDeleted())
+        dispatch(appointmentCanceled())
       } else {
         Swal.fire('Error', body.msg, 'error')
       }
@@ -91,26 +115,6 @@ export const appointmentStartDelete = () => {
   }
 }
 
-const appointmentDeleted = () => ({ type: types.appointmentDeleted })
-
-export const appointmentStartLoading = () => {
-  return async (dispatch) => {
-    try {
-      const resp = await fetchSinToken('appointment')
-      const body = await resp.json()
-
-      const appointments = prepareAppointments(body.appointments)
-      dispatch(appointmentLoaded(appointments))
-      dispatch(appointmentStartLoading())
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
-const appointmentLoaded = (appointments) => ({
-  type: types.appointmentLoaded,
-  payload: appointments,
-})
+const appointmentCanceled = () => ({ type: types.appointmentCanceled })
 
 export const appointmentLogout = () => ({ type: types.appointmentLogout })

@@ -1,0 +1,13 @@
+.selected {
+  background: var(--linear-gradient-primary-blue) !important;
+}
+
+.selected,
+.selected .price,
+.selected h5 {
+  color: white;
+}
+
+.no-selectable {
+  user-select: none !important;
+}

@@ -1,0 +1,35 @@
+.tab {
+  background-color: #eee;
+  color: #555;
+  border-radius: 0.625rem 0.625rem 0px 0px;
+  cursor: pointer;
+  padding: 0.625rem;
+  margin-right: 0.31rem;
+  box-shadow: 3px -0.625rem 2rem rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease-in-out;
+}
+
+.selected-tab {
+  background-color: #1177ee;
+  color: white;
+}
+
+.tab i {
+  margin-right: 0.625rem;
+  margin-left: 0.31rem;
+}
+
+@media (max-width: 650px) {
+  .tab span {
+    display: none;
+  }
+
+  .tab {
+    min-width: 5rem;
+  }
+
+  .tab i {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
+}

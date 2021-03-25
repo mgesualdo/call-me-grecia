@@ -1,0 +1,80 @@
+.error-icn {
+  color: #d33;
+  margin-right: 0.3rem;
+  font-weight: bolder;
+  font-size: 0.9rem;
+}
+.info-icn {
+  color: #ccaa00;
+  margin-right: 0.3rem;
+  font-weight: bolder;
+  font-size: 0.9rem;
+}
+
+.success-icn {
+  color: #00cc55;
+  margin-right: 0.3rem;
+  font-weight: bolder;
+  font-size: 0.9rem;
+}
+
+.my-tooltip-container {
+  position: relative;
+  width: 5rem;
+  margin-left: 1.5rem;
+  z-index: 10;
+}
+
+.payment-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-tooltip {
+  width: 8rem;
+  opacity: 0;
+  text-align: center;
+  color: white;
+  position: absolute;
+  background-color: #333;
+  padding: 0.2rem 0.6rem 0.3rem 0.6rem;
+  left: -2.25rem;
+  bottom: 1.9rem;
+  font-weight: 900;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.large-tooltip {
+  width: 18rem;
+  left: -0.5rem;
+}
+
+.no-margin {
+  margin-left: 0 !important;
+  width: 1.5rem;
+}
+
+.my-tooltip::after {
+  content: '';
+  position: absolute;
+  display: static;
+  width: 0;
+  height: 0;
+  border: 0.5rem solid transparent;
+  border-top: 0.5rem solid #333;
+  bottom: -0.9rem;
+  left: 2.25rem;
+}
+
+.large-tooltip::after {
+  left: 0.5rem;
+}
+
+.info-icn:hover + .my-tooltip,
+.error-icn:hover + .my-tooltip,
+.show-my-tooltip {
+  opacity: 1;
+}

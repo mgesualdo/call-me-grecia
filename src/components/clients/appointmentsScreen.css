@@ -1,0 +1,47 @@
+.appointment-screen-container {
+  margin: 2rem 5rem;
+}
+
+.appointments-container {
+  width: 60vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(23rem, 29rem));
+  transition: all 0.1s ease;
+  gap: 1.25rem;
+  padding-bottom: 7rem;
+}
+
+.small {
+  max-width: 60vw;
+  margin-left: 2rem;
+}
+
+@media screen and (max-width: 950px) {
+  .appointment-screen-container {
+    margin: 2rem 0.5rem;
+  }
+
+  .appointments-container {
+    margin-top: 2rem;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .small {
+    max-width: 95vw;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .appointment-screen-container {
+    margin: 1rem 1rem;
+  }
+
+  .appointments-container {
+    margin-right: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+}

@@ -1,39 +1,33 @@
-import React, { useEffect } from 'react'
-import { useCallback } from 'react'
-import { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserAppointments, setSelectedUser } from '../../actions/users'
 
-import { fetchSinToken } from '../../helpers/fetch'
+const ArtistList = () => {
+  const { users, selectedUser } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
-const ArtistList = ({ artistValue, handleInputChange }) => {
-  const [artists, setArtists] = useState([])
-
-  const getArtists = useCallback(async () => {
-    const resp = await fetchSinToken('user/', {}, 'GET')
-    const data = await resp.json()
-
-    setArtists(data.users)
-  }, [])
-
-  useEffect(() => {
-    getArtists()
-  }, [getArtists])
+  const handleChange = (e) => {
+    console.log(e.target.value)
+    dispatch(setSelectedUser(e.target.value))
+    dispatch(getUserAppointments(e.target.value))
+  }
 
   return (
-    <>
+    <div className='d-flex align-items-center justify-content-center'>
       <select
         name='artist'
-        value={artistValue}
-        onChange={handleInputChange}
-        className='form-control form-control-lg'
+        value={!!selectedUser ? selectedUser._id : ''}
+        onChange={handleChange}
+        className='form-control artist-list'
       >
         <option value=''></option>
-        {artists.map((artist) => (
-          <option value={`${artist._id}`} key={artist._id}>
-            {`${artist.name} ${artist.lastname}`}
+        {users.map(({ _id, name, lastname }) => (
+          <option value={`${_id}`} key={_id}>
+            {`${name} ${lastname}`}
           </option>
         ))}
       </select>
-    </>
+    </div>
   )
 }
 

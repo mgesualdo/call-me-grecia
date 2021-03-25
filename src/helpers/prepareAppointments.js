@@ -1,19 +1,19 @@
-import moment from 'moment'
+import { parseISO } from 'date-fns'
 
 export const prepareAppointments = (appointments = []) => {
   return appointments.map((a) => ({
     ...a,
-    end: moment(a.end).toDate(),
-    start: moment(a.start).toDate(),
+    end: parseISO(a.end),
+    start: parseISO(a.start),
   }))
 }
 
 export const prepareAppointment = (appointment = {}) => {
   return {
     ...appointment,
-    end: moment(appointment.end).toDate(),
-    start: moment(appointment.start).toDate(),
-    updatedAt: moment(appointment.updatedAt).toDate(),
-    createdAtd: moment(appointment.createdAtd).toDate(),
+    end: parseISO(appointment.end),
+    start: parseISO(appointment.start),
+    updatedAt: parseISO(appointment.updatedAt),
+    createdAtd: parseISO(appointment.createdAtd),
   }
 }

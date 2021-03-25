@@ -1,0 +1,12 @@
+.appointment-container-client {
+  display: flex;
+  margin-top: 0.3rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 25rem;
+}
+
+.smaller {
+  width: 20rem;
+}

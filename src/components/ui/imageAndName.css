@@ -1,0 +1,25 @@
+.img-and-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-and-name-container img {
+  margin-right: 0.6rem;
+  background-color: #fff;
+  border-radius: 50%;
+  width: var(--medium-img-size);
+  height: var(--medium-img-size);
+  object-fit: contain;
+}
+
+.small-image img {
+  width: var(--small-img-size);
+  height: var(--small-img-size);
+}
+
+h5 {
+  font-size: 1.15rem;
+  color: #333;
+  margin: 0;
+}

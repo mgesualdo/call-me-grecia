@@ -1,22 +1,11 @@
-import React, { useEffect } from 'react'
-import { useCallback } from 'react'
-import { useState } from 'react'
+import React from 'react'
 
-import { fetchSinToken } from '../../helpers/fetch'
+import { useSelector } from 'react-redux'
 
-const ServiceList = ({ serviceValue, handleInputChange }) => {
-  const [services, setServices] = useState([])
+const ServiceList = ({ serviceValue, handleInputChange, isUser }) => {
+  const { selectedUser, loggedUser } = useSelector((state) => state.auth)
 
-  const getServices = useCallback(async () => {
-    const resp = await fetchSinToken('service/', {}, 'GET')
-    const data = await resp.json()
-
-    setServices(data.services)
-  }, [])
-
-  useEffect(() => {
-    getServices()
-  }, [getServices])
+  const user = isUser ? loggedUser : selectedUser
 
   return (
     <>
@@ -24,11 +13,11 @@ const ServiceList = ({ serviceValue, handleInputChange }) => {
         name='service'
         value={serviceValue}
         onChange={handleInputChange}
-        className='form-control form-control-lg'
+        className='form-control'
       >
         <option value=''></option>
-        {services.map((service) => (
-          <option value={`${service._id}`} key={service._id}>
+        {user.services.map(({ service }) => (
+          <option value={service._id} key={service._id}>
             {service.name}
           </option>
         ))}

@@ -1,0 +1,12 @@
+.appointment-status-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.appointment-status-container i {
+  margin-right: 0.5rem;
+}

@@ -1,0 +1,41 @@
+import React from 'react'
+import moment from 'moment'
+import WarningIcon from '../ui/Icons/WarningIcon'
+import DangerIcon from '../ui/Icons/DangerIcon'
+import SuccessIcon from '../ui/Icons/SuccessIcon'
+
+import './payment.css'
+import PayPendingPaymentButton from './PayPendingPaymentButton'
+
+const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
+  const { status, createdAt, amount } = payment
+
+  return (
+    <div className='payment-info'>
+      <div className='payment-time-and-status-container'>
+        <i className='fa fa-clock appointment-icn'></i>
+        <span className='payment-detail time'>
+          {moment(createdAt).format('ddd DD/MM HH:mm')}
+        </span>
+        {status === 'PENDIENTE' ? (
+          <WarningIcon title='Pago pendiente' />
+        ) : status === 'APROBADO' ? (
+          <SuccessIcon title='Pago aprobado' />
+        ) : (
+          <DangerIcon title='Pago rechazado' />
+        )}
+      </div>
+      <div>
+        <div className='pending-payment-container'>
+          <PayPendingPaymentButton
+            show={!hasReserved && balance > 0 && !reservationTimeExpired}
+            payment={payment}
+          />
+          <span className='payment-made payment-detail'>${amount}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Payment

@@ -1,0 +1,8 @@
+.amount-to-pay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 18rem;
+  margin-right: 2rem;
+}

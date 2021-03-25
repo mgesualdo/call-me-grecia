@@ -1,0 +1,33 @@
+.users-container {
+  display: flex !important;
+  flex-direction: column;
+  padding-left: 2rem;
+  margin-top: 0 !important;
+}
+
+.user-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
+  box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 650px) {
+  .users-container {
+    width: 95vw;
+    padding: 0;
+    padding-bottom: 7rem;
+    margin-top: 4rem;
+  }
+
+  .user-container {
+    width: 100%;
+
+    border-top: 1rem;
+  }
+}

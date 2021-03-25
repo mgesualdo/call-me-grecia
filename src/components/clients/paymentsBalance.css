@@ -1,0 +1,23 @@
+.divisor hr {
+  align-self: flex-end;
+  margin: 0.2rem 0;
+  width: 3rem;
+  background-color: #999;
+}
+
+.divisor {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.total {
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: normal;
+  justify-content: flex-end;
+}
+
+.saldo {
+  margin-left: 1.2rem;
+  color: #d33;
+}

@@ -1,7 +1,9 @@
 import { types } from '../types/types'
 
 const initialState = {
-  checking: false,
+  loggedUser:
+    typeof localStorage !== 'undefined' &&
+    JSON.parse(localStorage.getItem('loggedUser')),
   loggedClient:
     typeof localStorage !== 'undefined' &&
     JSON.parse(localStorage.getItem('loggedClient')),
@@ -9,22 +11,28 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.authLogin:
+    case types.userLogin:
       return {
         ...state,
+        loggedClient: null,
+        loggedUser: action.payload,
+      }
+    case types.userLogout:
+      return {
+        ...state,
+        loggedUser: null,
+      }
+    case types.clientLogin:
+      return {
+        ...state,
+        loggedUser: null,
         loggedClient: action.payload,
-        checking: false,
       }
 
-    case types.authCheckingFinish:
+    case types.clientLogout:
       return {
         ...state,
-        checking: false,
-      }
-
-    case types.authLogout:
-      return {
-        checking: false,
+        loggedClient: null,
       }
 
     default:

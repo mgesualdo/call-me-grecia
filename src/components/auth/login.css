@@ -1,50 +1,156 @@
-.login-container {
-  margin-top: 25px;
+.login-screen-container {
+  background-color: #eee;
+  height: 100%;
+  padding: 0 1rem;
+  min-width: 25rem;
+  max-width: 35rem;
+  margin: 2rem auto;
 }
-.login-form-1 {
-  border-radius: 5px;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-  padding: 5%;
+form {
+  width: 100%;
 }
-.login-form-1 h3 {
-  text-align: center;
-  color: #333;
+
+.spinner-validating-client {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30rem;
+  height: 30rem;
+  margin: 5rem auto;
 }
-.login-form-2 {
-  border-radius: 5px;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-  padding: 5%;
-  background: #0062cc;
+
+.validated-client-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30rem;
+  height: 15rem;
+  background-color: white;
+  margin: 5rem auto;
+  border-radius: 0.5rem;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
-.login-form-2 h3 {
-  text-align: center;
-  color: #fff;
+
+.no-border-or-outline {
+  border: none !important;
+  outline: none !important;
 }
-.login-container form {
-  padding: 10%;
+
+.custom-date-picker-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.btnSubmit {
-  width: 50%;
-  border-radius: 1rem;
-  padding: 1.5%;
-  border: none;
-  cursor: pointer;
-}
-.login-form-1 .btnSubmit {
-  color: #fff;
-  background-color: #0062cc;
-}
-.login-form-2 .btnSubmit {
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  border-radius: 0.5rem;
   background-color: #fff;
-  color: #0062cc;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.36);
 }
-.login-form-2 .ForgetPwd {
+
+.login-header {
+  width: 99%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-header h3 {
+  flex: 1;
+  margin-bottom: 0;
+  font-weight: bolder;
+}
+
+.btn-submit {
+  position: relative;
   color: #fff;
-  font-weight: 600;
-  text-decoration: none;
+  font-weight: bolder;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.7rem 2rem;
+  border: none !important;
+  outline: none !important;
+  border-radius: 0.5rem;
+  background-color: #18f;
+  transition: all 0.4s ease;
 }
-.login-form-1 .ForgetPwd {
-  color: #0062cc;
-  font-weight: 600;
-  text-decoration: none;
+
+.btn-submit:hover {
+  background-color: #1188ffd3;
+}
+
+.btn-login ñ form {
+  width: 100%;
+}
+
+.go-to-register-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.8rem;
+}
+
+.btn-go-to-register {
+  font-size: 0.9rem;
+  line-height: 1rem;
+  font-weight: bolder;
+  border: none;
+  margin-top: 0.8rem;
+  color: #76f;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.btn-go-to-register:hover {
+  text-decoration: underline;
+}
+
+.react-datepicker__input-container input {
+  outline: none;
+  line-height: 1rem;
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.6rem;
+  border: 0.08rem solid #ddd;
+  border-radius: 0.5rem;
+}
+
+.date-picker-input-container {
+  z-index: 11;
+  position: relative;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__month-container {
+  min-width: 20rem;
+  max-width: 35rem;
+}
+
+.react-datepicker__triangle {
+  left: 5rem !important;
+}
+
+.react-datepicker__header,
+.react-datepicker__day-name {
+  color: #fff !important;
+  background-color: #18f !important;
+}
+
+.react-datepicker__header {
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 950px) {
+  .spinner-validating-client {
+    width: 95vw;
+  }
 }
