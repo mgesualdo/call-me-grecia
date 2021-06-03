@@ -5,7 +5,9 @@ const initialState = {
   users: [],
   selectedUser: null,
   userAppointments: [],
-  activeAppointment: null,
+  activeAppointment:
+    typeof localStorage !== 'undefined' &&
+    JSON.parse(localStorage.getItem('activeAppointment')),
   userToCreateUpdate: emptyUser,
 }
 

@@ -3,6 +3,8 @@ import { types } from '../types/types'
 const initialState = {
   refreshImage: new Date().getTime(),
   modalOpen: false,
+  newPaymentModalOpen: false,
+  changeDateModalOpen: false,
   loading: false,
   loadingUpdatingClient: false,
   loadingRegister: false,
@@ -15,7 +17,6 @@ const initialState = {
 }
 
 export const uiReducer = (state = initialState, action) => {
-  console.log(state, action)
   switch (action.type) {
     case types.uiRefreshImage:
       return {
@@ -27,11 +28,23 @@ export const uiReducer = (state = initialState, action) => {
         ...state,
         modalOpen: true,
       }
+    case types.uiOpenNewPaymentModal:
+      return {
+        ...state,
+        newPaymentModalOpen: true,
+      }
+    case types.uiOpenChangeDateModal:
+      return {
+        ...state,
+        changeDateModalOpen: true,
+      }
 
     case types.uiCloseModal:
       return {
         ...state,
         modalOpen: false,
+        newPaymentModalOpen: false,
+        changeDateModalOpen: false,
       }
     case types.uiLoading:
       return {

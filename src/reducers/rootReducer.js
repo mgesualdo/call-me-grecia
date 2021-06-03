@@ -4,6 +4,7 @@ import { uiReducer } from './uiReducer'
 import { clientReducer } from './clientReducer'
 import { servicesReducer } from './servicesReducer'
 import { usersReducer } from './usersReducer'
+import { reportsReducer } from './reportsReducer'
 import { authReducer } from './authReducer'
 
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   service: servicesReducer,
   user: usersReducer,
   auth: authReducer,
+  report: reportsReducer,
 })

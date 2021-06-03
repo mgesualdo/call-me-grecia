@@ -25,7 +25,7 @@ const ClientMenu = ({ name, handleLogout, avatarName }) => {
         onClick={() => setOptionsVisible(false)}
         className={`background-overlay ${optionsVisible && 'show-overlay'}`}
       ></div>
-      <div className='menu-box'>
+      <div className={`menu-box ${optionsVisible ? 'active' : ''}`}>
         <div
           className={`menu-header ${optionsVisible ? 'active' : ''}`}
           onClick={handleHeaderClick}

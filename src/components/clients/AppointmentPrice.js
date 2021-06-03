@@ -1,11 +1,17 @@
 import React from 'react'
 import './appointmentPrice.css'
 
-const AppointmentPrice = ({ price, reservationCost, bold, color }) => {
+const AppointmentPrice = ({
+  price,
+  reservationCost,
+  bold,
+  color,
+  smallFont,
+}) => {
   return (
     <div className='price-container'>
       <span
-        className='price'
+        className={`price ${smallFont && 'small-font'}`}
         style={{
           fontWeight: `${bold ? 'bold' : 'normal'}`,
           color,

@@ -27,7 +27,7 @@ const UserServices = ({ services, handleServiceChange, handlePriceChange }) => {
           {services.some((s) => s.service === service._id) && (
             <input
               type='number'
-              step={100}
+              step={50}
               min={0}
               value={services.find((s) => s.service === service._id).price}
               onChange={(e) => handlePriceChange(e, service._id)}

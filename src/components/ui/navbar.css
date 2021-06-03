@@ -8,14 +8,28 @@
   justify-content: space-between;
   min-height: 3rem;
   align-items: center;
-  background-color: #fff;
+  background-color: #dabcb2 !important;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-  padding-left: 0.625rem;
+  margin-left: 0.3rem;
+  width: 6rem;
 }
 
 .logo:hover {
   cursor: pointer;
+}
+
+.btn-inicio-sesion {
+  background-color: #111;
+  padding: 0.3rem 1rem;
+  width: 11rem;
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+
+.btn-inicio-sesion:hover {
+  background-color: #666;
+  color: white;
 }

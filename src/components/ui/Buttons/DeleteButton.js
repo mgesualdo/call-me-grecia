@@ -4,6 +4,7 @@ import Spinner from '../Spinner'
 
 const DeleteButton = ({ handleDelete, idToDelete }) => {
   const { loadingDeleting, idBeingDeleted } = useSelector((state) => state.ui)
+
   return (
     <button className='btn btn-danger' onClick={() => handleDelete(idToDelete)}>
       {loadingDeleting && idToDelete === idBeingDeleted ? (

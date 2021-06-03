@@ -4,6 +4,7 @@ import { types } from '../types/types'
 import { fetchSinToken } from '../helpers/fetch'
 import { getUserAppointments } from '../actions/users'
 import { uiCloseModal, uiLoading, uiLoadingGoingToMercadoPago } from './ui'
+import { getClientAppointments } from './client'
 
 export const appointmentStartAddNew = (appointment) => {
   return async (dispatch, getState) => {
@@ -76,10 +77,14 @@ export const appointmentStartUpdate = (
         'PUT'
       )
       const body = await resp.json()
-      const { updatedAppointment } = body
+      const updatedAppointment = body.appointment
+
+      console.log({ updatedAppointment })
 
       if (body.ok) {
-        dispatch(getUserAppointments(updatedAppointment.artist))
+        dispatch(getUserAppointments(updatedAppointment.artist._id))
+        dispatch(appointmentSetActive(updatedAppointment))
+        Swal.fire('Listo!', 'Turno actualizado con éxito!', 'success')
       } else {
         console.log(body)
         Swal.fire('Error', 'Algo falló!', 'error')
@@ -92,29 +97,30 @@ export const appointmentStartUpdate = (
   }
 }
 
-export const appointmentStartCancelation = () => {
+export const appointmentStartCancelation = (appointment) => {
   return async (dispatch, getState) => {
-    const { _id } = getState().user.activeAppointment
-    const { loggedUser } = getState().auth
+    const { loggedUser, loggedClient } = getState().auth
     try {
+      dispatch(uiLoading(true))
       const resp = await fetchSinToken(
-        `appointment/${_id}/${loggedUser._id}`,
-        {},
-        'PUT'
+        `appointment/${appointment._id}`,
+        { userId: loggedUser?._id, clientId: loggedClient?._id },
+        'DELETE'
       )
       const body = await resp.json()
 
       if (body.ok) {
-        dispatch(appointmentCanceled())
+        dispatch(getClientAppointments(appointment.client))
+        Swal.fire('Listo!', 'Turno cancelado con éxito', 'success')
       } else {
+        console.log(body)
         Swal.fire('Error', body.msg, 'error')
       }
+      dispatch(uiLoading(true))
     } catch (error) {
       console.log(error)
     }
   }
 }
-
-const appointmentCanceled = () => ({ type: types.appointmentCanceled })
 
 export const appointmentLogout = () => ({ type: types.appointmentLogout })

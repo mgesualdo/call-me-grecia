@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Route, Redirect } from 'react-router-dom'
-import { AddAppointmentFab } from '../components/ui/AddAppointmentFab'
+import { AddAppointmentFab } from '../components/ui/Fabs/AddAppointmentFab'
 
 export const PrivateRoute = ({
   isAuthenticated,

@@ -26,7 +26,7 @@ const AppointmentStatus = ({
           Turno confirmado
         </div>
       )}
-      {!hasReserved && reservationTimeExpired && (
+      {!hasReserved && reservationTimeExpired && createdByClient && (
         <AppointmentCalcelledMessage />
       )}
       {!reservationTimeExpired &&

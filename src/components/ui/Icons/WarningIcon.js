@@ -11,8 +11,8 @@ const WarningIcon = ({ title }) => {
   return (
     <div className='my-tooltip-container' onClick={handleIconClick}>
       <div className='payment-status'>
-        <i className='fas fa-exclamation-circle info-icn' title={title}></i>
-        <span className='payment-status-text info-icn'>Pendiente</span>
+        <i className='fas fa-exclamation-circle warning-icn' title={title}></i>
+        <span className='payment-status-text warning-icn'>Pendiente</span>
       </div>
       <span className={`my-tooltip ${showTooltip && 'show-my-tooltip'}`}>
         {title}

@@ -1,6 +1,6 @@
 button.fab-success:hover,
 button.fab-success:hover i {
-  background: var(--linear-gradient-primary-blue);
+  background: var(--linear-gradient-primary-salmon);
   color: #fff;
 }
 

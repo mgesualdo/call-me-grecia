@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Children, cloneElement } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
@@ -15,9 +15,8 @@ import { availableHours } from '../../utils/constants'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es'
-import { clearActiveAppointment } from '../../actions/appointment'
 import determineAvailability from '../../helpers/determineAvailability'
-import { CalendarDay } from './CalendarDay'
+import { differenceInMilliseconds } from 'date-fns/esm'
 
 moment.locale('es')
 
@@ -31,6 +30,11 @@ if (
   mobile = true
 }
 
+const TouchCellWrapper = ({ children, value, onSelectSlot }) =>
+  cloneElement(Children.only(children), {
+    onTouchEnd: () => onSelectSlot({ action: 'click', slots: [value] }),
+  })
+
 export const MyCalendar = () => {
   const dispatch = useDispatch()
   const { activeAppointment, userAppointments, selectedUser } = useSelector(
@@ -39,11 +43,11 @@ export const MyCalendar = () => {
   const { selectedService } = useSelector((state) => state.service)
   const { loggedClient } = useSelector((state) => state.auth)
   const [selectedDate, setSelectedDate] = useState(moment().toDate())
-  const [firstTimeInDayView, setFirstTimeInDayView] = useState(0)
+  const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
   const [lastView, setLastView] = useState('month')
 
   const userAppointmentsWithReservation = userAppointments.filter(
-    (a) => a.hasReserved || a.isValid
+    (a) => ((a.hasReserved && a.isValid) || !a.createdByClient) && !a.cancelled
   )
 
   const onViewChange = (e) => {
@@ -51,50 +55,45 @@ export const MyCalendar = () => {
     localStorage.setItem('lastView', e)
   }
 
-  const onSelectSlot = (slot) => {
-    console.log(slot)
+  const onSelectSlot = ({ slots }) => {
+    const start = slots[0]
+
     const [
       isClosed,
       isUserAvailable,
       availableAppointments,
       isPossibleToReservate,
     ] = determineAvailability(
-      slot.start,
+      start,
       selectedUser,
       lastView,
       userAppointmentsWithReservation,
       selectedService
     )
-
-    console.log({ isClosed, availableAppointments, lastView })
-
-    if ((isClosed || availableAppointments === 0) && lastView === 'month') {
-      dispatch(clearActiveAppointment())
+    if (availableAppointments <= 0) return
+    if (
+      lastView === 'day' &&
+      differenceInMilliseconds(new Date(), whenWeGotToDayView) < 500
+    )
       return
-    }
+    if ((isClosed || availableAppointments === 0) && lastView === 'month')
+      return
+    if (
+      (isClosed || !isUserAvailable || !isPossibleToReservate) &&
+      lastView === 'day'
+    )
+      return
 
     if (lastView === 'month' && !isClosed && availableAppointments > 0) {
-      setSelectedDate(slot.slots[0])
+      setSelectedDate(start)
       setLastView('day')
-      mobile && setFirstTimeInDayView(1)
+      setWhenWeGotToDayView(new Date())
       localStorage.setItem('lastView', 'day')
       return
-    } else {
-      if (
-        (isClosed ||
-          !isUserAvailable ||
-          !isPossibleToReservate ||
-          firstTimeInDayView === 1) &&
-        lastView !== 'month'
-      ) {
-        setFirstTimeInDayView((prev) => prev + 1)
-        return null
-      } else {
-        setSelectedDate(slot.start)
-        dispatch(uiOpenModal())
-        setFirstTimeInDayView((prev) => prev + 1)
-      }
     }
+
+    setSelectedDate(start)
+    dispatch(uiOpenModal())
   }
 
   const onNavigate = (date) => setSelectedDate(moment(date).toDate())
@@ -108,7 +107,7 @@ export const MyCalendar = () => {
     let hasReserved = appointment.hasReserved
 
     let reservationTimeExpired =
-      differenceInMinutes(parseISO(appointment.createdAt), new Date()) > 30
+      differenceInMinutes(new Date(), parseISO(appointment.createdAt)) > 30
 
     if (appointment?.client?._id === loggedClient?._id) {
       backgroundColor =
@@ -211,12 +210,12 @@ export const MyCalendar = () => {
     <div className='calendar-screen'>
       {!!selectedUser && !!loggedClient && (
         <>
-          <div className='reference-container'>
-            <div className='reference'>
-              <span>#</span>
+          {lastView === 'day' && (
+            <div className='reference-container'>
+              <div className='reference'></div>
+              <h4 className='ml-2'>Turnos disponibles</h4>
             </div>
-            <h4 className='ml-2'>Turnos disponibles</h4>
-          </div>
+          )}
           <Calendar
             localizer={localizer}
             events={userAppointmentsWithReservation}
@@ -234,7 +233,7 @@ export const MyCalendar = () => {
             step={60}
             popup={false}
             timeslots={1}
-            longPressThreshold={lastView === 'month' ? 30 : 0}
+            longPressThreshold={lastView === 'month' ? 60 : 0}
             onView={onViewChange}
             view={lastView}
             min={dates.add(
@@ -253,12 +252,15 @@ export const MyCalendar = () => {
             onNavigate={onNavigate}
             components={{
               event: CalendarAppointment,
+              dateCellWrapper: (props) => (
+                <TouchCellWrapper {...props} onSelectSlot={onSelectSlot} />
+              ),
             }}
           />
         </>
       )}
 
-      <CalendarModal selectedDate={selectedDate} />
+      <CalendarModal selectedDate={selectedDate} whenWasOpened={new Date()} />
     </div>
   )
 }

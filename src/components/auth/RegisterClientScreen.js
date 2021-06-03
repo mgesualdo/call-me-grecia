@@ -46,7 +46,7 @@ const RegisterClientScreen = () => {
         password1,
         name,
         lastname,
-        `${selectedDay}/${selectedMonth}/${selectedYear}`,
+        `${selectedYear}/${selectedMonth}/${selectedDay}`,
         cellphone,
         resetForm
       )

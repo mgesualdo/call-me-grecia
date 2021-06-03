@@ -68,7 +68,8 @@ const UserUsersScreen = () => {
       setNewUser({
         ...newUser,
         services: target.value === 'USER' ? [] : newUser.services,
-        workWeek: target.value === 'USER' ? [] : newUser.workWeek,
+        workWeek:
+          target.value === 'USER' ? emptyUser.workWeek : newUser.workWeek,
         roles: newUser.roles.filter((r) => r !== target.value),
       })
     } else {
@@ -144,12 +145,9 @@ const UserUsersScreen = () => {
   }
 
   const handleWorkWeekChange = (hour, dayIndex) => {
-    console.log({ hour, dayIndex, workWeek })
     const newWorkHours = workWeek[dayIndex]?.hours.includes(hour)
       ? workWeek[dayIndex]?.hours.filter((h) => h !== hour)
       : [...workWeek[dayIndex]?.hours, hour]
-
-    console.log({ newWorkHours })
 
     const newWorkWeek = workWeek.map((day, index) => {
       if (index === dayIndex) {

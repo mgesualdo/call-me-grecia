@@ -9,8 +9,9 @@ import PaymentActions from './PaymentActions'
 import AppointmentStatus from './AppointmentStatus'
 import { NewPaymentModal } from '../payments/NewPaymentModal'
 import { differenceInMinutes, parseISO } from 'date-fns'
+import { CancelAppointmentFab } from '../ui/Fabs/CancelAppointmentFab'
 
-const Appointment = ({ appointment }) => {
+const Appointment = ({ appointment, smaller = false }) => {
   const { avatarName, name: userName } = appointment.artist
 
   const { images, name: serviceName } = appointment.service
@@ -18,9 +19,31 @@ const Appointment = ({ appointment }) => {
   const reservationTimeExpired =
     differenceInMinutes(new Date(), parseISO(appointment.createdAt)) > 30
 
+  const paymentsToBeRefunded = appointment?.payments.filter(
+    (p) =>
+      differenceInMinutes(new Date(), parseISO(p.createdAt)) <= 1 &&
+      p.status === 'APROBADO'
+  )
+
+  const paymentsToNotBeRefunded = appointment?.payments.filter(
+    (p) =>
+      differenceInMinutes(new Date(), parseISO(p.createdAt)) > 2 &&
+      p.status === 'APROBADO'
+  )
+
   return (
     <>
       <div className='appointment-container'>
+        {(!reservationTimeExpired ||
+          paymentsToBeRefunded?.length > 0 ||
+          !appointment.createdByClient) &&
+          !smaller && (
+            <CancelAppointmentFab
+              appointment={appointment}
+              paymentsToBeRefunded={paymentsToBeRefunded}
+              paymentsToNotBeRefunded={paymentsToNotBeRefunded}
+            />
+          )}
         <div>
           <div className='user-and-date-container'>
             <ImageAndName name={userName} imageName={avatarName} user />
@@ -44,10 +67,13 @@ const Appointment = ({ appointment }) => {
             hasReserved={appointment.hasReserved}
             reservationTimeExpired={reservationTimeExpired}
           />
-          <PaymentActions
-            appointment={appointment}
-            show={!appointment.hasReserved && !reservationTimeExpired}
-          />
+
+          {!smaller && (
+            <PaymentActions
+              appointment={appointment}
+              show={!appointment.hasReserved || !reservationTimeExpired}
+            />
+          )}
         </div>
         <NewPaymentModal />
       </div>

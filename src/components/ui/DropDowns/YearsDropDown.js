@@ -22,6 +22,7 @@ const DaysDropDown = ({
 
   const handleOptionClick = (e, y) => {
     setSelectedYear(y)
+
     const opcionSeleccionada = document.getElementById(y).innerHTML
     const contenidoSelect = document.getElementById('contenido-select-year')
 

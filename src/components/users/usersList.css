@@ -17,6 +17,10 @@
   box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
 }
 
+.button-add-on-list:hover {
+  background-color: #dabcb288 !important;
+}
+
 @media (max-width: 650px) {
   .users-container {
     width: 95vw;

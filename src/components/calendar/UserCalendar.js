@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Children, cloneElement } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
@@ -7,37 +7,54 @@ import { messages } from '../../helpers/calendar-messages-es'
 import { CalendarAppointment } from './CalendarAppointment'
 import { UserCalendarModal } from './UserCalendarModal'
 import { availableHours } from '../../utils/constants'
+import { EditAppointmentFab } from '../../components/ui/Fabs/EditAppointmentFab'
 
-import { uiOpenModal } from '../../actions/ui'
+import { uiOpenModal, uiOpenNewPaymentModal } from '../../actions/ui'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es'
 import { appointmentSetActive } from '../../actions/appointment'
-import { DeleteAppointmentFab } from '../ui/DeleteAppointmentFab'
-import { EditAppointmentFab } from '../ui/EditAppointmentFab'
 import determineAvailability from '../../helpers/determineAvailability'
 import { CalendarDay } from './CalendarDay'
+import { compareAsc, differenceInMilliseconds } from 'date-fns'
+import { calculateBalance } from '../../helpers/calculateBalance'
+import { NewPaymentModal } from '../payments/NewPaymentModal'
+import { EditAppointmentModal } from './EditAppointmentModal'
+import { useEffect } from 'react'
 
 moment.locale('es')
 
 const localizer = momentLocalizer(moment)
 
-export const UserCalendar = ({ show = false, cursorPointer }) => {
+const TouchCellWrapper = ({ children, value, onSelectAppointment }) =>
+  cloneElement(Children.only(children), {
+    onTouchEnd: () => onSelectAppointment({ action: 'click', slots: [value] }),
+  })
+
+export const UserCalendar = ({
+  show = false,
+  cursorPointer,
+  smaller = false,
+}) => {
   const dispatch = useDispatch()
-  const { activeAppointment, userAppointments } = useSelector(
+  const { userAppointments, activeAppointment } = useSelector(
     (state) => state.user
   )
   const { selectedService } = useSelector((state) => state.service)
   const { selectedClient } = useSelector((state) => state.client)
   const { loggedUser } = useSelector((state) => state.auth)
   const [selectedDate, setSelectedDate] = useState(moment().toDate())
+  const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
   const [lastView, setLastView] = useState('day')
 
   const userAppointmentsWithReservation = userAppointments.filter(
-    (a) => a.hasReserved || a.isValid
+    (a) => ((a.hasReserved && a.isValid) || !a.createdByClient) && !a.cancelled
   )
 
   const onSelectAppointment = (appointment) => {
+    if (smaller) return
+
+    dispatch(uiOpenNewPaymentModal())
     dispatch(appointmentSetActive(appointment))
   }
 
@@ -47,8 +64,18 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
   }
 
   const onSelectSlot = (slot) => {
+    if (smaller) {
+      setSelectedDate(slot.slots[0])
+    }
+    if (
+      lastView === 'day' &&
+      differenceInMilliseconds(new Date(), whenWeGotToDayView) < 150
+    )
+      return
+
     if (lastView === 'month') {
       setSelectedDate(slot.slots[0])
+      setWhenWeGotToDayView(new Date())
       setLastView('day')
       localStorage.setItem('lastView', 'day')
     } else {
@@ -65,8 +92,22 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
       appointment.payments[0]?.status === 'PENDIENTE' ||
       !appointment.payments[0]
 
-    let backgroundColor = reservationNotPayed ? '#ffbb00' : '#367CF7'
-    let color = reservationNotPayed ? '#333' : 'white'
+    const balance = calculateBalance(
+      appointment?.price,
+      appointment?.payments ?? []
+    )
+
+    const clientHasAttended = appointment?.hasAttended
+
+    let backgroundColor = !clientHasAttended
+      ? '#aa3388'
+      : reservationNotPayed || balance > 0
+      ? '#ffbb00'
+      : '#367CF7'
+    let color =
+      (reservationNotPayed || balance > 0) && clientHasAttended
+        ? '#333'
+        : 'white'
 
     const style = {
       backgroundColor: backgroundColor,
@@ -81,6 +122,10 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
     }
   }
 
+  useEffect(() => {
+    if (smaller) setSelectedDate(new Date(activeAppointment.start))
+  }, [])
+
   const slotStyleGetter = (date) => {
     const [
       isClosed,
@@ -94,13 +139,15 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
       userAppointmentsWithReservation,
       selectedService
     )
-    console.log({ cursorPointer })
+
+    const newAppointmentDate = smaller && compareAsc(selectedDate, date) === 0
 
     const style = {
-      background:
-        isClosed || !isUserAvailable || !isPossibleToReservate
-          ? '#ddd'
-          : 'white',
+      background: newAppointmentDate
+        ? 'rgba(60, 161, 232, 0.4)'
+        : isClosed || !isUserAvailable || !isPossibleToReservate
+        ? '#ddd'
+        : 'white',
       border: isClosed && '0px solid #ddd',
       width: '100%',
     }
@@ -158,8 +205,18 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
     }
   }
 
+  console.log({
+    areEquals: selectedService?._id === activeAppointment?.service?._id,
+    selectedService,
+    start: activeAppointment?.service?._id,
+  })
+
   return (
-    <div className={`${show ? 'user-calendar-screen' : 'calendar-screen'} `}>
+    <div
+      className={`${show ? 'user-calendar-screen' : 'calendar-screen'} ${
+        smaller && 'smaller-calendar'
+      }`}
+    >
       {(!!selectedClient || show) && (
         <Calendar
           localizer={localizer}
@@ -176,7 +233,7 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
           step={60}
           popup={false}
           timeslots={1}
-          longPressThreshold={80}
+          longPressThreshold={20}
           onView={onViewChange}
           view={lastView}
           min={dates.add(
@@ -199,14 +256,24 @@ export const UserCalendar = ({ show = false, cursorPointer }) => {
             },
 
             event: CalendarAppointment,
+            dateCellWrapper: (props) => (
+              <TouchCellWrapper
+                {...props}
+                onSelectAppointment={onSelectAppointment}
+              />
+            ),
           }}
         />
       )}
+      {smaller &&
+        (selectedService?._id !== activeAppointment?.service?._id ||
+          compareAsc(selectedDate, new Date(activeAppointment.start)) !==
+            0) && <EditAppointmentFab />}
 
-      {activeAppointment && <DeleteAppointmentFab />}
-      {activeAppointment && <EditAppointmentFab />}
+      <EditAppointmentModal selectedDate={selectedDate} />
 
       <UserCalendarModal selectedDate={selectedDate} />
+      <NewPaymentModal />
     </div>
   )
 }

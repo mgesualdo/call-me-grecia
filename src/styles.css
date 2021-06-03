@@ -6,30 +6,40 @@
     rgba(200, 200, 200, 1),
     rgba(230, 230, 230, 0.6)
   );
-  --linear-gradient-primary-blue: linear-gradient(
-    45deg,
-    rgba(10, 55, 255, 1),
-    rgba(10, 200, 255, 0.6)
-  );
+  --linear-gradient-primary-salmon: linear-gradient(45deg, #dabcb2, #dabcb299);
+  --linear-gradient-primary-blue: linear-gradient(45deg, #0661f3, #0a9fe499);
   --linear-gradient-primary-green: linear-gradient(
     45deg,
     rgba(10, 255, 55, 1),
     rgba(10, 255, 200, 0.6)
   );
+  --linear-gradient-primary-red: linear-gradient(
+    45deg,
+    rgba(255, 10, 0, 1),
+    rgba(255, 10, 0, 0.5)
+  );
 
   --black: #333;
   --price: rgb(36, 179, 102);
-  --small-img-size: 1.6rem;
+  --small-img-size: 1.3rem;
   --medium-img-size: 2.4rem;
   --large-img-size: 5rem;
 }
 
 html,
 body {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: #eee;
+  background: url('/img/vidriera-blur.png') no-repeat center center fixed;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
   font-family: 'Open Sans', sans-serif;
+}
+html {
+  background-color: #eee;
 }
 
 h6.logo {
@@ -52,13 +62,33 @@ h6.logo {
   width: 100%;
 }
 
+.smaller-calendar {
+  width: 62%;
+  max-height: 90vh !important;
+  margin-left: 1rem;
+}
+
 .reference-container {
   display: flex;
   flex-direction: row;
-  width: 95%;
+  width: 97%;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 1rem;
+}
+
+.reference {
+  width: 4rem;
+  height: 1.2rem;
+  margin-right: 0.3rem;
+  margin-top: 0.15rem;
+  background-color: white;
+  border-radius: 0.2rem;
+  box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.rbc-slot-selection {
+  display: none !important;
 }
 
 .rbc-month-row {
@@ -340,5 +370,11 @@ button.fab-success {
 @media screen and (max-width: 374px) {
   html {
     font-size: 11.3px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 10px;
   }
 }

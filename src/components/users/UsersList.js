@@ -67,8 +67,14 @@ const UsersList = ({
     <div className='users-container'>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button
-          className='btn btn-primary mb-2'
-          style={{ width: '11rem' }}
+          className='btn btn-primary mb-2 button-add-on-list'
+          style={{
+            width: '11rem',
+            backgroundColor: '#dabcb2',
+            color: 'black',
+            border: 'none',
+            fontWeight: 'bold',
+          }}
           onClick={handleAddUser}
         >
           <i className='fas fa-plus mr-2'></i>

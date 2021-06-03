@@ -1,0 +1,34 @@
+.artist-data-container {
+  margin-bottom: 3rem;
+}
+
+.week-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  margin: 0.8rem 0.5rem 0.5rem 0.5rem;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.artist-name-container {
+  display: flex;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  margin-left: 0.6rem;
+}
+
+.artist-name-container .img-and-name-container > h5 {
+  font-size: 1.5rem !important;
+}
+
+.from-time {
+  font-weight: bolder;
+  color: #d33;
+}
+
+.to-time {
+  font-weight: bolder;
+  color: #08d;
+}

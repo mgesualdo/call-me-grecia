@@ -5,7 +5,7 @@ import Spinner from './Spinner'
 const SubmitButton = ({ adding, loading, addingText, editingText }) => {
   return (
     <div className='form-group text-center mt-4'>
-      <button type='submit' className='btn btn-primary btn-lg btn-block'>
+      <button type='submit' className='btn btn-submit'>
         {loading && <Spinner />}
         {adding && !loading && (
           <span>

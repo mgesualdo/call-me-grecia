@@ -30,8 +30,10 @@ const ClientsScreen = () => {
       <UserNavbar />
       <div className='container-clientes'>
         <ClientsToChoose show />
+
         <div className='appointments-container small'>
           {loading && <Spinner />}
+
           {clientAppointments.length > 0 &&
             selectedClient &&
             clientAppointments.map((appointment) => (

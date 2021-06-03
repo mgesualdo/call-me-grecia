@@ -54,8 +54,15 @@ const ServicesList = ({
     <div className='services-container'>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button
-          className='btn btn-primary'
-          style={{ width: '170px', marginBottom: '1rem' }}
+          className='btn btn-primary button-add-on-list'
+          style={{
+            width: '170px',
+            marginBottom: '1rem',
+            backgroundColor: '#dabcb2',
+            color: 'black',
+            border: 'none',
+            fontWeight: 'bold',
+          }}
           onClick={handleAddService}
         >
           <i className='fas fa-plus mr-2'></i>

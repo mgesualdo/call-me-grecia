@@ -30,10 +30,9 @@ export const Navbar = () => {
   return (
     <div className='nav-container'>
       <div className='top-bar'>
-        <h6 className='logo' onClick={handleLogoClick}>
-          {screenWidth < 600 ? 'CMG' : 'CALL ME GRECIA'}
-        </h6>
-        {history.location.pathname === '/clients/calendar' && <ArtistList />}
+        <div className='logo' onClick={handleLogoClick}>
+          <img src='/img/logo.png' alt='' className='logo' />
+        </div>
 
         {!!loggedClient ? (
           <ClientMenu
@@ -45,7 +44,7 @@ export const Navbar = () => {
           <div className='d-flex flex-row'>
             {history.location.pathname !== '/clients/login' && (
               <button
-                className='btn btn-primary mr-4 mt-2 mb-2'
+                className='btn btn-inicio-sesion mr-4 mt-2 mb-2'
                 onClick={() => goToLogin('clients')}
               >
                 <i className='fas fa-sign-in-alt'></i>

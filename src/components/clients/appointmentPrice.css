@@ -10,6 +10,10 @@
   color: var(--price);
 }
 
+.small-font {
+  font-size: 1rem;
+}
+
 .reservation-cost {
   font-size: 0.6rem;
   color: #666;

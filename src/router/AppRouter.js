@@ -8,6 +8,7 @@ import { PrivateRoute } from './PrivateRoute'
 import { LoginClientScreen } from '../components/auth/LoginClientScreen'
 import HomeScreen from '../components/home/HomeScreen'
 import HomeScreenUser from '../components/home/HomeScreenUser'
+import ChangeAppointmentDateScreen from '../components/home/ChangeAppointmentDateScreen'
 import AppointmentsScreen from '../components/clients/AppointmentsScreen'
 
 import { LoginUserScreen } from '../components/auth/LoginUserScreen'
@@ -27,6 +28,7 @@ import ClientsScreen from '../components/clients/ClientsScreen'
 import RegisterClientScreen from '../components/auth/RegisterClientScreen'
 import ClientPasswordChangeScreen from '../components/clients/ClientPasswordChangeScreen'
 import NoveltiesScreen from '../components/novelties/NoveltiesScreen'
+import ReportsScreen from '../components/reports/ReportsScreen'
 
 const loading = (
   <div className='pt-3 text-center'>
@@ -83,6 +85,20 @@ export const AppRouter = () => {
             exact
             path='/users/appointments/create'
             component={HomeScreenUser}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/appointments/change-date'
+            component={ChangeAppointmentDateScreen}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/reports'
+            component={ReportsScreen}
             isAuthenticated={!!loggedUser}
             isUser
           />

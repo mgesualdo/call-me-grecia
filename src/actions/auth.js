@@ -80,7 +80,7 @@ export const startRegister = (
 
       if (body.ok) {
         Swal.fire(
-          'Felitaciones, solo falta que </br> valides tu email!',
+          'Felitaciones, solo falta que valides tu email!',
           `</br>
           Te enviamos un correo a <span style="color:#18f;">${email}</span> para que puedas validarlo, luego podrás iniciar sesión!
           </br>

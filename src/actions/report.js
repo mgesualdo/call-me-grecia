@@ -1,0 +1,19 @@
+import { fetchSinToken } from '../helpers/fetch'
+import { types } from '../types/types'
+import Swal from 'sweetalert2'
+
+export const getAppointmentsPerArtist = () => {
+  return async (dispatch) => {
+    const resp = await fetchSinToken('report/appointments', {}, 'GET')
+    const body = await resp.json()
+
+    if (body.ok) {
+      dispatch({
+        type: types.getAppointmentsPerArtistReport,
+        payload: body.appointments,
+      })
+    } else {
+      Swal.fire('Error', 'No se pudieron obtener los artistas', 'error')
+    }
+  }
+}

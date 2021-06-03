@@ -1,11 +1,12 @@
 .selected {
-  background: var(--linear-gradient-primary-blue) !important;
+  background: var(--linear-gradient-primary-salmon) !important;
 }
 
 .selected,
 .selected .price,
 .selected h5 {
-  color: white;
+  color: #333 !important;
+  font-weight: bold;
 }
 
 .no-selectable {

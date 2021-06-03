@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { WhatsappFab } from '../components/ui/Fabs/WhatsappFab'
 
 import { Route, Redirect } from 'react-router-dom'
+import Address from '../components/ui/Address'
+import { InstagramFab } from '../components/ui/Fabs/InstagramFab'
 
 export const PublicRoute = ({
   isAuthenticated,
@@ -32,7 +35,16 @@ export const PublicRoute = ({
         isAuthenticated && path === '/clients/login' ? (
           <Redirect to='/' />
         ) : (
-          <Component {...props} />
+          <>
+            <Component {...props} />
+            {path !== '/clients/login' && path !== '/clients/register' && (
+              <>
+                <Address />
+                <InstagramFab />
+                <WhatsappFab />
+              </>
+            )}
+          </>
         )
       }
     />

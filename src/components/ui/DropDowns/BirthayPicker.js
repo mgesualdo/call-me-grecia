@@ -21,7 +21,7 @@ const BirthdayPicker = ({
     console.log({ birthday })
     if (birthday) {
       const contenidoSelectDay = document.getElementById('contenido-select-day')
-      const day = new Date(birthday).getDay()
+      const day = new Date(birthday).getDate()
       const birthdayDay = document.getElementById(day).innerHTML
       contenidoSelectDay.firstChild.innerHTML = birthdayDay
       const contenidoSelectMonth = document.getElementById(
@@ -29,13 +29,14 @@ const BirthdayPicker = ({
       )
       const monthId = new Date(birthday).getMonth()
       const monthName = months[monthId]
-      const birthdayMonth = document.getElementById(monthName).innerHTML
-      contenidoSelectMonth.firstChild.innerHTML = birthdayMonth
+      console.log({ monthName, monthId })
+      const birthdayMonth = document.getElementById(monthName.number)?.innerHTML
+      contenidoSelectMonth.firstChild.innerHTML = monthName.name
       const contenidoSelectYear = document.getElementById(
         'contenido-select-year'
       )
       const year = new Date(birthday).getFullYear()
-      const birthdayYear = document.getElementById(year).innerHTML
+      const birthdayYear = document.getElementById(year)?.innerHTML
       contenidoSelectYear.firstChild.innerHTML = birthdayYear
 
       setSelectedDay(day)

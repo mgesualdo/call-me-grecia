@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   appointmentStartCancelation,
   clearActiveAppointment,
-} from '../../actions/appointment'
-import { getUserAppointments } from '../../actions/users'
+} from '../../../actions/appointment'
+import { getUserAppointments } from '../../../actions/users'
 
 export const DeleteAppointmentFab = () => {
   const { loggedUser } = useSelector((state) => state.auth)

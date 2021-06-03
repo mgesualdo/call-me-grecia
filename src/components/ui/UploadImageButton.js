@@ -2,9 +2,13 @@ import React from 'react'
 
 import './uploadImageButton.css'
 
-const UploadImageButton = ({ inputId, icon, handleChange }) => {
+const UploadImageButton = ({ inputId, icon, handleChange, show = true }) => {
   return (
-    <label htmlFor={inputId} className='user-image-label'>
+    <label
+      htmlFor={inputId}
+      className='user-image-label'
+      style={{ display: `${!show ? 'none' : 'normal'}` }}
+    >
       <input
         type='file'
         name={inputId}

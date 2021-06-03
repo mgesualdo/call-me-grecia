@@ -10,6 +10,7 @@ const ImageAndName = ({
   smallImage,
   bold,
   color,
+  eventDuration,
 }) => {
   let folderName = client ? 'clientes' : user ? 'usuarios' : 'servicios'
 
@@ -20,7 +21,12 @@ const ImageAndName = ({
   return (
     <div className={`img-and-name-container ${smallImage && 'small-image'}`}>
       <img src={imageUrl} alt='Imagen del profesional' placeholder={name} />
-      <h5 style={{ fontWeight: `${bold ? 'bolder' : 'normal'}`, color }}>
+      <h5
+        style={{ fontWeight: `${bold ? 'bolder' : 'normal'}`, color }}
+        className={`${eventDuration <= 30 && !client && 'cut-words'} ${
+          eventDuration >= 45 && 'cut-words-less'
+        }`}
+      >
         {name}
       </h5>
     </div>

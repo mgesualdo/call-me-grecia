@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { uiOpenModal } from '../../actions/ui'
+import { uiOpenChangeDateModal } from '../../../actions/ui'
 
 export const EditAppointmentFab = () => {
   const dispatch = useDispatch()
 
   const handleEdit = () => {
-    dispatch(uiOpenModal())
+    dispatch(uiOpenChangeDateModal())
   }
 
   return (

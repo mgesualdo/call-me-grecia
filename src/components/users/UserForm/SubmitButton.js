@@ -5,7 +5,7 @@ const SubmitButton = ({ addingUser, loading }) => {
   console.log({ loading })
   return (
     <div className='form-group text-center mt-4'>
-      <button type='submit' className='btn btn-primary btn-lg btn-block'>
+      <button type='submit' className='btn btn-submit'>
         {loading && <Spinner />}
 
         {addingUser && !loading && (

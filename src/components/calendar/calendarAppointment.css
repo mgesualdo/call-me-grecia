@@ -4,9 +4,20 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 25rem;
+  width: 35rem;
 }
 
-.smaller {
-  width: 20rem;
+.move-image-and-name {
+  margin-left: 6.5rem;
+  margin-top: -1rem;
+}
+
+@media screen and (max-width: 950px) {
+  .appointment-container-client {
+    width: 18rem;
+  }
+
+  .wider {
+    width: 25rem !important;
+  }
 }

@@ -6,6 +6,7 @@
     "@coreui/icons-react": "1.0.2",
     "@coreui/react": "3.4.0",
     "animate.css": "4.1.1",
+    "chart.js": "^2.9.4",
     "date-fns": "^2.19.0",
     "moment": "2.26.0",
     "react": "16.13.1",

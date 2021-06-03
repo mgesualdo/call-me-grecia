@@ -1,0 +1,34 @@
+div.fab-whatsapp {
+  position: fixed;
+  bottom: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+}
+
+div.fab-instagram {
+  position: fixed;
+  bottom: 1.15rem;
+  right: 6.5rem;
+  cursor: pointer;
+}
+
+div > img.whatsapp {
+  display: block;
+  width: 4rem !important;
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+}
+
+div > img.instagram {
+  width: 3.3rem !important;
+}
+
+img.whatsapp:hover,
+img.instagram:hover {
+  transform: scale(1.1);
+}
+
+button.fab-whatsapp i {
+  font-size: 2rem;
+  color: #333;
+}

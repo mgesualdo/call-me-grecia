@@ -1,3 +1,5 @@
+import { getWeek } from 'date-fns'
+
 export const usersFormTabsInfo = [
   { name: 'Datos personales', index: 0, icon: 'far fa-user' },
   { name: 'Configuración servicios', index: 1, icon: 'far fa-calendar-alt' },
@@ -16,24 +18,32 @@ export const week = [
 ]
 
 export const months = [
-  'Enero',
-  'Febrero',
-  'Marzo',
-  'Abril',
-  'Mayo',
-  'Junio',
-  'Julio',
-  'Agosto',
-  'Septiembre',
-  'Octubre',
-  'Noviembre',
-  'Diciembre',
+  { name: 'Enero', number: 1 },
+  { name: 'Febrero', number: 2 },
+  { name: 'Marzo', number: 3 },
+  { name: 'Abril', number: 4 },
+  { name: 'Mayo', number: 5 },
+  { name: 'Junio', number: 6 },
+  { name: 'Julio', number: 7 },
+  { name: 'Agosto', number: 8 },
+  { name: 'Septiembre', number: 9 },
+  { name: 'Octubre', number: 10 },
+  { name: 'Noviembre', number: 11 },
+  { name: 'Diciembre', number: 12 },
 ]
 export const daysOfMonth = Array.from({ length: 31 }, (_, index) => index + 1)
 
 export const years = Array.from(
   { length: 100 },
   (_, index) => new Date().getFullYear() - index
+)
+
+export const colors = ['#137dd4', '#1ee391', '#b724ed']
+
+export const currentWeek = getWeek(new Date())
+export const weeksOfYearTillToday = Array.from(
+  { length: currentWeek },
+  (_, index) => index
 )
 
 export const userRoles = ['ADMIN', 'USER']
@@ -62,8 +72,7 @@ export const emptyUser = {
 
 export const emptyService = {
   name: '',
-  reservationCost: 0,
-  duration: 0,
+  duration: null,
   images: [],
   description: '',
 }
@@ -131,6 +140,12 @@ export const userMenuOptions = [
     path: '/users/users',
     text: 'Usuarios',
     icon: 'fas fa-users-cog',
+    allowedRoles: ['ADMIN'],
+  },
+  {
+    path: '/users/reports',
+    text: 'Informes',
+    icon: 'fas fa-chart-line',
     allowedRoles: ['ADMIN'],
   },
 ]

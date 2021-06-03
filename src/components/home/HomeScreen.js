@@ -11,10 +11,19 @@ import UsersToChoose from '../users/UsersToChoose'
 import './homeScreen.css'
 import { useSelector } from 'react-redux'
 import ServiceInfo from '../services/ServiceInfo'
+import { useHistory } from 'react-router'
+// import { useLayoutEffect } from 'react'
 
 const HomeScreen = () => {
   const { selectedService } = useSelector((state) => state.service)
+  const { loggedUser } = useSelector((state) => state.auth)
+
+  const history = useHistory()
+
   useEffect(() => {
+    if (loggedUser) {
+      history.push('/users/calendario')
+    }
     const queryParameters = window.location.search.toString()
 
     if (queryParameters) {

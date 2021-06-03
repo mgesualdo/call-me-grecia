@@ -33,7 +33,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .service-img-and-name,
@@ -52,7 +52,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 3.5rem;
 }
 
 .modal-button {

@@ -1,0 +1,22 @@
+.address-container {
+  position: fixed;
+  bottom: 1rem;
+  left: 1.5rem;
+  cursor: pointer;
+  background-color: rgba(150, 150, 150, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.address-link {
+  color: #333;
+  font-weight: bolder;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.address-pin {
+  color: #333;
+  margin-right: 0.7rem;
+  font-size: 1.35rem;
+}

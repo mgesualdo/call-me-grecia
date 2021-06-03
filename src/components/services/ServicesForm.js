@@ -22,8 +22,8 @@ const ServicesForm = ({
   previewImageUrls,
   setPreviewImageUrls,
 }) => {
-  const { name, reservationCost, duration, description } = newService
-  console.log(addingService)
+  const { name, duration, description } = newService
+
   const dispatch = useDispatch()
 
   const { loading } = useSelector((state) => state.ui)
@@ -35,17 +35,18 @@ const ServicesForm = ({
     })
   }
 
-  const handleImageChange = ({ target }) => {
+  const handleImageChange = (e, imageIndex) => {
+    const { target } = e
     const file = target.files[0]
     const reader = new FileReader()
 
     reader.onload = () => {
       if (reader.readyState === 2) {
         let newPreviewImageUrls = [...previewImageUrls]
-        newPreviewImageUrls[0] = reader.result
+        newPreviewImageUrls[imageIndex] = reader.result
         setPreviewImageUrls(newPreviewImageUrls)
         let newAvatarFiles = [...avatarFiles]
-        newAvatarFiles[0] = { file, name: file.name }
+        newAvatarFiles[imageIndex] = { file, name: file.name }
         setAvatarFiles(newAvatarFiles)
       }
     }
@@ -86,6 +87,7 @@ const ServicesForm = ({
           setNewService(emptyService)
           setAvatarFiles([])
           setPreviewImageUrls([])
+          Swal.fire('Listo!', response.message, 'success')
         } else {
           console.log(response)
           Swal.fire('Datos incorrectos', response.message, 'warning')
@@ -119,10 +121,12 @@ const ServicesForm = ({
       <div className='duration-reservation-image-container'>
         <div className='duration-reservation-container'>
           <div className='duration-input'>
-            <label htmlFor='service-duration'>Duración</label>
+            <label htmlFor='service-duration'>
+              Duración <small>(en minutos)</small>
+            </label>
             <Input
               type='number'
-              placeholder='Duración'
+              placeholder=''
               name='duration'
               value={duration}
               handleChange={handleChange}
@@ -130,31 +134,38 @@ const ServicesForm = ({
               id='service-duration'
             />
           </div>
-          <div className='reservation-input'>
-            <label htmlFor='service-duration'>Costo de la seña</label>
-            <Input
-              type='number'
-              placeholder='Seña requerida'
-              name='reservationCost'
-              value={reservationCost}
-              handleChange={handleChange}
-              required
-              id='service-reservationCost'
-            />
-          </div>
         </div>
         <div className='upload-image-container'>
           <UploadImageButton
-            inputId='service-image'
+            inputId='service-1'
             icon='fas fa-camera-retro'
-            handleChange={handleImageChange}
+            handleChange={(e) => handleImageChange(e, 0)}
+            show={false}
+          />
+          <UploadImageButton
+            inputId='service-2'
+            icon='fas fa-camera-retro'
+            handleChange={(e) => handleImageChange(e, 1)}
+            show={false}
+          />
+          <UploadImageButton
+            inputId='service-3'
+            icon='fas fa-camera-retro'
+            handleChange={(e) => handleImageChange(e, 2)}
+            show={false}
+          />
+          <UploadImageButton
+            inputId='service-4'
+            icon='fas fa-camera-retro'
+            handleChange={(e) => handleImageChange(e, 3)}
+            show={false}
           />
           <ImagePreview
             previewImageUrls={previewImageUrls}
             avatarFiles={avatarFiles}
             setAvatarFiles={setAvatarFiles}
             setPreviewImageUrls={setPreviewImageUrls}
-            relatedButtonId='service-image'
+            relatedButtonId='service-1'
             size={9}
             imageIndex={0}
           />
@@ -164,7 +175,7 @@ const ServicesForm = ({
               avatarFiles={avatarFiles}
               setAvatarFiles={setAvatarFiles}
               setPreviewImageUrls={setPreviewImageUrls}
-              relatedButtonId='service-image'
+              relatedButtonId='service-2'
               size={4}
               imageIndex={1}
             />
@@ -173,7 +184,7 @@ const ServicesForm = ({
               avatarFiles={avatarFiles}
               setAvatarFiles={setAvatarFiles}
               setPreviewImageUrls={setPreviewImageUrls}
-              relatedButtonId='service-image'
+              relatedButtonId='service-3'
               size={4}
               imageIndex={2}
             />
@@ -182,7 +193,7 @@ const ServicesForm = ({
               avatarFiles={avatarFiles}
               setAvatarFiles={setAvatarFiles}
               setPreviewImageUrls={setPreviewImageUrls}
-              relatedButtonId='service-image'
+              relatedButtonId='service-4'
               size={4}
               imageIndex={3}
             />

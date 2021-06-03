@@ -60,20 +60,21 @@ export const UserCalendarModal = ({ selectedDate }) => {
         (s) => s.service._id === selectedService?._id
       )
 
-      console.log({ userService })
       setFormValues(() => ({
         start: selectedDate,
         end: moment(selectedDate)
-          .add(selectedService?.duration, 'minutes')
+          .add(Math.ceil(selectedService?.duration / 60) * 60, 'minutes')
           .toDate(),
         service: selectedService?._id,
         artist: loggedUser?._id,
         client: selectedClient?._id,
         price: userService?.price,
-        isValid: false,
+        isValid: true,
+        cancelled: false,
         hasReserved: false,
         createdByClient: false,
         createdBy: loggedUser?._id,
+        hasAttended: true,
       }))
     }
   }, [

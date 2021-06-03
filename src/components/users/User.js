@@ -56,10 +56,6 @@ const User = ({
         </div>
         <div className='no-selectable'>
           <h5 className='font-weight-bold'>{`${name} ${lastname}`}</h5>
-          <span className='no-selectable'>
-            <i className='fas fa-mobile-alt mr-2 '></i>
-            {`${phone}`}
-          </span>
         </div>
       </div>
       <div>

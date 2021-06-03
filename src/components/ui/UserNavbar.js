@@ -25,9 +25,9 @@ export const UserNavbar = () => {
 
   return (
     <div className='top-bar'>
-      <h6 className='logo' onClick={handleLogoClick}>
-        CALL ME GRECIA
-      </h6>
+      <div className='logo' onClick={handleLogoClick}>
+        <img src='/img/logo.png' alt='' className='logo' />
+      </div>
 
       {!!loggedUser ? (
         <UserMenu handleLogout={handleLogout} />

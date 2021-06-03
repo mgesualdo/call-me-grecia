@@ -5,6 +5,7 @@ import ImageAndName from '../ui/ImageAndName'
 import { differenceInMinutes, parseISO } from 'date-fns'
 
 import './calendarAppointment.css'
+import { calculateBalance } from '../../helpers/calculateBalance'
 
 export const CalendarAppointment = ({ event }) => {
   const { loggedClient } = useSelector((state) => state.auth)
@@ -12,14 +13,16 @@ export const CalendarAppointment = ({ event }) => {
   let hasReserved = event.hasReserved
 
   let reservationTimeExpired =
-    differenceInMinutes(parseISO(event.createdAt), new Date()) > 30
+    differenceInMinutes(new Date(), parseISO(event.createdAt)) > 30
 
-  console.log({ created: parseISO(event.createdAt), now: new Date() })
+  const clientHasAttended = event?.hasAttended
+
+  const balance = calculateBalance(event?.price, event?.payments ?? [])
 
   return (
     <>
       {loggedClient ? (
-        <div className='appointment-container-client smaller'>
+        <div className={`appointment-container-client smaller`}>
           {loggedClient._id === event?.client?._id ? (
             <>
               <ImageAndName
@@ -34,6 +37,7 @@ export const CalendarAppointment = ({ event }) => {
               <AppointmentPrice
                 price={event.price}
                 bold
+                smallFont
                 color={
                   !hasReserved && !reservationTimeExpired ? '#333' : '#fff'
                 }
@@ -44,26 +48,49 @@ export const CalendarAppointment = ({ event }) => {
           )}
         </div>
       ) : (
-        <div className='appointment-container-client'>
+        <div
+          className={`appointment-container-client smaller ${
+            event.service.duration <= 30 && 'move-image-and-name'
+          } ${event.service.duration >= 45 && 'wider'}`}
+        >
           <ImageAndName
-            name={event.client.name}
+            name={`${event.client?.lastname?.toUpperCase()}, ${
+              event.client.name
+            }`}
             imageName={event.client.avatarName}
             client
             smallImage
             bold
-            color={!hasReserved && !reservationTimeExpired ? '#333' : '#fff'}
+            color={
+              ((!hasReserved && !reservationTimeExpired) || balance > 0) &&
+              clientHasAttended
+                ? '#333'
+                : '#fff'
+            }
+            eventDuration={event.duration}
           />
           <ImageAndName
             name={event.service.name}
             imageName={event.service.images[0]}
             smallImage
             bold
-            color={!hasReserved && !reservationTimeExpired ? '#333' : '#fff'}
+            color={
+              ((!hasReserved && !reservationTimeExpired) || balance > 0) &&
+              clientHasAttended
+                ? '#333'
+                : '#fff'
+            }
+            eventDuration={event.service.duration}
           />
           <AppointmentPrice
             price={event.price}
             bold
-            color={!hasReserved && !reservationTimeExpired ? '#333' : '#fff'}
+            color={
+              ((!hasReserved && !reservationTimeExpired) || balance > 0) &&
+              clientHasAttended
+                ? '#333'
+                : '#fff'
+            }
           />
         </div>
       )}

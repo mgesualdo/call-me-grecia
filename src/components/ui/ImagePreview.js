@@ -16,7 +16,8 @@ const ImagePreview = ({
   }
 
   const handleContainerImageClick = () => {
-    const button = document.getElementById(relatedButtonId)
+    let buttonImageId = imageIndex + 1
+    const button = document.getElementById('service-' + buttonImageId)
     !previewImageUrls && button.click()
   }
 

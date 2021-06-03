@@ -6,6 +6,7 @@ const fetchSinToken = (endpoint, data, method = 'GET', isFormData = false) => {
   if (method === 'GET') {
     return fetch(url)
   } else {
+    console.log({ url })
     try {
       return fetch(url, {
         method,

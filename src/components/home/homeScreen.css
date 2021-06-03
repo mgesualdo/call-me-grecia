@@ -41,7 +41,7 @@
   width: 98vw;
   min-width: 98vw;
   margin-top: 1rem;
-  margin-left: 1rem;
+  padding-left: 1rem;
 }
 
 .contenedor-desplegables {
@@ -52,7 +52,7 @@
   width: 95%;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1150px) {
   .users-list {
     width: 100%;
     padding-right: 0;
@@ -68,5 +68,12 @@
 
   .container-seleccion-turnos {
     flex-direction: column;
+  }
+
+  .smaller-calendar {
+    width: 95vw !important;
+    max-height: 90vh !important;
+    margin-left: -0.4rem !important;
+    margin-top: 1rem;
   }
 }

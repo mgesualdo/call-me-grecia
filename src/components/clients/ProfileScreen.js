@@ -86,7 +86,7 @@ const ProfileScreen = () => {
   }
 
   useEffect(() => {
-    handleChange(`${selectedDay}/${selectedMonth}/${selectedYear}`)
+    handleChange(`${selectedYear}/${selectedMonth}/${selectedDay}`)
   }, [selectedDay, selectedMonth, selectedYear])
 
   return (

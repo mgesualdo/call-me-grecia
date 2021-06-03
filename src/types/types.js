@@ -2,6 +2,8 @@ export const types = {
   uiRefreshImage: '[ui] Refresh image on menus',
   uiLoadingDeleting: '[ui] Loading while deleting something',
   uiOpenModal: '[ui] Open modal',
+  uiOpenNewPaymentModal: '[ui] Open new payment modal',
+  uiOpenChangeDateModal: '[ui] Open change date modal',
   uiCloseModal: '[ui] Close modal',
   uiLoading: '[ui] Loading',
   uiLoadingRegister: '[ui] LoadingRegister',
@@ -13,6 +15,7 @@ export const types = {
 
   appointmentSetActive: '[appointment] Set Active',
   appointmentLogout: '[appointment] Logout appointment',
+  appointmentCancelled: '[appointment] AppointmentCancelled',
 
   evetStartAddNew: '[appointment] Start add new',
   appointmentAddNew: '[appointment] Add new',
@@ -38,4 +41,6 @@ export const types = {
   userStartLogin: '[users] Start login',
   userLogin: '[users] Login',
   userLogout: '[users] Logout',
+
+  getAppointmentsPerArtistReport: '[report] Get appointments per artist report',
 }

@@ -1,8 +1,7 @@
 .menu-box {
-  height: 100%;
-  max-height: 25rem;
+  height: 100% !important;
   width: auto;
-  min-width: 13rem;
+  min-width: 10rem;
   position: relative;
   margin-right: 0.625rem;
 }
@@ -31,8 +30,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
   width: 100%;
-  padding: 0.625rem 1rem;
+  padding: 0.925rem 1rem !important;
   cursor: pointer;
 }
 
@@ -42,18 +42,22 @@
 .menu-header::before {
   transition: all 0.1s ease-in-out;
   margin-bottom: 0;
+  font-weight: bold;
+  color: #000 !important;
 }
 
 .menu-header:hover,
-.menu-header.active {
-  background-color: #007bff;
+.menu-header.active,
+.menu-box.active,
+.menu-box:hover {
+  background-color: #333 !important;
 }
 
 .menu-header:hover h6,
 .menu-header.active h6,
 .menu-header:hover i,
 .menu-header.active i {
-  color: white;
+  color: #fff !important;
 }
 
 .menu-user-info img {
@@ -69,7 +73,7 @@
   position: absolute;
   background-color: #fff;
   width: 100%;
-  top: 4rem;
+  top: 5rem !important;
   overflow: hidden;
   display: none;
   box-shadow: 0.31rem 0.31rem 1.25rem rgba(0, 0, 0, 0.16);
@@ -91,7 +95,7 @@
 
 .menu-header.active::before,
 .menu-header:hover::before {
-  border-top: 0.625rem solid #007bff;
+  border-top: 0.625rem solid #333 !important;
 }
 
 .options.active {
@@ -112,13 +116,13 @@
 }
 
 .options .option:hover {
-  background-color: #007bff;
+  background-color: #333 !important;
   cursor: pointer;
 }
 
 .options .option:hover span,
 .options .option:hover i {
-  color: white;
+  color: #dabcb2;
   transition: all 0.1s ease-in-out;
 }
 
@@ -136,7 +140,7 @@
 
 .options .option.logout:hover span,
 .options .option.logout:hover i {
-  color: #ee4444;
+  color: #fff !important;
 }
 
 @keyframes showMenu {
@@ -149,11 +153,7 @@
 }
 
 @media (max-width: 550px) {
-
-
   .menu-box {
     min-width: 5.6rem;
   }
-
-
 }

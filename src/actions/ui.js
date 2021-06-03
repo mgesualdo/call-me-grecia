@@ -2,6 +2,12 @@ import { types } from '../types/types'
 
 export const uiRefreshImage = () => ({ type: types.uiRefreshImage })
 export const uiOpenModal = () => ({ type: types.uiOpenModal })
+export const uiOpenNewPaymentModal = () => ({
+  type: types.uiOpenNewPaymentModal,
+})
+export const uiOpenChangeDateModal = () => ({
+  type: types.uiOpenChangeDateModal,
+})
 export const uiCloseModal = () => ({ type: types.uiCloseModal })
 export const uiLoading = (value) => ({ type: types.uiLoading, payload: value })
 export const uiLoadingUpdatingClient = (value) => ({

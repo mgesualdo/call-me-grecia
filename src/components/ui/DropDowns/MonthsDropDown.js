@@ -21,14 +21,17 @@ const DaysDropDown = ({
   }
 
   const handleOptionClick = (e, m) => {
-    setSelectedMonth(m)
-    const opcionSeleccionada = document.getElementById(m).innerHTML
+    setSelectedMonth(m.number)
+    console.log({ m: m.number })
+    const opcionSeleccionada = document.getElementById(m.number).innerHTML
+
+    console.log({ opcionSeleccionada })
     const contenidoSelect = document.getElementById('contenido-select-month')
 
     if (m === selectedMonth) {
       contenidoSelect.firstChild.innerHTML = `<h4 id='titulo-month'> Mes </h4>`
     } else {
-      contenidoSelect.firstChild.innerHTML = opcionSeleccionada
+      contenidoSelect.firstChild.innerHTML = `<h4 className='titulo-opcion-day'>${m.name}</h4>`
     }
     if (!active) {
       setMonthsActive(true)
@@ -68,14 +71,14 @@ const DaysDropDown = ({
         >
           {months.map((m) => (
             <div
-              key={m}
-              id={m}
+              key={m.numer}
+              id={m.number}
               className={`opcion ${
-                m === selectedMonth ? 'opcion-selected' : ''
+                m.number === selectedMonth ? 'opcion-selected' : ''
               }`}
               onClick={(e) => handleOptionClick(e, m)}
             >
-              <h4 className='titulo-opcion-day'>{m}</h4>
+              <h4 className='titulo-opcion-day'>{m.name}</h4>
             </div>
           ))}
         </div>

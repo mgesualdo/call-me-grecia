@@ -7,7 +7,6 @@ const DatePickerHeader = ({ dateController }) => {
   const { date, changeYear, changeMonth } = dateController
 
   let fecha = sub(date, { years: 10 }).toDateString()
-  console.log({ fecha, date: new Date(date) })
 
   const handleYearsDown = (e, unit) => {
     e.preventDefault()

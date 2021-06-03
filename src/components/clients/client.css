@@ -1,10 +1,39 @@
+.client-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .selected {
-  background: var(--linear-gradient-primary-blue) !important;
+  background: var(--linear-gradient-primary-salmon) !important;
 }
 
 .selected,
 .selected .no-client-img-icn {
   color: white;
+}
+
+.client-name {
+  color: rgb(5, 119, 195) !important;
+}
+
+.btn-client-status {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  color: white;
+  outline: none;
+  border: none;
+  width: 7rem;
+}
+
+.activate {
+  background: var(--linear-gradient-primary-blue) !important;
+}
+
+.deactivate {
+  background: var(--linear-gradient-primary-red) !important;
 }
 
 .no-client-img-icn {
@@ -32,7 +61,7 @@
 }
 
 .client-detail {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -51,6 +80,9 @@
 @media screen and (max-width: 950px) {
   .container-clientes {
     flex-direction: column;
+  }
+  .client-detail {
+    width: 70%;
   }
 
   .clients-list {

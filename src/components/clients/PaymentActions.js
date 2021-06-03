@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { appointmentSetActive } from '../../actions/appointment'
-import { uiOpenModal } from '../../actions/ui'
+import { uiOpenNewPaymentModal } from '../../actions/ui'
 import { calculateBalance } from '../../helpers/calculateBalance'
 import { fetchSinToken } from '../../helpers/fetch'
 import Spinner from '../ui/Spinner'
 
-const PaymentActions = ({ appointment, show }) => {
+const PaymentActions = ({ appointment }) => {
   const { loggedUser } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
 
@@ -21,7 +21,7 @@ const PaymentActions = ({ appointment, show }) => {
     try {
       if (loggedUser) {
         dispatch(appointmentSetActive(appointment))
-        dispatch(uiOpenModal())
+        dispatch(uiOpenNewPaymentModal())
       } else {
         setLoading(true)
         const resp = await fetchSinToken(
@@ -48,12 +48,7 @@ const PaymentActions = ({ appointment, show }) => {
 
   return (
     <>
-      {show && balance > 0 && !loggedUser && (
-        <button onClick={handleClick} className='pay pay-bigger'>
-          {loading ? <Spinner /> : 'Abonar saldo'}
-        </button>
-      )}
-      {show && balance > 0 && loggedUser && (
+      {balance > 0 && loggedUser && (
         <button onClick={handleClick} className='pay pay-bigger'>
           {loading ? <Spinner /> : 'Cargar pago'}
         </button>

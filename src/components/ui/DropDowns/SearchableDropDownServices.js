@@ -5,7 +5,7 @@ import { getServices, setSelectedService } from '../../../actions/services'
 import { setSelectedUser } from '../../../actions/users'
 import './searchableDropDown.css'
 
-const SearchableDropDownServices = ({ userServices }) => {
+const SearchableDropDownServices = ({ userServices, smaller = false }) => {
   const [active, setActive] = useState(false)
   const [textToSearch, setTextToSearch] = useState('')
 
@@ -53,7 +53,7 @@ const SearchableDropDownServices = ({ userServices }) => {
   }
 
   return (
-    <div className='contenedor'>
+    <div className={`contenedor ${smaller && 'smaller-dropdown'}`}>
       <form action=''>
         <div className='selectbox'>
           <div
@@ -104,25 +104,31 @@ const SearchableDropDownServices = ({ userServices }) => {
                 id={s._id}
                 className={`opcion ${
                   s._id === selectedService?._id ? 'opcion-selected' : ''
-                }`}
+                } option-container`}
                 onClick={(e) => handleOptionClick(e, s._id)}
               >
-                <img
-                  src={`https://appturnos.blob.core.windows.net/servicios/${
-                    s.images[0]
-                  }?${new Date().getTime()}`}
-                  alt=''
-                  style={{
-                    width: '2.5rem',
-                    height: '2.5rem',
-                    marginRight: '1rem',
-                    marginLeft: '1rem',
-                    borderRadius: '2.5rem',
-                    objectFit: 'contain',
-                  }}
-                />
+                <div className='option-image-and-name'>
+                  <img
+                    src={`https://appturnos.blob.core.windows.net/servicios/${
+                      s.images[0]
+                    }?${new Date().getTime()}`}
+                    alt=''
+                    style={{
+                      width: '2.5rem',
+                      height: '2.5rem',
+                      marginRight: '1rem',
+                      marginLeft: '1rem',
+                      borderRadius: '2.5rem',
+                      objectFit: 'contain',
+                    }}
+                  />
 
-                <h4 className='titulo-opcion'>{s.name}</h4>
+                  <h4 className='titulo-opcion'>{s.name}</h4>
+                </div>
+
+                <span className='appointment-date'>
+                  {s.duration} <small> min</small>
+                </span>
               </div>
             ))}
           </div>

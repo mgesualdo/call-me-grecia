@@ -2,20 +2,26 @@
   color: #d33;
   margin-right: 0.3rem;
   font-weight: bolder;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
-.info-icn {
+.warning-icn {
   color: #ccaa00;
   margin-right: 0.3rem;
   font-weight: bolder;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+}
+.info-icn {
+  color: #38f;
+  margin-right: 0.3rem;
+  font-weight: bolder;
+  font-size: 0.85rem;
 }
 
 .success-icn {
   color: #00cc55;
   margin-right: 0.3rem;
   font-weight: bolder;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .my-tooltip-container {

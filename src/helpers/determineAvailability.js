@@ -34,7 +34,9 @@ const determineAvailability = (
   }).length
 
   const todayUserAppointments = userAppointments.filter(
-    (a) => getDayOfYear(a.start) === getDayOfYear(date)
+    (a) =>
+      getDayOfYear(a.start) === getDayOfYear(date) &&
+      getHours(a.start) > getHours(new Date())
   ).length
 
   let todayAvailableAppointments = 0

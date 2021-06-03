@@ -41,6 +41,7 @@ const ClientsToChoose = ({ show = false }) => {
               selectedService={selectedService}
               avatarName={client.avatarName}
               phones={client.phones}
+              active={client.active}
             />
           ))}
       </div>

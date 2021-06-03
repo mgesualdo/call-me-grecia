@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Spinner from '../ui/Spinner'
 
-const PayPendingPaymentButton = ({ show, payment }) => {
+const PayPendingPaymentButton = ({ show, payment, text }) => {
   const [loading, setLoading] = useState(false)
 
   let init_point =
@@ -19,7 +19,7 @@ const PayPendingPaymentButton = ({ show, payment }) => {
   return (
     show && (
       <button className='pay' onClick={handleClick}>
-        {loading ? <Spinner smallest /> : 'Abonar'}
+        {loading ? <Spinner smallest /> : text}
       </button>
     )
   )

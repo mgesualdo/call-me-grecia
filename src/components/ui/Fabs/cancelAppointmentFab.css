@@ -1,0 +1,27 @@
+button.cancel-fab:hover {
+  transform: scale(1.1);
+  background: rgb(219, 72, 58);
+  color: #fff;
+}
+
+button.cancel-fab {
+  width: 6rem;
+  height: 1.2rem;
+  transform: scale(1);
+  position: absolute;
+  top: -0.6rem;
+  right: 0.75rem;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  background: #d33;
+  transition: all 0.12s ease-in-out;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 0.7rem;
+}
+
+button.cancel-fab i {
+  margin-right: 0.4rem;
+  font-size: 0.6rem;
+}

@@ -29,9 +29,10 @@ const Input = ({
       ) : (
         <>
           {type === 'email' && <i className='far fa-envelope input-icn'></i>}
-          {type === 'number' && name === 'reservationCost' && (
-            <i className='fas fa-dollar-sign input-icn tel'></i>
-          )}
+          {type === 'number' &&
+            (name === 'reservationCost' || name === 'paymentAmount') && (
+              <i className='fas fa-dollar-sign input-icn tel'></i>
+            )}
           {type === 'number' && name === 'duration' && (
             <i className='far fa-clock input-icn'></i>
           )}

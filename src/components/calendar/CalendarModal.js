@@ -5,18 +5,15 @@ import moment from 'moment'
 import Modal from 'react-modal'
 
 import { uiCloseModal } from '../../actions/ui'
-import {
-  clearActiveAppointment,
-  appointmentStartAddNew,
-  appointmentStartUpdate,
-} from '../../actions/appointment'
+import { appointmentStartAddNew } from '../../actions/appointment'
+import { differenceInMilliseconds } from 'date-fns'
 
 import './calendarModal.css'
-import PaymentTypesOptions from '../payments/PaymentTypesDropDown'
 import ImageAndName from '../ui/ImageAndName'
 import AppointmentPrice from '../clients/AppointmentPrice'
 import AppointmentTime from '../clients/AppointmentTime'
 import Spinner from '../ui/Spinner'
+import Swal from 'sweetalert2'
 
 moment.locale('ar')
 const customStyles = {
@@ -31,15 +28,15 @@ const customStyles = {
 }
 Modal.setAppElement('#root')
 
-export const CalendarModal = ({ selectedDate }) => {
+export const CalendarModal = ({ selectedDate, whenWasOpened }) => {
   const { modalOpen, loadingGoingToMercadoPago } = useSelector(
     (state) => state.ui
   )
-  const { selectedUser, activeAppointment } = useSelector((state) => state.user)
+  const { selectedUser } = useSelector((state) => state.user)
   const { selectedService } = useSelector((state) => state.service)
+  const [reservationCost, setReservationCost] = useState(0)
   const dispatch = useDispatch()
 
-  const [paymentType, setPaymentType] = useState('SEÑA')
   const [formValues, setFormValues] = useState({
     start: '',
     end: '',
@@ -53,6 +50,13 @@ export const CalendarModal = ({ selectedDate }) => {
     const userService = selectedUser?.services.find(
       (s) => s.service._id === selectedService?._id
     )
+
+    let sena =
+      userService?.price * 0.3 <= 300
+        ? 300
+        : Math.ceil((userService?.price * 0.3) / 100) * 100
+    setReservationCost(sena)
+
     setFormValues(() => ({
       start: selectedDate,
       end: moment(selectedDate)
@@ -65,39 +69,43 @@ export const CalendarModal = ({ selectedDate }) => {
       cancelled: false,
       hasReserved: false,
       createdByClient: true,
+      hasAttended: true,
       payments: [
         {
           method: 'Mercado Pago',
-          kind: paymentType,
-          amount:
-            paymentType === 'SEÑA'
-              ? selectedService?.reservationCost
-              : userService?.price,
+          kind: 'SEÑA',
+          amount: reservationCost,
           status: 'PENDIENTE',
         },
       ],
     }))
-  }, [
-    activeAppointment,
-    selectedDate,
-    paymentType,
-    selectedService,
-    selectedUser,
-  ])
+  }, [selectedDate, selectedService, selectedUser])
 
   const closeModal = () => {
+    if (differenceInMilliseconds(new Date(), whenWasOpened) < 100) return
     dispatch(uiCloseModal())
-    dispatch(clearActiveAppointment())
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (activeAppointment) {
-      dispatch(appointmentStartUpdate(formValues, activeAppointment._id))
-    } else {
-      console.log(formValues)
-      dispatch(appointmentStartAddNew(formValues))
-    }
+
+    Swal.fire({
+      title: 'Importante!',
+      html: `<div style="margin-top: 1rem; margin-bottom: 1rem;">
+             <span style="display: inline-block; margin-bottom: 1rem">Antes de reservar, queremos que sepas lo siguiente: </span>
+        
+             <ol style="font-size: 0.9rem; text-align: start; width: 100%; margin: 0; padding-left: 3.2rem">
+             <li style="margin-bottom: 0.5rem">Si pasados <b style="color: #38f">30 minutos</b> no se registra tu pago, el turno será anulado automáticamente.</li>
+             <li>Dentro de las primeras <b style="color: #38f">5 horas</b> de registrado tu pago, podrás cancelar tu turno y se te devolverá el dinero.</li>
+             </ol>
+             </div>`,
+      icon: 'info',
+      showCancelButton: true,
+      cancelButtonText: 'Cerrar',
+      confirmButtonText: 'Perfecto, quiero reservar!',
+    }).then(async (answer) => {
+      if (answer.isConfirmed) dispatch(appointmentStartAddNew(formValues))
+    })
   }
 
   return (
@@ -122,7 +130,7 @@ export const CalendarModal = ({ selectedDate }) => {
             />
             <AppointmentPrice
               price={formValues.price}
-              reservationCost={selectedService?.reservationCost}
+              reservationCost={reservationCost}
             />
           </div>
         </div>
@@ -135,10 +143,6 @@ export const CalendarModal = ({ selectedDate }) => {
         />
         <AppointmentTime start={formValues.start} />
       </div>
-      <PaymentTypesOptions
-        setPaymentType={setPaymentType}
-        paymentType={paymentType}
-      />
       <div className='buttons-container'>
         <button
           type='submit'
@@ -148,10 +152,18 @@ export const CalendarModal = ({ selectedDate }) => {
           {loadingGoingToMercadoPago ? (
             <Spinner />
           ) : (
-            <>
-              <i className='fas fa-money-check-alt mr-2'></i>
+            <div>
+              <img
+                id='mercadoPagoImage'
+                src='/img/mp.png'
+                style={{
+                  width: '2.5rem',
+                  marginRight: '1rem',
+                }}
+                loading='eager'
+              />
               <span>Reservar (${formValues?.payments[0]?.amount})</span>
-            </>
+            </div>
           )}
         </button>
       </div>

@@ -5,6 +5,7 @@
   min-width: 25rem;
   max-width: 35rem;
   margin: 2rem auto;
+  margin-bottom: 5rem;
 }
 form {
   width: 100%;
@@ -69,20 +70,20 @@ form {
 
 .btn-submit {
   position: relative;
-  color: #fff;
-  font-weight: bolder;
+  color: #000;
+  font-weight: bold;
   width: 100%;
   margin-top: 1rem;
   padding: 0.7rem 2rem;
   border: none !important;
   outline: none !important;
   border-radius: 0.5rem;
-  background-color: #18f;
+  background-color: #dabcb2;
   transition: all 0.4s ease;
 }
 
 .btn-submit:hover {
-  background-color: #1188ffd3;
+  background-color: #dabcb288;
 }
 
 .btn-login ñ form {

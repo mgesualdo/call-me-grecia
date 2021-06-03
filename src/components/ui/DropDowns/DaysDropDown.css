@@ -141,7 +141,7 @@
 }
 
 .opcion.opcion-selected {
-  background: var(--linear-gradient-primary-blue);
+  background: var(--linear-gradient-primary-salmon);
 }
 
 .opcion.opcion-selected h4 {
@@ -150,7 +150,7 @@
 
 .opcion:hover {
   cursor: pointer;
-  background: var(--linear-gradient-primary-blue);
+  background: var(--linear-gradient-primary-salmon);
   backdrop-filter: blur(0.5rem);
 }
 
@@ -171,7 +171,7 @@
 
 .titulo-opcion-day {
   font-size: 1rem !important;
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 .opcion .titulo-opcion-day {
@@ -182,7 +182,7 @@
 #titulo-day,
 #titulo-month,
 #titulo-year {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 #titulo-day.no-mostrar {

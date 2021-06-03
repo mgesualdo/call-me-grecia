@@ -45,7 +45,7 @@ button.pay {
 }
 
 button.pay:hover {
-  background: var(--linear-gradient-primary-blue);
+  background: var(--linear-gradient-primary-salmon);
   color: #fff;
 }
 

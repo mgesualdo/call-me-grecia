@@ -6,6 +6,7 @@ import SuccessIcon from '../ui/Icons/SuccessIcon'
 
 import './payment.css'
 import PayPendingPaymentButton from './PayPendingPaymentButton'
+import InfoIcon from '../ui/Icons/InfoIcon'
 
 const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
   const { status, createdAt, amount } = payment
@@ -21,6 +22,8 @@ const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
           <WarningIcon title='Pago pendiente' />
         ) : status === 'APROBADO' ? (
           <SuccessIcon title='Pago aprobado' />
+        ) : status === 'DEVUELTO' ? (
+          <InfoIcon title='Pago devuelto' />
         ) : (
           <DangerIcon title='Pago rechazado' />
         )}
@@ -30,7 +33,9 @@ const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
           <PayPendingPaymentButton
             show={!hasReserved && balance > 0 && !reservationTimeExpired}
             payment={payment}
+            text='Abonar'
           />
+
           <span className='payment-made payment-detail'>${amount}</span>
         </div>
       </div>
