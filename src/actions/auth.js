@@ -16,7 +16,7 @@ export const startLoginUser = (email, password) => {
     if (body.ok) {
       dispatch(loginUser(body.user))
     } else {
-      Swal.fire('Error', 'No se pudo iniciar sesión!', 'error')
+      Swal.fire('Error', body.msg, 'error')
     }
     dispatch(uiLoadingLogin(false))
   }
