@@ -1,20 +1,31 @@
 import React from 'react'
-import { format } from 'date-fns'
+import { format, addDays } from 'date-fns'
 import './artistWeek.css'
 import ImageAndName from '../../ui/ImageAndName'
 
 const ArtistWeek = ({ artistData }) => {
   const { artist, data } = artistData
 
-  console.log({ data })
+  const isCurrentWeek = (start, end) => {
+    const hoy = new Date()
+    const domingo = addDays(end, 1)
+
+    return hoy >= start && hoy <= domingo
+  }
 
   return (
-    <div className='artist-data-container'>
+    <div className={`artist-data-container`}>
       <div className='artist-name-container'>
         <ImageAndName name={artist.name} imageName={artist.avatarName} user />
       </div>
       {data.map((w) => (
-        <div key={+w.weekEnd} className='week-container'>
+        <div
+          key={+w.weekEnd}
+          className={`week-container ${
+            isCurrentWeek(w.weekStart, w.weekEnd) && 'current-period'
+          }`}
+          onClick={() => isCurrentWeek(w.weekStart, w.weekEnd)}
+        >
           <div>
             <span>Semana del </span>
             <span className='from-time'>

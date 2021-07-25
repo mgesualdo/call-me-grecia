@@ -28,6 +28,11 @@
   color: #d33;
 }
 
+.current-period,
+.current-day {
+  background-color: #a2f1e4c5;
+}
+
 .to-time {
   font-weight: bolder;
   color: #08d;

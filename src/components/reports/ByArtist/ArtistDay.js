@@ -1,12 +1,21 @@
 import React from 'react'
-import { format } from 'date-fns'
+import { addDays, format, getDay } from 'date-fns'
 import './artistWeek.css'
 import ImageAndName from '../../ui/ImageAndName'
 
 const ArtistDay = ({ artistData }) => {
   const { artist, data } = artistData
 
-  console.log({ data })
+  const isCurrentDay = (start) => {
+    const hoy = format(new Date(), 'yy-MM-dd')
+    const dia = format(start, 'yy-MM-dd')
+    const diaSiguiente = format(addDays(start, 1), 'yy-MM-dd')
+    const esDomingo = getDay(new Date()) === 0
+
+    if (esDomingo) return diaSiguiente === hoy
+
+    return dia === hoy
+  }
 
   return (
     <div className='artist-data-container'>
@@ -14,7 +23,10 @@ const ArtistDay = ({ artistData }) => {
         <ImageAndName name={artist.name} imageName={artist.avatarName} user />
       </div>
       {data.map((d) => (
-        <div key={+d.start} className='week-container'>
+        <div
+          key={+d.start}
+          className={`week-container ${isCurrentDay(d.start) && 'current-day'}`}
+        >
           <div>
             <span className='from-time'>{format(d.start, 'dd/MM/yyyy')}</span>
           </div>
