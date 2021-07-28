@@ -9,10 +9,11 @@ const ArtistDay = ({ artistData }) => {
   const isCurrentDay = (start) => {
     const hoy = format(new Date(), 'yy-MM-dd')
     const dia = format(start, 'yy-MM-dd')
-    const diaSiguiente = format(addDays(start, 1), 'yy-MM-dd')
     const esDomingo = getDay(new Date()) === 0
+    const esLunes = getDay(new Date()) === 0
 
-    if (esDomingo) return diaSiguiente === hoy
+    if (esDomingo) return format(addDays(start, 1), 'yy-MM-dd') === hoy
+    if (esLunes) return format(addDays(start, 2), 'yy-MM-dd') === hoy
 
     return dia === hoy
   }

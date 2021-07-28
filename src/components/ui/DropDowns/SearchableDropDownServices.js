@@ -11,7 +11,10 @@ const SearchableDropDownServices = ({ userServices, smaller = false }) => {
 
   const { services, selectedService } = useSelector((state) => state.service)
 
-  const servicesToShow = userServices ?? services
+  const servicesToShow =
+    userServices ?? services.filter((s) => s.usersCount > 0)
+
+  console.log({ servicesToShow })
 
   const dispatch = useDispatch()
 
