@@ -11,7 +11,7 @@ import { NewPaymentModal } from '../payments/NewPaymentModal'
 import { differenceInMinutes, parseISO } from 'date-fns'
 import { CancelAppointmentFab } from '../ui/Fabs/CancelAppointmentFab'
 
-const Appointment = ({ appointment, smaller = false }) => {
+const Appointment = ({ appointment, smaller = false, isClient = false }) => {
   const { avatarName, name: userName } = appointment.artist
 
   const { images, name: serviceName } = appointment.service
@@ -34,10 +34,11 @@ const Appointment = ({ appointment, smaller = false }) => {
   return (
     <>
       <div className='appointment-container'>
-        {(!reservationTimeExpired ||
+        {((!reservationTimeExpired ||
           paymentsToBeRefunded?.length > 0 ||
           !appointment.createdByClient) &&
-          !smaller && (
+          !smaller) ||
+          (isClient && !reservationTimeExpired)(
             <CancelAppointmentFab
               appointment={appointment}
               paymentsToBeRefunded={paymentsToBeRefunded}

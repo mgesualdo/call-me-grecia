@@ -41,6 +41,7 @@ const AppointmentsScreen = () => {
                 key={appointment._id}
                 appointment={appointment}
                 handleClick={handleClick}
+                isClient
               />
             ))}
         </div>
