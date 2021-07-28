@@ -14,8 +14,6 @@ const SearchableDropDownServices = ({ userServices, smaller = false }) => {
   const servicesToShow =
     userServices ?? services.filter((s) => s.usersCount > 0)
 
-  console.log({ servicesToShow })
-
   const dispatch = useDispatch()
 
   const handleClick = () => {
