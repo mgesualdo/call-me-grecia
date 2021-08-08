@@ -7,7 +7,7 @@ const ArtistMonth = ({ artistData }) => {
   const { artist, data, artistId } = artistData
 
   const isCurrentMonth = (start) => {
-    let mesHoy = getMonth(new Date())
+    let mesHoy = getMonth(new Date()) + 1
     const anoHoy = getYear(new Date())
 
     if (mesHoy <= 10) {
