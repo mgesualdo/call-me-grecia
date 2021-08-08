@@ -16,6 +16,7 @@ export const getAppointmentsPerArtist = () => {
         payload: {
           weeklyAppointments: body.appointments,
           dailyAppointments: body.dailyAppointments,
+          monthlyAppointments: body.monthlyAppointments,
         },
       })
     } else {

@@ -6,9 +6,11 @@ import ArtistWeek from './ByArtist/ArtistWeek'
 
 import { addDays } from 'date-fns'
 import ArtistDay from './ByArtist/ArtistDay'
+import ArtistMonth from './ByArtist/ArtistMonth'
+import Spinner from '../ui/Spinner'
 
 const ReportsScreen = () => {
-  const [verSemana, setVerSemana] = useState(false)
+  const [frecuencia, setFrecuencia] = useState('dia')
   const { appointmentsPerArtist } = useSelector((state) => state.report)
   console.log({ appointmentsPerArtist })
   const appointmentsGrouppedByArtist = appointmentsPerArtist.weeklyAppointments
@@ -94,6 +96,47 @@ const ReportsScreen = () => {
         [{ artistId: '', artist: {}, data: [] }]
       )
 
+  const appointmentsGrouppedByArtistMonthly =
+    appointmentsPerArtist.monthlyAppointments
+      ?.filter((app) => app.artist.deleted === false)
+      .reduce(
+        (accumulator, currentValue, index) => {
+          console.log({ currentValue })
+          const currentArtistId = currentValue.artist._id
+          const salesAmount = currentValue.salesAmount
+          const gathered = currentValue.gathered
+          const isArtistAlready = accumulator.some(
+            (u) => u.artistId === currentArtistId
+          )
+          const newArtistIndex = index === 0 ? 0 : accumulator.length
+
+          if (!isArtistAlready) {
+            accumulator[newArtistIndex] = {
+              artistId: currentValue.artist._id,
+              artist: currentValue.artist,
+              data: [
+                {
+                  start: currentValue._id.start,
+                  salesAmount,
+                  gathered,
+                },
+              ],
+            }
+          } else {
+            const artistIndex = accumulator.findIndex(
+              (u) => u.artistId === currentArtistId
+            )
+            accumulator[artistIndex].data.push({
+              start: currentValue._id.start,
+              salesAmount,
+              gathered,
+            })
+          }
+          return accumulator
+        },
+        [{ artistId: '', artist: {}, data: [] }]
+      )
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -117,25 +160,67 @@ const ReportsScreen = () => {
             fontSize: '1.5rem',
             borderRadius: '1rem',
             borderStyle: 'none',
-            backgroundColor: '#dabcb2',
+            backgroundColor: frecuencia === 'dia' ? '#da9078' : '#dabcb2',
             marginTop: '2rem',
             outline: 'none',
           }}
-          onClick={() => setVerSemana(!verSemana)}
+          onClick={() => setFrecuencia('dia')}
         >
-          Ver {verSemana ? 'día' : 'semana'}
+          Ver por día
+        </button>
+        <button
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1.5rem',
+            borderRadius: '1rem',
+            borderStyle: 'none',
+            backgroundColor: frecuencia === 'semana' ? '#da9078' : '#dabcb2',
+            marginTop: '2rem',
+            marginLeft: '1rem',
+            outline: 'none',
+          }}
+          onClick={() => setFrecuencia('semana')}
+        >
+          Ver por semana
+        </button>
+        <button
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1.5rem',
+            borderRadius: '1rem',
+            borderStyle: 'none',
+            backgroundColor: frecuencia === 'mes' ? '#da9078' : '#dabcb2',
+            marginTop: '2rem',
+            marginLeft: '1rem',
+            outline: 'none',
+          }}
+          onClick={() => setFrecuencia('mes')}
+        >
+          Ver por mes
         </button>
       </div>
-      {verSemana &&
+
+      {!appointmentsGrouppedByArtistDaily && (
+        <div style={{ marginTop: '5rem' }}>
+          <Spinner />
+        </div>
+      )}
+      {frecuencia === 'dia' &&
+        appointmentsGrouppedByArtistDaily?.map((artistData) => (
+          <>
+            <ArtistDay artistData={artistData} key={artistData.artistId} />
+          </>
+        ))}
+      {frecuencia === 'semana' &&
         appointmentsGrouppedByArtist?.map((artistData) => (
           <>
             <ArtistWeek artistData={artistData} key={artistData.artistId} />
           </>
         ))}
-      {!verSemana &&
-        appointmentsGrouppedByArtistDaily?.map((artistData) => (
+      {frecuencia === 'mes' &&
+        appointmentsGrouppedByArtistMonthly?.map((artistData) => (
           <>
-            <ArtistDay artistData={artistData} key={artistData.artistId} />
+            <ArtistMonth artistData={artistData} key={artistData.artistId} />
           </>
         ))}
     </>
