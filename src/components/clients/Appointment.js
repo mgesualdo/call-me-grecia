@@ -38,13 +38,13 @@ const Appointment = ({ appointment, smaller = false, isClient = false }) => {
           paymentsToBeRefunded?.length > 0 ||
           !appointment.createdByClient) &&
           !smaller) ||
-          (isClient && !reservationTimeExpired)(
-            <CancelAppointmentFab
-              appointment={appointment}
-              paymentsToBeRefunded={paymentsToBeRefunded}
-              paymentsToNotBeRefunded={paymentsToNotBeRefunded}
-            />
-          )}
+        (isClient && !reservationTimeExpired) ? (
+          <CancelAppointmentFab
+            appointment={appointment}
+            paymentsToBeRefunded={paymentsToBeRefunded}
+            paymentsToNotBeRefunded={paymentsToNotBeRefunded}
+          />
+        ) : null}
         <div>
           <div className='user-and-date-container'>
             <ImageAndName name={userName} imageName={avatarName} user />
