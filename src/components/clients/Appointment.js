@@ -31,14 +31,19 @@ const Appointment = ({ appointment, smaller = false, isClient = false }) => {
       p.status === 'APROBADO'
   )
 
+  console.log({
+    yaPaso: differenceInMinutes(new Date(), new Date(appointment?.start)),
+  })
+
   return (
     <>
       <div className='appointment-container'>
-        {((!reservationTimeExpired ||
+        {(((!reservationTimeExpired ||
           paymentsToBeRefunded?.length > 0 ||
           !appointment.createdByClient) &&
           !smaller) ||
-        (isClient && !reservationTimeExpired) ? (
+          (isClient && !reservationTimeExpired)) &&
+        differenceInMinutes(new Date(), new Date(appointment?.start)) < 0 ? (
           <CancelAppointmentFab
             appointment={appointment}
             paymentsToBeRefunded={paymentsToBeRefunded}

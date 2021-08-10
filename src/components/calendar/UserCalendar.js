@@ -47,10 +47,6 @@ export const UserCalendar = ({
   const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
   const [lastView, setLastView] = useState('day')
 
-  const userAppointmentsWithReservation = userAppointments.filter(
-    (a) => ((a.hasReserved && a.isValid) || !a.createdByClient) && !a.cancelled
-  )
-
   const onSelectAppointment = (appointment) => {
     if (smaller) return
 
@@ -127,18 +123,14 @@ export const UserCalendar = ({
   }, [])
 
   const slotStyleGetter = (date) => {
-    const [
-      isClosed,
-      isUserAvailable,
-      ,
-      isPossibleToReservate,
-    ] = determineAvailability(
-      date,
-      loggedUser,
-      lastView,
-      userAppointmentsWithReservation,
-      selectedService
-    )
+    const [isClosed, isUserAvailable, , isPossibleToReservate] =
+      determineAvailability(
+        date,
+        loggedUser,
+        lastView,
+        userAppointments,
+        selectedService
+      )
 
     const newAppointmentDate = smaller && compareAsc(selectedDate, date) === 0
 
@@ -158,16 +150,8 @@ export const UserCalendar = ({
   }
 
   const dayStyleGetter = (date) => {
-    const [
-      isClosed,
-      isUserAvailable,
-      availableAppointments,
-    ] = determineAvailability(
-      date,
-      loggedUser,
-      lastView,
-      userAppointmentsWithReservation
-    )
+    const [isClosed, isUserAvailable, availableAppointments] =
+      determineAvailability(date, loggedUser, lastView, userAppointments)
 
     let backgroundColor = ''
     if (isClosed) {
@@ -220,7 +204,7 @@ export const UserCalendar = ({
       {(!!selectedClient || show) && (
         <Calendar
           localizer={localizer}
-          events={userAppointmentsWithReservation}
+          events={userAppointments}
           views={['month', 'day']}
           startAccessor='start'
           style={{ backgroundColor: 'white' }}

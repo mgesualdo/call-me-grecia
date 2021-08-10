@@ -46,10 +46,6 @@ export const MyCalendar = () => {
   const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
   const [lastView, setLastView] = useState('month')
 
-  const userAppointmentsWithReservation = userAppointments.filter(
-    (a) => ((a.hasReserved && a.isValid) || !a.createdByClient) && !a.cancelled
-  )
-
   const onViewChange = (e) => {
     setLastView(e)
     localStorage.setItem('lastView', e)
@@ -67,7 +63,7 @@ export const MyCalendar = () => {
       start,
       selectedUser,
       lastView,
-      userAppointmentsWithReservation,
+      userAppointments,
       selectedService
     )
     if (availableAppointments <= 0) return
@@ -131,18 +127,14 @@ export const MyCalendar = () => {
   }
 
   const slotStyleGetter = (date) => {
-    const [
-      isClosed,
-      isUserAvailable,
-      ,
-      isPossibleToReservate,
-    ] = determineAvailability(
-      date,
-      selectedUser,
-      lastView,
-      userAppointmentsWithReservation,
-      selectedService
-    )
+    const [isClosed, isUserAvailable, , isPossibleToReservate] =
+      determineAvailability(
+        date,
+        selectedUser,
+        lastView,
+        userAppointments,
+        selectedService
+      )
 
     const style = {
       background:
@@ -161,16 +153,8 @@ export const MyCalendar = () => {
   }
 
   const dayStyleGetter = (date) => {
-    const [
-      isClosed,
-      isUserAvailable,
-      availableAppointments,
-    ] = determineAvailability(
-      date,
-      selectedUser,
-      lastView,
-      userAppointmentsWithReservation
-    )
+    const [isClosed, isUserAvailable, availableAppointments] =
+      determineAvailability(date, selectedUser, lastView, userAppointments)
 
     let backgroundColor = ''
     if (isClosed) {
@@ -218,7 +202,7 @@ export const MyCalendar = () => {
           )}
           <Calendar
             localizer={localizer}
-            events={userAppointmentsWithReservation}
+            events={userAppointments}
             views={['month', 'day']}
             startAccessor='start'
             style={{
