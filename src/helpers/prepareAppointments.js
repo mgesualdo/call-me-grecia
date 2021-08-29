@@ -14,7 +14,7 @@ export const prepareAppointment = (appointment = {}) => {
     end: parseISO(appointment.end),
     start: parseISO(appointment.start),
     updatedAt: parseISO(appointment.updatedAt),
-    //Corregido el TYPO
+    //Corregido el TYPO que tenía también en el FIELD
     createdAt: parseISO(appointment.createdAt),
   }
 }
