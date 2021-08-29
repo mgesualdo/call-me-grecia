@@ -6,6 +6,7 @@ import PaymentsBalance from './PaymentsBalance'
 import { calculateBalance } from '../../helpers/calculateBalance'
 
 const Payments = ({ payments, price, hasReserved, reservationTimeExpired }) => {
+  console.log({ payments })
   return (
     <>
       <h6 className='mt-3 font-weight-bolder'>

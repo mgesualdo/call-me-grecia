@@ -11,6 +11,8 @@ import InfoIcon from '../ui/Icons/InfoIcon'
 const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
   const { status, createdAt, amount } = payment
 
+  console.log({ createdAt })
+
   return (
     <div className='payment-info'>
       <div className='payment-time-and-status-container'>
