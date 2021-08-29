@@ -15,6 +15,6 @@ export const prepareAppointment = (appointment = {}) => {
     start: parseISO(appointment.start),
     updatedAt: parseISO(appointment.updatedAt),
     //Corregido el TYPO
-    createdAtd: parseISO(appointment.createdAt),
+    createdAt: parseISO(appointment.createdAt),
   }
 }
