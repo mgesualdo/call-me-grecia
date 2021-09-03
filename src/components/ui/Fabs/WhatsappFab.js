@@ -3,7 +3,7 @@ import './whatsappFab.css'
 
 export const WhatsappFab = () => {
   const handleAdd = () => {
-    let cel = '+5491173636676'
+    let cel = '+5491173680015'
     let text = 'Hola Grecia, quería hacerte una consulta!'
     window.location.href = `https://wa.me/${cel}?text=${text}`
   }
