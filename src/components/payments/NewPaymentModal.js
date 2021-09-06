@@ -189,7 +189,7 @@ export const NewPaymentModal = () => {
           {loading && !creatingPayment ? (
             <Spinner width='0.1rem' height='0.1rem' />
           ) : (
-            <span>Cambiar fecha</span>
+            <span>Editar turno</span>
           )}
         </button>
         <button

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getServices, setSelectedService } from '../../../actions/services'
@@ -8,11 +8,17 @@ import './searchableDropDown.css'
 const SearchableDropDownServices = ({ userServices, smaller = false }) => {
   const [active, setActive] = useState(false)
   const [textToSearch, setTextToSearch] = useState('')
+  const [servicesToShow, setServicesToShow] = useState([])
 
   const { services, selectedService } = useSelector((state) => state.service)
+  const { selectedUser } = useSelector((state) => state.user)
 
-  const servicesToShow =
-    userServices ?? services.filter((s) => s.usersCount > 0)
+  useEffect(() => {
+    if (!!selectedUser) {
+      setServicesToShow(selectedUser.services)
+    }
+    setServicesToShow(services.filter((s) => s?.usersCount > 0))
+  }, [selectedUser])
 
   const dispatch = useDispatch()
 

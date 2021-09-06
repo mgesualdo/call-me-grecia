@@ -8,6 +8,9 @@ import Appointment from '../clients/Appointment'
 import { clearActiveAppointment } from '../../actions/appointment'
 import { setSelectedService } from '../../actions/services'
 import SearchableDropDownServices from '../ui/DropDowns/SearchableDropDownServices'
+import UsersToChoose from '../users/UsersToChoose'
+import { setSelectedUser } from '../../actions/users'
+import { compareAsc } from 'date-fns'
 
 const ChangeAppointmentDateScreen = () => {
   const { selectedService } = useSelector((state) => state.service)
@@ -30,6 +33,17 @@ const ChangeAppointmentDateScreen = () => {
     }
   }, [])
 
+  useEffect(() => {
+    dispatch(setSelectedService(activeAppointment.service._id))
+    dispatch(setSelectedUser(activeAppointment.artist._id))
+
+    return () => {
+      localStorage.removeItem('activeAppointment')
+      setSelectedService(null)
+      setSelectedUser(null)
+    }
+  }, [])
+  console.log({ activeAppointment })
   return (
     <>
       <UserNavbar />
@@ -50,6 +64,7 @@ const ChangeAppointmentDateScreen = () => {
           <Appointment appointment={activeAppointment} smaller />
           <div className='servicios-usuarios'>
             <SearchableDropDownServices smaller userServices={userServices} />
+            <UsersToChoose defaultSelectedUser={activeAppointment.artist._id} />
           </div>
         </div>
 

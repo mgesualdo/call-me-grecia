@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import User from './User'
 
 const UsersToChoose = () => {
-  const { loggedClient } = useSelector((state) => state.auth)
+  const { loggedClient, loggedUser } = useSelector((state) => state.auth)
   const { users } = useSelector((state) => state.user)
   const { selectedService } = useSelector((state) => state.service)
 
@@ -30,6 +30,7 @@ const UsersToChoose = () => {
                   phone={user.phone}
                   selectedServiceId={selectedService?._id}
                   loggedClient={loggedClient}
+                  loggedUser={loggedUser}
                 />
               ))}
           </div>

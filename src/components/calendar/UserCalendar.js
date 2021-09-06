@@ -21,6 +21,7 @@ import { calculateBalance } from '../../helpers/calculateBalance'
 import { NewPaymentModal } from '../payments/NewPaymentModal'
 import { EditAppointmentModal } from './EditAppointmentModal'
 import { useEffect } from 'react'
+import { setSelectedUser } from '../../actions/users'
 
 moment.locale('es')
 
@@ -42,6 +43,7 @@ export const UserCalendar = ({
   )
   const { selectedService } = useSelector((state) => state.service)
   const { selectedClient } = useSelector((state) => state.client)
+  const { selectedUser } = useSelector((state) => state.user)
   const { loggedUser } = useSelector((state) => state.auth)
   const [selectedDate, setSelectedDate] = useState(moment().toDate())
   const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
@@ -249,13 +251,9 @@ export const UserCalendar = ({
           }}
         />
       )}
-      {smaller &&
-        (selectedService?._id !== activeAppointment?.service?._id ||
-          compareAsc(selectedDate, new Date(activeAppointment.start)) !==
-            0) && <EditAppointmentFab />}
+      {smaller && <EditAppointmentFab />}
 
       <EditAppointmentModal selectedDate={selectedDate} />
-
       <UserCalendarModal selectedDate={selectedDate} />
       <NewPaymentModal />
     </div>

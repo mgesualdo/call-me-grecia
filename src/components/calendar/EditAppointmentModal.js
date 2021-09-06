@@ -25,7 +25,7 @@ Modal.setAppElement('#root')
 
 export const EditAppointmentModal = ({ selectedDate }) => {
   const { changeDateModalOpen, loading } = useSelector((state) => state.ui)
-  const { activeAppointment } = useSelector((state) => state.user)
+  const { activeAppointment, selectedUser } = useSelector((state) => state.user)
   const { loggedUser } = useSelector((state) => state.auth)
   const { selectedService } = useSelector((state) => state.service)
   const dispatch = useDispatch()
@@ -40,7 +40,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       loggedUser?.services.find((s) => s.service._id === selectedService?._id)
     )
   }, [selectedService])
-
+  console.log({ userService, formValues })
   useEffect(() => {
     if (!!selectedDate) {
       setStartDateToUse(selectedDate)
@@ -60,7 +60,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       start: startDateToUse,
       end: endDateToUse,
       service: selectedService?._id,
-      artist: activeAppointment?.artist._id,
+      artist: selectedUser?._id,
       client: activeAppointment?.client._id,
       payments: activeAppointment?.payments,
       price: userService?.price,
@@ -70,7 +70,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       createdByClient: activeAppointment?.createdByClient,
       hasAttended: activeAppointment?.hasAttended,
     })
-  }, [startDateToUse, selectedService])
+  }, [startDateToUse, selectedService, userService, selectedUser])
 
   const closeModal = () => {
     dispatch(uiCloseModal())
@@ -119,7 +119,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       </div>
       <div className='user-and-date-container'>
         <div className='client-img-and-name'>
-          {activeAppointment?.client?.avatarName ? (
+          {selectedUser?.avatarName ? (
             <div
               style={{
                 width: '3rem',
@@ -130,7 +130,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
               }}
             >
               <img
-                src={`https://appturnos.blob.core.windows.net/clientes/${activeAppointment.client?.avatarName}`}
+                src={`https://appturnos.blob.core.windows.net/usuarios/${selectedUser?.avatarName}`}
                 alt='Imagen del cliente'
                 style={{
                   width: '3rem',
@@ -144,7 +144,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
             <i className='fas fa-user no-client-img-icn'></i>
           )}
 
-          <h4>{activeAppointment?.client?.name}</h4>
+          <h4>{selectedUser?.name}</h4>
         </div>
         <span className='appointment-date'>
           <i className='fa fa-clock appointment-icn'></i>
