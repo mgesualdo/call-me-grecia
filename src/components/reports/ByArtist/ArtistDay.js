@@ -42,6 +42,7 @@ const ArtistDay = ({ artistData }) => {
           <div>
             <span className='from-time'>{format(d.start, 'dd/MM/yyyy')}</span>
           </div>
+
           <div>
             <span style={{ fontWeight: 'bolder', color: '#1a8' }}>
               {' '}

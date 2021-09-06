@@ -27,7 +27,7 @@ const ArtistWeek = ({ artistData }) => {
           onClick={() => isCurrentWeek(w.weekStart, w.weekEnd)}
         >
           <div>
-            <span>Semana del </span>
+            <span>Del </span>
             <span className='from-time'>
               {format(w.weekStart, 'dd/MM/yyyy')}
             </span>
@@ -36,7 +36,12 @@ const ArtistWeek = ({ artistData }) => {
               {format(w.weekEnd, 'dd/MM/yyyy')}
             </span>{' '}
           </div>
-          <div>
+          <div
+            style={{ paddingLeft: '1.1rem', textAlign: 'left', width: '5rem' }}
+          >
+            {!artist.roles.includes('ADMIN') && <b>${w.gathered * 0.5}</b>}
+          </div>
+          <div style={{ textAlign: 'right', width: '10rem' }}>
             <span style={{ fontWeight: 'bolder', color: '#1a8' }}>
               {' '}
               ${w.gathered}

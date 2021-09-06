@@ -173,10 +173,12 @@ const ReportsScreen = () => {
             backgroundColor: frecuencia === 'dia' ? '#da9078' : '#dabcb2',
             marginTop: '2rem',
             outline: 'none',
+            width: '8rem',
+            fontWeight: 'bold',
           }}
           onClick={() => setFrecuencia('dia')}
         >
-          Ver por día
+          Diario
         </button>
         <button
           style={{
@@ -188,10 +190,12 @@ const ReportsScreen = () => {
             marginTop: '2rem',
             marginLeft: '1rem',
             outline: 'none',
+            width: '8rem',
+            fontWeight: 'bold',
           }}
           onClick={() => setFrecuencia('semana')}
         >
-          Ver por semana
+          Semanal
         </button>
         <button
           style={{
@@ -203,10 +207,12 @@ const ReportsScreen = () => {
             marginTop: '2rem',
             marginLeft: '1rem',
             outline: 'none',
+            width: '8rem',
+            fontWeight: 'bold',
           }}
           onClick={() => setFrecuencia('mes')}
         >
-          Ver por mes
+          Mensual
         </button>
       </div>
 
