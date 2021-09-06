@@ -9,17 +9,26 @@ import PayPendingPaymentButton from './PayPendingPaymentButton'
 import InfoIcon from '../ui/Icons/InfoIcon'
 
 const Payment = ({ payment, hasReserved, balance, reservationTimeExpired }) => {
-  const { status, createdAt, amount } = payment
+  const { status, createdAt, amount, method } = payment
 
   console.log({ createdAt })
 
   return (
     <div className='payment-info'>
       <div className='payment-time-and-status-container'>
-        <i className='fa fa-clock appointment-icn'></i>
-        <span className='payment-detail time'>
-          {moment(createdAt).format('ddd DD/MM HH:mm')}
-        </span>
+        {method === 'Mercado Pago' ? (
+          <>
+            <i className='fa fa-clock appointment-icn'></i>
+            <span className='payment-detail time'>
+              {moment(createdAt).format('ddd DD/MM HH:mm')}
+            </span>
+          </>
+        ) : (
+          <>
+            <i className='fa fa-clock appointment-icn'></i>
+            <small>Pago en efectivo</small>
+          </>
+        )}
         {status === 'PENDIENTE' ? (
           <WarningIcon title='Pago pendiente' />
         ) : status === 'APROBADO' ? (

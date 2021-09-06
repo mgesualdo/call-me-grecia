@@ -6,7 +6,7 @@
   width: 60vw;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(23rem, 29rem));
-  grid-template-rows: 20rem;
+  grid-template-rows: 25rem;
   transition: all 0.1s ease;
   gap: 2rem;
   padding-bottom: 7rem;
