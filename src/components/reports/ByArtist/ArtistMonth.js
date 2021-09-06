@@ -1,5 +1,5 @@
 import React from 'react'
-import { addDays, format, getDay, getMonth, getYear } from 'date-fns'
+import { getMonth, getYear } from 'date-fns'
 import './artistWeek.css'
 import ImageAndName from '../../ui/ImageAndName'
 
@@ -16,8 +16,6 @@ const ArtistMonth = ({ artistData }) => {
 
     return `${mesHoy}-${anoHoy}` === start
   }
-
-  console.log({ artistData })
 
   return (
     <div className='artist-data-container' key={artistId}>

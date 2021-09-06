@@ -27,6 +27,7 @@ import VerifyEmailScreen from '../components/auth/VerifyEmailScreen'
 import ClientsScreen from '../components/clients/ClientsScreen'
 import RegisterClientScreen from '../components/auth/RegisterClientScreen'
 import ClientPasswordChangeScreen from '../components/clients/ClientPasswordChangeScreen'
+import UserAppointmentsByDateScreen from '../components/clients/UserAppointmentsByDateScreen'
 import NoveltiesScreen from '../components/novelties/NoveltiesScreen'
 import ReportsScreen from '../components/reports/ReportsScreen'
 
@@ -92,6 +93,13 @@ export const AppRouter = () => {
             exact
             path='/users/appointments/change-date'
             component={ChangeAppointmentDateScreen}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/appointments/:selectedDate'
+            component={UserAppointmentsByDateScreen}
             isAuthenticated={!!loggedUser}
             isUser
           />

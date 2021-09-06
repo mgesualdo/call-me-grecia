@@ -4,7 +4,6 @@ import Swal from 'sweetalert2'
 
 export const getAppointmentsPerArtist = () => {
   return async (dispatch) => {
-    console.log('LA CONCHA DE LA LORA')
     const resp = await fetchSinToken('report/appointments', {}, 'GET')
     const body = await resp.json()
 

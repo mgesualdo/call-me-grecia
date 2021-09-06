@@ -2,9 +2,12 @@ import React from 'react'
 import { addDays, format, getDay } from 'date-fns'
 import './artistWeek.css'
 import ImageAndName from '../../ui/ImageAndName'
+import { useHistory } from 'react-router'
 
 const ArtistDay = ({ artistData }) => {
   const { artist, data } = artistData
+
+  const history = useHistory()
 
   const isCurrentDay = (start) => {
     const hoy = format(new Date(), 'yy-MM-dd')
@@ -18,6 +21,11 @@ const ArtistDay = ({ artistData }) => {
     return dia === hoy
   }
 
+  const handleClick = (start) => {
+    const formattedDate = format(start, 'yyyy-MM-dd')
+    history.push(`/users/appointments/${formattedDate}`)
+  }
+
   return (
     <div className='artist-data-container'>
       <div className='artist-name-container'>
@@ -26,7 +34,10 @@ const ArtistDay = ({ artistData }) => {
       {data.map((d) => (
         <div
           key={+d.start}
-          className={`week-container ${isCurrentDay(d.start) && 'current-day'}`}
+          className={`day week-container ${
+            isCurrentDay(d.start) && 'current-day'
+          }`}
+          onClick={() => handleClick(d.start)}
         >
           <div>
             <span className='from-time'>{format(d.start, 'dd/MM/yyyy')}</span>

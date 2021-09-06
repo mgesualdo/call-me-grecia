@@ -48,11 +48,14 @@ const PaymentActions = ({ appointment }) => {
 
   return (
     <>
-      {balance > 0 && loggedUser && (
-        <button onClick={handleClick} className='pay pay-bigger'>
-          {loading ? <Spinner /> : 'Cargar pago'}
-        </button>
-      )}
+      {balance > 0 &&
+        appointment.isValid &&
+        loggedUser &&
+        loggedUser?.roles.includes('ADMIN') && (
+          <button onClick={handleClick} className='pay pay-bigger'>
+            {loading ? <Spinner /> : 'Cargar pago'}
+          </button>
+        )}
     </>
   )
 }

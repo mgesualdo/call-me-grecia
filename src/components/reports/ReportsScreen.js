@@ -12,9 +12,13 @@ import Spinner from '../ui/Spinner'
 const ReportsScreen = () => {
   const [frecuencia, setFrecuencia] = useState('dia')
   const { appointmentsPerArtist } = useSelector((state) => state.report)
+  const { loggedUser } = useSelector((state) => state.auth)
   console.log({ appointmentsPerArtist })
   const appointmentsGrouppedByArtist = appointmentsPerArtist.weeklyAppointments
-    ?.filter((app) => app.artist.deleted === false)
+    ?.filter((app) => {
+      if (loggedUser.roles.includes('ADMIN')) return !app.artist.deleted
+      return !app.artist.deleted && app.artist._id === loggedUser._id
+    })
     .reduce(
       (accumulator, currentValue, index) => {
         const currentArtistId = currentValue.artist._id
@@ -57,7 +61,10 @@ const ReportsScreen = () => {
 
   const appointmentsGrouppedByArtistDaily =
     appointmentsPerArtist.dailyAppointments
-      ?.filter((app) => app.artist.deleted === false)
+      ?.filter((app) => {
+        if (loggedUser.roles.includes('ADMIN')) return !app.artist.deleted
+        return !app.artist.deleted && app.artist._id === loggedUser._id
+      })
       .reduce(
         (accumulator, currentValue, index) => {
           const currentArtistId = currentValue.artist._id
@@ -98,7 +105,10 @@ const ReportsScreen = () => {
 
   const appointmentsGrouppedByArtistMonthly =
     appointmentsPerArtist.monthlyAppointments
-      ?.filter((app) => app.artist.deleted === false)
+      ?.filter((app) => {
+        if (loggedUser.roles.includes('ADMIN')) return !app.artist.deleted
+        return !app.artist.deleted && app.artist._id === loggedUser._id
+      })
       .reduce(
         (accumulator, currentValue, index) => {
           console.log({ currentValue })
