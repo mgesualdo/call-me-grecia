@@ -83,6 +83,7 @@ const UserAppointmentsByDateScreen = () => {
                 key={appointment._id}
                 appointment={appointment}
                 isClient={false}
+                needsClientInfo
               />
             ))}
           {otherUsersAppointments?.length == 0 && (
