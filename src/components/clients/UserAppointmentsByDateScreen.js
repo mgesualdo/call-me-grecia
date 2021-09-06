@@ -39,15 +39,15 @@ const UserAppointmentsByDateScreen = () => {
       <UserNavbar />
       <div className='appointment-screen-container'>
         <div className='d-flex align-items-center mb-3'>
-          <h2 className='mr-5'>
+          <h3 className='mr-5'>
             <span role='img' aria-label='Emoji calendario'>
               📅
             </span>{' '}
             Mis turnos{' '}
-            <span style={{ color: '#2277ff', fontWeight: 'bold' }}>
+            <small style={{ color: '#2277ff', fontWeight: 'bold' }}>
               {formattedDate}
-            </span>
-          </h2>
+            </small>
+          </h3>
         </div>
         <div
           className='appointments-container'
@@ -59,19 +59,20 @@ const UserAppointmentsByDateScreen = () => {
                 key={appointment._id}
                 appointment={appointment}
                 isClient={false}
+                needsClientInfo
               />
             ))}
         </div>
         <div className='d-flex align-items-center mb-3'>
-          <h2 className='mr-5'>
+          <h3 className='mr-5'>
             <span role='img' aria-label='Emoji calendario'>
               📅
             </span>{' '}
             Turnos de mi staff{' '}
-            <span style={{ color: '#2277ff', fontWeight: 'bold' }}>
+            <small style={{ color: '#2277ff', fontWeight: 'bold' }}>
               {formattedDate}
-            </span>
-          </h2>
+            </small>
+          </h3>
         </div>
         <div className='appointments-container'>
           {loggedUser &&

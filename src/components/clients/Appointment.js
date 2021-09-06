@@ -11,10 +11,16 @@ import { NewPaymentModal } from '../payments/NewPaymentModal'
 import { differenceInMinutes, parseISO } from 'date-fns'
 import { CancelAppointmentFab } from '../ui/Fabs/CancelAppointmentFab'
 
-const Appointment = ({ appointment, smaller = false, isClient = false }) => {
+const Appointment = ({
+  appointment,
+  smaller = false,
+  isClient = false.valueOf,
+  needsClientInfo = false,
+}) => {
   const { avatarName, name: userName } = appointment.artist
 
   const { images, name: serviceName } = appointment.service
+  const { name: clientName, lastname: clientLastname } = appointment.client
 
   const reservationTimeExpired =
     differenceInMinutes(new Date(), parseISO(appointment.createdAt)) > 30
@@ -59,6 +65,17 @@ const Appointment = ({ appointment, smaller = false, isClient = false }) => {
             <ImageAndName name={serviceName} imageName={images[0]} />
             <AppointmentPrice price={appointment.price} />
           </div>
+          {needsClientInfo && (
+            <div>
+              <u>
+                <b>Cliente</b>
+              </u>
+              :{' '}
+              <b style={{ color: '#2277ff', fontWeight: 'bold' }}>
+                {clientName}, {clientLastname.toUpperCase()}
+              </b>
+            </div>
+          )}
         </div>
         <Payments
           payments={appointment.payments}
