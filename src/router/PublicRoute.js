@@ -41,7 +41,7 @@ export const PublicRoute = ({
               <>
                 <Address />
                 <InstagramFab />
-                <WhatsappFab />
+                {/* <WhatsappFab /> */}
               </>
             )}
           </>
