@@ -226,24 +226,24 @@ const ReportsScreen = () => {
           <Spinner />
         </div>
       )}
-      {frecuencia === 'dia' &&
-        appointmentsGrouppedByArtistDaily?.map((artistData) => (
-          <>
+      <div style={{ paddingBottom: frecuencia === 'dia' && '6rem' }}>
+        {frecuencia === 'dia' &&
+          appointmentsGrouppedByArtistDaily?.map((artistData) => (
             <ArtistDay artistData={artistData} key={artistData.artistId} />
-          </>
-        ))}
-      {frecuencia === 'semana' &&
-        appointmentsGrouppedByArtist?.map((artistData) => (
-          <>
+          ))}
+      </div>
+      <div style={{ paddingBottom: frecuencia === 'semana' && '6rem' }}>
+        {frecuencia === 'semana' &&
+          appointmentsGrouppedByArtist?.map((artistData) => (
             <ArtistWeek artistData={artistData} key={artistData.artistId} />
-          </>
-        ))}
-      {frecuencia === 'mes' &&
-        appointmentsGrouppedByArtistMonthly?.map((artistData) => (
-          <>
+          ))}
+      </div>
+      <div style={{ paddingBottom: frecuencia === 'mes' && '6rem' }}>
+        {frecuencia === 'mes' &&
+          appointmentsGrouppedByArtistMonthly?.map((artistData) => (
             <ArtistMonth artistData={artistData} key={artistData.artistId} />
-          </>
-        ))}
+          ))}
+      </div>
     </>
   )
 }
