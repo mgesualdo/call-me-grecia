@@ -5,6 +5,7 @@ import ImageAndName from '../../ui/ImageAndName'
 
 const ArtistWeek = ({ artistData }) => {
   const { artist, data } = artistData
+  console.log({ artist })
 
   const isCurrentWeek = (start, end) => {
     const hoy = new Date()
@@ -39,12 +40,19 @@ const ArtistWeek = ({ artistData }) => {
           <div
             style={{ paddingLeft: '1.1rem', textAlign: 'left', width: '5rem' }}
           >
-            {!artist.roles.includes('ADMIN') && <b>${w.gathered * 0.5}</b>}
+            {!artist.roles.includes('ADMIN') && (
+              <b>
+                ${(w.gathered - w.gatheredReservationsWithoutAssistance) * 0.5}
+              </b>
+            )}
           </div>
           <div style={{ textAlign: 'right', width: '10rem' }}>
             <span style={{ fontWeight: 'bolder', color: '#1a8' }}>
               {' '}
-              ${w.gathered}
+              $
+              {artist.roles.includes('ADMIN')
+                ? w.gathered
+                : w.gathered - w.gatheredReservationsWithoutAssistance}
             </span>{' '}
             /
             <span style={{ fontWeight: 'bolder', color: '#333' }}>

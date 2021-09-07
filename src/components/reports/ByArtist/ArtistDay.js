@@ -5,7 +5,7 @@ import ImageAndName from '../../ui/ImageAndName'
 import { useHistory } from 'react-router'
 
 const ArtistDay = ({ artistData }) => {
-  const { artist, data } = artistData
+  const { artist, data, artistId } = artistData
 
   const history = useHistory()
 
@@ -22,8 +22,9 @@ const ArtistDay = ({ artistData }) => {
   }
 
   const handleClick = (start) => {
+    // console.log({ artistId })
     const formattedDate = format(start, 'yyyy-MM-dd')
-    history.push(`/users/appointments/${formattedDate}`)
+    history.push(`/users/appointments/${formattedDate}?artistId=${artistId}`)
   }
 
   return (
@@ -37,7 +38,7 @@ const ArtistDay = ({ artistData }) => {
           className={`day week-container ${
             isCurrentDay(d.start) && 'current-day'
           }`}
-          onClick={() => handleClick(d.start)}
+          onClick={() => handleClick(d.start, d)}
         >
           <div>
             <span className='from-time'>{format(d.start, 'dd/MM/yyyy')}</span>

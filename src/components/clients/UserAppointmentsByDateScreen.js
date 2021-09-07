@@ -6,6 +6,12 @@ import './appointmentsScreen.css'
 import { useParams } from 'react-router'
 import { UserNavbar } from '../ui/UserNavbar'
 import { format } from 'date-fns'
+import { useLocation } from 'react-router-dom'
+import { addDays } from 'date-fns'
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search)
+}
 
 const UserAppointmentsByDateScreen = () => {
   const [userAppointments, setUserAppointments] = useState()
@@ -14,7 +20,9 @@ const UserAppointmentsByDateScreen = () => {
 
   const { selectedDate } = useParams()
 
-  const formattedDate = format(new Date(selectedDate), 'dd-MM-yyyy')
+  const artistId = useQuery().get('artistId')
+
+  const formattedDate = format(addDays(new Date(selectedDate), 1), 'dd-MM-yyyy')
 
   useEffect(() => {
     fetchSinToken(`appointment/${selectedDate}`)
@@ -38,31 +46,35 @@ const UserAppointmentsByDateScreen = () => {
     <div>
       <UserNavbar />
       <div className='appointment-screen-container'>
-        <div className='d-flex align-items-center mb-3'>
-          <h3 className='mr-5'>
-            <span role='img' aria-label='Emoji calendario'>
-              📅
-            </span>{' '}
-            Mis turnos{' '}
-            <small style={{ color: '#2277ff', fontWeight: 'bold' }}>
-              {formattedDate}
-            </small>
-          </h3>
-        </div>
-        <div
-          className='appointments-container'
-          style={{ paddingBottom: '3rem' }}
-        >
-          {userAppointments?.length > 0 &&
-            userAppointments.map((appointment) => (
-              <Appointment
-                key={appointment._id}
-                appointment={appointment}
-                isClient={false}
-                needsClientInfo
-              />
-            ))}
-        </div>
+        {loggedUser?._id === artistId && (
+          <>
+            <div className='d-flex align-items-center mb-3'>
+              <h3 className='mr-5'>
+                <span role='img' aria-label='Emoji calendario'>
+                  📅
+                </span>{' '}
+                Mis turnos{' '}
+                <small style={{ color: '#2277ff', fontWeight: 'bold' }}>
+                  {formattedDate}
+                </small>
+              </h3>
+            </div>
+            <div
+              className='appointments-container'
+              style={{ paddingBottom: '3rem' }}
+            >
+              {userAppointments?.length > 0 &&
+                userAppointments.map((appointment) => (
+                  <Appointment
+                    key={appointment._id}
+                    appointment={appointment}
+                    isClient={false}
+                    needsClientInfo
+                  />
+                ))}
+            </div>
+          </>
+        )}
         <div className='d-flex align-items-center mb-3'>
           <h3 className='mr-5'>
             <span role='img' aria-label='Emoji calendario'>

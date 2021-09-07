@@ -21,9 +21,12 @@ const ReportsScreen = () => {
     })
     .reduce(
       (accumulator, currentValue, index) => {
+        console.log({ currentWeekValue: currentValue })
         const currentArtistId = currentValue.artist._id
         const salesAmount = currentValue.salesAmount
         const gathered = currentValue.gathered
+        const gatheredReservationsWithoutAssistance =
+          currentValue.gatheredReservationsWithoutAssistance
         const weekEnd = addDays(new Date(currentValue._id.weekEnd), 1)
         const isArtistAlready = accumulator.some(
           (u) => u.artistId === currentArtistId
@@ -40,6 +43,7 @@ const ReportsScreen = () => {
                 weekEnd,
                 salesAmount,
                 gathered,
+                gatheredReservationsWithoutAssistance,
               },
             ],
           }
@@ -52,6 +56,7 @@ const ReportsScreen = () => {
             weekEnd,
             salesAmount,
             gathered,
+            gatheredReservationsWithoutAssistance,
           })
         }
         return accumulator
