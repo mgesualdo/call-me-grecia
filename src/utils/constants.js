@@ -113,6 +113,12 @@ export const userMenuOptions = [
     allowedRoles: ['ADMIN', 'USER'],
   },
   {
+    path: '/users/appointments/create',
+    text: 'Nuevo turno',
+    icon: 'far fa-calendar-plus',
+    allowedRoles: ['ADMIN'],
+  },
+  {
     path: '/users/novelties',
     text: 'Nueva novedad',
     icon: 'far fa-newspaper',
