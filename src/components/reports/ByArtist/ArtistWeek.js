@@ -28,7 +28,6 @@ const ArtistWeek = ({ artistData }) => {
           onClick={() => isCurrentWeek(w.weekStart, w.weekEnd)}
         >
           <div>
-            <span>Del </span>
             <span className='from-time'>
               {format(w.weekStart, 'dd/MM/yyyy')}
             </span>

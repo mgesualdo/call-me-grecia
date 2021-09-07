@@ -5,7 +5,11 @@
 .week-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.7rem 1rem;
+  min-width: 25rem;
+  width: 97vw;
+  max-width: 30rem;
   background-color: #fff;
   border-radius: 0.5rem;
   margin: 0.8rem 0.5rem 0.5rem 0.5rem;
