@@ -52,8 +52,8 @@ export const CalendarModal = ({ selectedDate, whenWasOpened }) => {
     )
 
     let sena =
-      userService?.price * 0.3 <= 300
-        ? 300
+      userService?.price * 0.3 <= 600
+        ? 600
         : Math.ceil((userService?.price * 0.3) / 100) * 100
     setReservationCost(sena)
 
