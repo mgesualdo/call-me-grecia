@@ -9,6 +9,8 @@ export const getServices = (searchTerm) => {
 
       const resp = await fetchSinToken(url, {}, 'GET')
       const body = await resp.json()
+
+      console.log({ body })
       if (body.ok) {
         dispatch({ type: types.getServices, payload: body.services })
       } else {
