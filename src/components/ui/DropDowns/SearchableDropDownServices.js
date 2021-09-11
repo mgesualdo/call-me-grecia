@@ -5,7 +5,7 @@ import { getServices, setSelectedService } from '../../../actions/services'
 import { setSelectedUser } from '../../../actions/users'
 import './searchableDropDown.css'
 
-const SearchableDropDownServices = ({ smaller = false }) => {
+const SearchableDropDownServices = ({ smaller = false, userServices }) => {
   const [active, setActive] = useState(false)
   const [textToSearch, setTextToSearch] = useState('')
   const [servicesToShow, setServicesToShow] = useState([])
@@ -16,8 +16,10 @@ const SearchableDropDownServices = ({ smaller = false }) => {
 
   useEffect(() => {
     if (!!selectedUser && loggedUser) {
-      console.log('Entró mal')
-      setServicesToShow(selectedUser.services)
+      setServicesToShow(userServices)
+    } else {
+      let filteredServices = services.filter((s) => s?.usersCount > 0)
+      setServicesToShow(filteredServices)
     }
   }, [selectedUser])
 
