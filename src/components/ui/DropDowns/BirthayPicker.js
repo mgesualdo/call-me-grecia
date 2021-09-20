@@ -3,6 +3,7 @@ import DaysDropDown from './DaysDropDown'
 import MonthsDropDown from './MonthsDropDown'
 import YearsDropDown from './YearsDropDown'
 import { months } from '../../../utils/constants'
+import { addHours } from 'date-fns/esm'
 
 const BirthdayPicker = ({
   selectedDay,
@@ -20,7 +21,7 @@ const BirthdayPicker = ({
   useEffect(() => {
     if (birthday) {
       const contenidoSelectDay = document.getElementById('contenido-select-day')
-      const day = new Date(birthday).getDate()
+      const day = new Date(birthday).getDate() + 1
       const birthdayDay = document.getElementById(day).innerHTML
       contenidoSelectDay.firstChild.innerHTML = birthdayDay
       const contenidoSelectMonth = document.getElementById(
