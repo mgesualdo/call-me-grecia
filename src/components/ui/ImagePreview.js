@@ -9,7 +9,6 @@ const ImagePreview = ({
   setPreviewImageUrls,
   imageIndex,
 }) => {
-  console.log({ avatarFiles })
   const handleImageClick = () => {
     const button = document.getElementById(relatedButtonId)
     button.click()

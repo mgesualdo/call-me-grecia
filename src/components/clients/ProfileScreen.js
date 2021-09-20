@@ -52,12 +52,15 @@ const ProfileScreen = () => {
     formData.append('client', JSON.stringify(formRegisterValues))
     const url = `${baseUrl}/client/${loggedClient._id}`
 
+    console.log({ formData })
+
     fetch(url, {
       method: 'PUT',
       body: formData,
     })
       .then((res) => res.json())
       .then(({ ok, updatedClient }) => {
+        console.log({ ok })
         if (ok) {
           dispatch(loginClient(updatedClient))
           Swal.fire('Listo!', `Tus datos actualizados con éxito!`, 'success')
@@ -88,6 +91,8 @@ const ProfileScreen = () => {
   useEffect(() => {
     handleChange(`${selectedYear}/${selectedMonth}/${selectedDay}`)
   }, [selectedDay, selectedMonth, selectedYear])
+
+  console.log({ selectedMonth, selectedYear, selectedDay })
 
   return (
     <>

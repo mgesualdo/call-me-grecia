@@ -59,9 +59,9 @@ export const updateClient = (formData, _id) => {
   return async (dispatch) => {
     try {
       dispatch(uiLoadingUpdatingClient(true))
-      console.log(formData)
       const resp = await fetchSinToken(`client/${_id}`, formData, 'PUT', true)
       const body = await resp.json()
+      console.log('QUE ONDA')
 
       if (body.ok) {
         dispatch(loginClient(body.updatedClient))

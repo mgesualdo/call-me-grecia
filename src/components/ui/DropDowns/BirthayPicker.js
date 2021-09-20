@@ -18,7 +18,6 @@ const BirthdayPicker = ({
   const [yearsActive, setYearsActive] = useState(false)
 
   useEffect(() => {
-    console.log({ birthday })
     if (birthday) {
       const contenidoSelectDay = document.getElementById('contenido-select-day')
       const day = new Date(birthday).getDate()
@@ -28,10 +27,10 @@ const BirthdayPicker = ({
         'contenido-select-month'
       )
       const monthId = new Date(birthday).getMonth()
-      const monthName = months[monthId]
-      console.log({ monthName, monthId })
-      const birthdayMonth = document.getElementById(monthName.number)?.innerHTML
-      contenidoSelectMonth.firstChild.innerHTML = monthName.name
+      const month = months[monthId]
+      console.log({ monthName: month.name, monthId })
+      const birthdayMonth = document.getElementById(month.number)?.innerHTML
+      contenidoSelectMonth.firstChild.innerHTML = month.name
       const contenidoSelectYear = document.getElementById(
         'contenido-select-year'
       )
@@ -40,7 +39,7 @@ const BirthdayPicker = ({
       contenidoSelectYear.firstChild.innerHTML = birthdayYear
 
       setSelectedDay(day)
-      setSelectedMonth(monthName)
+      setSelectedMonth(month.name)
       setSelectedYear(year)
     } else {
       setSelectedDay(null)
