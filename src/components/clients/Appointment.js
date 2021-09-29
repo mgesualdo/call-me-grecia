@@ -19,7 +19,8 @@ const Appointment = ({
 }) => {
   const { avatarName, name: userName } = appointment.artist
 
-  const { images, name: serviceName } = appointment.service
+  const serviceName = appointment.service?.name
+  const images = appointment.service?.images
   const { name: clientName, lastname: clientLastname } = appointment.client
 
   const reservationTimeExpired =
@@ -62,7 +63,7 @@ const Appointment = ({
             <AppointmentTime start={appointment.start} />
           </div>
           <div className='service-and-price-modal'>
-            <ImageAndName name={serviceName} imageName={images[0]} />
+            <ImageAndName name={serviceName} imageName={images && images[0]} />
             <AppointmentPrice price={appointment.price} />
           </div>
           {needsClientInfo && (
