@@ -10,11 +10,13 @@ import AppointmentStatus from './AppointmentStatus'
 import { NewPaymentModal } from '../payments/NewPaymentModal'
 import { differenceInMinutes, parseISO } from 'date-fns'
 import { CancelAppointmentFab } from '../ui/Fabs/CancelAppointmentFab'
+import { AddAttachmentFab } from '../ui/Fabs/AddAttachmentFab'
+import { useLocation } from 'react-router'
 
 const Appointment = ({
   appointment,
   smaller = false,
-  isClient = false.valueOf,
+  isClient = false,
   needsClientInfo = false,
 }) => {
   const { avatarName, name: userName } = appointment.artist
@@ -22,6 +24,8 @@ const Appointment = ({
   const serviceName = appointment.service?.name
   const images = appointment.service?.images
   const { name: clientName, lastname: clientLastname } = appointment.client
+
+  const location = useLocation()
 
   const reservationTimeExpired =
     differenceInMinutes(new Date(), parseISO(appointment.createdAt)) > 30
@@ -38,9 +42,7 @@ const Appointment = ({
       p.status === 'APROBADO'
   )
 
-  console.log({
-    yaPaso: differenceInMinutes(new Date(), new Date(appointment?.start)),
-  })
+  const cantidadAttachments = appointment.attachments.length
 
   return (
     <>
@@ -97,6 +99,9 @@ const Appointment = ({
               appointment={appointment}
               show={!appointment.hasReserved || !reservationTimeExpired}
             />
+          )}
+          {!isClient && !location.pathname.includes('attachment') && (
+            <AddAttachmentFab appointment={appointment} />
           )}
         </div>
         <NewPaymentModal />

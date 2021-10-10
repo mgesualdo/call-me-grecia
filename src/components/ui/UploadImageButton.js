@@ -2,7 +2,13 @@ import React from 'react'
 
 import './uploadImageButton.css'
 
-const UploadImageButton = ({ inputId, icon, handleChange, show = true }) => {
+const UploadImageButton = ({
+  inputId,
+  icon,
+  handleChange,
+  show = true,
+  multiple = false,
+}) => {
   return (
     <label
       htmlFor={inputId}
@@ -15,6 +21,7 @@ const UploadImageButton = ({ inputId, icon, handleChange, show = true }) => {
         id={inputId}
         onChange={handleChange}
         accept='image/*'
+        multiple={multiple}
       />
       <i className={icon}></i>
       <span className='choose-image'> Elegir una imagen</span>

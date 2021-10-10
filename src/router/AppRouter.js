@@ -7,6 +7,7 @@ import { PrivateRoute } from './PrivateRoute'
 
 import { LoginClientScreen } from '../components/auth/LoginClientScreen'
 import HomeScreen from '../components/home/HomeScreen'
+import AddAttachmentScreen from '../components/home/AddAttachmentScreen'
 import HomeScreenUser from '../components/home/HomeScreenUser'
 import ChangeAppointmentDateScreen from '../components/home/ChangeAppointmentDateScreen'
 import AppointmentsScreen from '../components/clients/AppointmentsScreen'
@@ -114,6 +115,13 @@ export const AppRouter = () => {
             exact
             path='/users/clients'
             component={ClientsScreen}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/clients/attachment'
+            component={AddAttachmentScreen}
             isAuthenticated={!!loggedUser}
             isUser
           />

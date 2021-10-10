@@ -1,0 +1,30 @@
+button.attachment-fab:hover {
+  transform: scale(1.1);
+  background: rgb(24, 92, 200);
+  color: #fff;
+}
+
+button.attachment-fab {
+  width: 2.5rem;
+  height: 2.5rem;
+  transform: scale(1);
+  position: absolute;
+  top: -1rem;
+  left: -0.8rem;
+  border-radius: 3rem;
+  border: none;
+  outline: none;
+  background: rgb(24, 92, 200);
+  transition: all 0.12s ease-in-out;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 0.7rem;
+}
+
+button.attachment-fab i {
+  font-size: 1rem;
+}
+
+button.has-attachments {
+  background: rgb(3, 190, 75);
+}
