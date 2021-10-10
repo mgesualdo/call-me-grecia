@@ -39,6 +39,7 @@ Modal.setAppElement('#root')
 export const NewPaymentModal = () => {
   const { newPaymentModalOpen, loading } = useSelector((state) => state.ui)
   const { activeAppointment } = useSelector((state) => state.user)
+  const { loggedUser } = useSelector((state) => state.auth)
   const { selectedClient } = useSelector((state) => state.client)
   const [creatingPayment, setCreatingPayment] = useState(false)
 
@@ -79,6 +80,7 @@ export const NewPaymentModal = () => {
           kind: balance > paymentAmount ? 'PAGO PARCIAL' : 'PAGO TOTAL',
           amount: paymentAmount,
           status: 'APROBADO',
+          createdBy: loggedUser._id,
         },
         isUserCreating: true,
       },
