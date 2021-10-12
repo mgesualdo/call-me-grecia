@@ -131,7 +131,7 @@ export const userMenuOptions = [
     allowedRoles: ['ADMIN', 'USER'],
   },
   {
-    path: '/users/cashflow/create',
+    path: '/users/cashflows',
     text: 'Caja',
     icon: 'fas fa-cash-register',
     allowedRoles: ['ADMIN', 'USER'],

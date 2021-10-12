@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
 import { cashflowConcepts } from '../../utils/constants'
+import Spinner from '../ui/Spinner'
 
 const baseUrl = process.env.REACT_APP_API_URL
 
@@ -15,6 +16,7 @@ const AddCashflowScreen = () => {
   const { loggedUser } = useSelector((state) => state.auth)
   const [details, setDetails] = useState('')
   const [selectedConcept, setSelectedConcept] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedTo, setSelectedTo] = useState('')
   const [amount, setAmount] = useState()
 
@@ -30,12 +32,14 @@ const AddCashflowScreen = () => {
     if (
       !selectedConcept ||
       !amount ||
-      (selectedConcept === 'GIRO' && !selectedTo)
+      (selectedConcept === 'GIRO' && !selectedTo) ||
+      isLoading
     )
       return
 
     const url = `${baseUrl}/cashflow`
 
+    setIsLoading(true)
     fetch(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -65,6 +69,7 @@ const AddCashflowScreen = () => {
         }
       })
       .catch((e) => {
+        setIsLoading(false)
         Swal.fire(
           'Error del servidor',
           'Contacte al administrador de la aplicación',
@@ -163,12 +168,18 @@ const AddCashflowScreen = () => {
             borderRadius: '1rem',
             width: '100%',
             marginTop: '1rem',
+            border: 'none',
           }}
           onClick={handleSumbit}
         >
-          Crear movimiento
+          {isLoading ? <Spinner smallest /> : 'Crear movimiento'}
         </button>
       </div>
+      <style jsx>{`
+        button:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+      `}</style>
     </>
   )
 }

@@ -10,6 +10,7 @@ import HomeScreen from '../components/home/HomeScreen'
 import AddAttachmentScreen from '../components/home/AddAttachmentScreen'
 import AddCommentScreen from '../components/home/AddCommentScreen'
 import AddCashflowScreen from '../components/home/AddCashflowScreen'
+import CashflowsScreen from '../components/home/CashflowsScreen'
 import HomeScreenUser from '../components/home/HomeScreenUser'
 import ChangeAppointmentDateScreen from '../components/home/ChangeAppointmentDateScreen'
 import AppointmentsScreen from '../components/clients/AppointmentsScreen'
@@ -94,7 +95,14 @@ export const AppRouter = () => {
           />
           <PrivateRoute
             exact
-            path='/users/cashflow/create'
+            path='/users/cashflows'
+            component={CashflowsScreen}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/cashflows/create'
             component={AddCashflowScreen}
             isAuthenticated={!!loggedUser}
             isUser
