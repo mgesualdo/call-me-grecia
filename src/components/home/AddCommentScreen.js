@@ -137,7 +137,7 @@ const AddCommentScreen = () => {
                   <div style={{ display: 'flex', marginTop: '0.2rem' }}>
                     <div className='comment'>
                       <img
-                        src={`${baseUrl}/usuarios/${c.avatarName}`}
+                        src={`https://appturnos.blob.core.windows.net/usuarios/${c.avatarName}`}
                         alt='Imagen del usuario'
                       />
                     </div>
