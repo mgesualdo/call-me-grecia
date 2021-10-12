@@ -106,15 +106,18 @@ const CashflowsScreen = () => {
                   <span
                     style={{
                       color: `${
-                        collects.find((c) => c._id === s._id).total - s.total >
-                        0
+                        collects.find((c) => c._id === s._id)?.total
+                          ? collects.find((c) => c._id === s._id).total
+                          : 0 - s.total > 0
                           ? 'green'
                           : 'red'
                       }`,
                     }}
                   >
                     {numberFormat.format(
-                      collects.find((c) => c._id === s._id).total - s.total
+                      collects.find((c) => c._id === s._id)?.total
+                        ? collects.find((c) => c._id === s._id).total
+                        : 0 - s.total
                     )}
                   </span>
                 </div>
