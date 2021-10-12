@@ -86,7 +86,11 @@ const CashflowsScreen = () => {
           <button onClick={handleClick}>Nuevo movimiento</button>
         </div>
         {showOtherCashflows && loggedUser.name === 'Grecia' && (
-          <div>
+          <div
+            style={{
+              marginTop: '1.5rem',
+            }}
+          >
             {saldos
               .filter((s) => s._id.name !== 'Grecia')
               .map((s) => (
@@ -95,7 +99,7 @@ const CashflowsScreen = () => {
                     display: 'flex',
                     width: '12rem',
                     justifyContent: 'space-between',
-                    marginTop: '1.5rem',
+                    marginTop: '0.3rem',
                   }}
                   key={s._id.id}
                 >
