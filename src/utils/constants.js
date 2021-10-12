@@ -166,4 +166,5 @@ export const cashflowConcepts = [
   { name: 'Inversiones', isSpending: false, isInvestment: true },
   { name: 'Comisiones', isSpending: true, isInvestment: false },
   { name: 'Otros', isSpending: true, isInvestment: false },
+  { name: 'Saldo inicial', isSpending: false, isInvestment: false },
 ]

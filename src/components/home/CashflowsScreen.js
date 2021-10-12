@@ -3,18 +3,21 @@ import Swal from 'sweetalert2'
 import { UserNavbar } from '../ui/UserNavbar'
 
 import './homeScreen.css'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory } from 'react-router'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
-import { cashflowConcepts } from '../../utils/constants'
 import Spinner from '../ui/Spinner'
 
 const baseUrl = process.env.REACT_APP_API_URL
+
+const options = { style: 'currency', currency: 'ARS' }
+const numberFormat = new Intl.NumberFormat('es-AR', options)
 
 const CashflowsScreen = () => {
   const { loggedUser } = useSelector((state) => state.auth)
   const [cashflows, setCashflows] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [currentCash, setCurrentCash] = useState(0)
 
   const history = useHistory()
 
@@ -24,15 +27,23 @@ const CashflowsScreen = () => {
 
   useEffect(() => {
     const url = `${baseUrl}/cashflow/${loggedUser._id}`
+
+    setIsLoading(true)
     fetch(url)
       .then((res) => res.json())
-      .then(({ data }) => {
+      .then(({ data, spents, collects }) => {
+        setIsLoading(false)
+        const spent = spents.find((s) => s._id === loggedUser._id)?.total
+        const collected = collects.find((s) => s._id === loggedUser._id)?.total
+        const cash = (!!collected ? collected : 0) - (!!spent ? spent : 0)
+        console.log({ spent, collected, cash })
+        setCurrentCash(cash)
         setCashflows(data)
       })
       .catch(console.log)
   }, [])
 
-  console.log({ cashflows })
+  console.log({ currentCash })
 
   return (
     <>
@@ -56,63 +67,78 @@ const CashflowsScreen = () => {
               fontWeight: 'bold',
             }}
           >
-            Movimientos de $
+            Saldo{' '}
+            <span
+              style={{
+                color: `${currentCash > 0 ? 'green' : 'red'}`,
+              }}
+            >
+              {numberFormat.format(currentCash)}
+            </span>
           </span>
           <button onClick={handleClick}>Nuevo movimiento</button>
         </div>
         <div style={{ marginTop: '2rem' }}>
-          {cashflows
-            .sort((a, b) => (a._id > b._id ? -1 : 1))
-            .map((c) => (
-              <div className='cashflow-container'>
-                <div style={{ width: '7rem' }}>
-                  <span
+          {isLoading ? (
+            <Spinner changeColor='blue' />
+          ) : (
+            cashflows
+              .sort((a, b) => (a._id > b._id ? -1 : 1))
+              .map((c) => (
+                <div className='cashflow-container' key={c._id}>
+                  <div style={{ width: '7rem' }}>
+                    <span
+                      style={{
+                        color: 'blue',
+                        fontWeight: 'bold',
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {c.concept}
+                    </span>
+                    <p style={{ fontWeight: 'bold' }}>
+                      {numberFormat.format(c.amount)}
+                    </p>
+                  </div>
+                  <span style={{ width: '13rem' }}>{c.details}</span>
+                  <div
                     style={{
-                      color: 'blue',
-                      fontWeight: 'bold',
-                      fontSize: '1.1rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      justifyContent: 'flex-start',
+                      height: '3.5rem',
+                      width: '6rem',
+                      textAlign: 'right',
                     }}
                   >
-                    {c.concept}
-                  </span>
-                  <p style={{ fontWeight: 'bold' }}>${c.amount}</p>
+                    <span
+                      style={{
+                        color: 'red',
+                        fontWeight: 'bold',
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {c?.from?.name}
+                    </span>
+                    <span
+                      style={{
+                        color: 'green',
+                        fontWeight: 'bold',
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {c?.to?.name}
+                    </span>
+                  </div>
+                  <small
+                    style={{ position: 'absolute', right: '1rem', bottom: '0' }}
+                  >
+                    {format(new Date(c.createdAt), 'dd/MM HH:mm')}
+                  </small>
                 </div>
-                <span style={{ width: '13rem' }}>{c.details}</span>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    width: '6rem',
-                    textAlign: 'right',
-                  }}
-                >
-                  <span
-                    style={{
-                      color: 'red',
-                      fontWeight: 'bold',
-                      fontSize: '1.1rem',
-                    }}
-                  >
-                    {c?.from?.name}
-                  </span>
-                  <span
-                    style={{
-                      color: 'green',
-                      fontWeight: 'bold',
-                      fontSize: '1.1rem',
-                    }}
-                  >
-                    {c?.to?.name}
-                  </span>
-                </div>
-                <small
-                  style={{ position: 'absolute', right: '1rem', bottom: '0' }}
-                >
-                  {format(new Date(c.createdAt), 'dd/MM HH:mm')}
-                </small>
-              </div>
-            ))}
+              ))
+          )}
         </div>
       </div>
       <style jsx>{`
@@ -142,7 +168,7 @@ const CashflowsScreen = () => {
         }
 
         .container {
-          width: 27rem;
+          width: 35rem;
           max-width: 95%;
           padding: 1rem;
           margin: 0 auto;
