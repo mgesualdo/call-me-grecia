@@ -131,6 +131,12 @@ export const userMenuOptions = [
     allowedRoles: ['ADMIN', 'USER'],
   },
   {
+    path: '/users/cashflow/create',
+    text: 'Caja',
+    icon: 'fas fa-cash-register',
+    allowedRoles: ['ADMIN', 'USER'],
+  },
+  {
     path: '/users/services',
     text: 'Servicios',
     icon: 'fas fa-concierge-bell',
@@ -148,4 +154,16 @@ export const userMenuOptions = [
     icon: 'fas fa-chart-line',
     allowedRoles: ['ADMIN', 'USER'],
   },
+]
+
+export const cashflowConcepts = [
+  { name: 'GIRO', isSpending: false, isInvestment: false },
+  { name: 'Alquiler', isSpending: true, isInvestment: false },
+  { name: 'Expensas', isSpending: true, isInvestment: false },
+  { name: 'Monotributo', isSpending: true, isInvestment: false },
+  { name: 'Wifi', isSpending: true, isInvestment: false },
+  { name: 'Insumos', isSpending: true, isInvestment: false },
+  { name: 'Inversiones', isSpending: false, isInvestment: true },
+  { name: 'Comisiones', isSpending: true, isInvestment: false },
+  { name: 'Otros', isSpending: true, isInvestment: false },
 ]
