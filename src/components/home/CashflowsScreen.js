@@ -19,8 +19,7 @@ const CashflowsScreen = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentCash, setCurrentCash] = useState(0)
   const [showOtherCashflows, setShowOtherCashflows] = useState(false)
-  const [spents, setSpents] = useState([])
-  const [collects, setCollects] = useState([])
+  const [saldos, setSaldos] = useState([])
 
   const history = useHistory()
 
@@ -34,14 +33,13 @@ const CashflowsScreen = () => {
     setIsLoading(true)
     fetch(url)
       .then((res) => res.json())
-      .then(({ data, spents, collects }) => {
+      .then(({ data, saldos }) => {
         setIsLoading(false)
-        setSpents(spents)
-        setCollects(collects)
-        const spent = spents.find((s) => s._id === loggedUser._id)?.total
-        const collected = collects.find((s) => s._id === loggedUser._id)?.total
-        const cash = (!!collected ? collected : 0) - (!!spent ? spent : 0)
-        setCurrentCash(cash)
+        const { collected, spent } = saldos.find(
+          (s) => s._id.id === loggedUser._id
+        )
+        setSaldos(saldos)
+        setCurrentCash(collected - spent)
         setCashflows(data)
       })
       .catch(console.log)
@@ -89,8 +87,8 @@ const CashflowsScreen = () => {
         </div>
         {showOtherCashflows && loggedUser.name === 'Grecia' && (
           <div>
-            {spents
-              .filter((s) => s.user[0].name !== 'Grecia')
+            {saldos
+              .filter((s) => s._id.name !== 'Grecia')
               .map((s) => (
                 <div
                   style={{
@@ -99,26 +97,16 @@ const CashflowsScreen = () => {
                     justifyContent: 'space-between',
                     marginTop: '1.5rem',
                   }}
-                  key={s._id}
+                  key={s._id.id}
                 >
-                  <span>{s.user[0].name}</span>
+                  <span>{s._id.name}</span>
 
                   <span
                     style={{
-                      color: `${
-                        collects.find((c) => c._id === s._id)?.total
-                          ? collects.find((c) => c._id === s._id).total
-                          : 0 - s.total > 0
-                          ? 'green'
-                          : 'red'
-                      }`,
+                      color: `${s.collected - s.spent > 0 ? 'green' : 'red'}`,
                     }}
                   >
-                    {numberFormat.format(
-                      collects.find((c) => c._id === s._id)?.total
-                        ? collects.find((c) => c._id === s._id).total
-                        : 0 - s.total
-                    )}
+                    {numberFormat.format(s.collected - s.spent)}
                   </span>
                 </div>
               ))}
