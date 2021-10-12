@@ -12,6 +12,7 @@ import { differenceInMinutes, parseISO } from 'date-fns'
 import { CancelAppointmentFab } from '../ui/Fabs/CancelAppointmentFab'
 import { AddAttachmentFab } from '../ui/Fabs/AddAttachmentFab'
 import { useLocation } from 'react-router'
+import { AddCommentFab } from '../ui/Fabs/AddCommentFab'
 
 const Appointment = ({
   appointment,
@@ -102,6 +103,9 @@ const Appointment = ({
           )}
           {!isClient && !location.pathname.includes('attachment') && (
             <AddAttachmentFab appointment={appointment} />
+          )}
+          {!isClient && !location.pathname.includes('comment') && (
+            <AddCommentFab appointment={appointment} />
           )}
         </div>
         <NewPaymentModal />

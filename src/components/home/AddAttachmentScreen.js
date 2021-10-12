@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Swal from 'sweetalert2'
 import { UserNavbar } from '../ui/UserNavbar'
 
@@ -6,18 +6,14 @@ import './homeScreen.css'
 import { useHistory, useLocation } from 'react-router'
 import Appointment from '../clients/Appointment'
 import UploadImageButton from '../ui/UploadImageButton'
-import ImagePreview from '../ui/ImagePreview'
 
 const baseUrl = process.env.REACT_APP_API_URL
 
-const HomeScreen = () => {
+const AddAttachmentScreen = () => {
   const [selectedFiles, setFiles] = useState([])
-
-  console.log({ selectedFiles })
 
   const location = useLocation()
   const { appointment } = location.state
-  console.log({ location })
 
   const history = useHistory()
 
@@ -68,8 +64,6 @@ const HomeScreen = () => {
         )
       })
   }
-
-  console.log({ appointment })
 
   return (
     <>
@@ -165,4 +159,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default AddAttachmentScreen

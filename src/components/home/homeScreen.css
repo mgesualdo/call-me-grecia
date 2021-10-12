@@ -9,6 +9,15 @@
   padding-right: 1rem;
 }
 
+.comment img {
+  margin-right: 1rem;
+  background-color: #eee;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: cover;
+}
+
 .user-detail {
   width: 100%;
   display: flex;

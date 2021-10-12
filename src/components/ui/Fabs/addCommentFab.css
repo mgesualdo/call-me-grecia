@@ -1,16 +1,16 @@
-button.attachment-fab:hover {
+button.comment-fab:hover {
   transform: scale(1.1);
   background: rgb(24, 92, 200);
   color: #fff;
 }
 
-button.attachment-fab {
+button.comment-fab {
   width: 2.5rem;
   height: 2.5rem;
   transform: scale(1);
   position: absolute;
   top: -1.25rem;
-  left: 8rem;
+  left: 12rem;
   border-radius: 3rem;
   border: none;
   outline: none;
@@ -21,10 +21,10 @@ button.attachment-fab {
   font-size: 0.7rem;
 }
 
-button.attachment-fab i {
+button.comment-fab i {
   font-size: 1rem;
 }
 
-button.has-attachments {
+button.has-comments {
   background: rgb(3, 190, 75);
 }
