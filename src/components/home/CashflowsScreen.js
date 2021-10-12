@@ -18,6 +18,9 @@ const CashflowsScreen = () => {
   const [cashflows, setCashflows] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [currentCash, setCurrentCash] = useState(0)
+  const [showOtherCashflows, setShowOtherCashflows] = useState(false)
+  const [spents, setSpents] = useState([])
+  const [collects, setCollects] = useState([])
 
   const history = useHistory()
 
@@ -33,17 +36,16 @@ const CashflowsScreen = () => {
       .then((res) => res.json())
       .then(({ data, spents, collects }) => {
         setIsLoading(false)
+        setSpents(spents)
+        setCollects(collects)
         const spent = spents.find((s) => s._id === loggedUser._id)?.total
         const collected = collects.find((s) => s._id === loggedUser._id)?.total
         const cash = (!!collected ? collected : 0) - (!!spent ? spent : 0)
-        console.log({ spent, collected, cash })
         setCurrentCash(cash)
         setCashflows(data)
       })
       .catch(console.log)
   }, [])
-
-  console.log({ currentCash })
 
   return (
     <>
@@ -75,9 +77,50 @@ const CashflowsScreen = () => {
             >
               {numberFormat.format(currentCash)}
             </span>
+            {loggedUser.name === 'Grecia' && (
+              <i
+                className={`far fa-eye${showOtherCashflows ? '' : '-slash'}`}
+                style={{ marginLeft: '1rem', cursor: 'pointer' }}
+                onClick={() => setShowOtherCashflows(!showOtherCashflows)}
+              />
+            )}
           </span>
           <button onClick={handleClick}>Nuevo movimiento</button>
         </div>
+        {showOtherCashflows && loggedUser.name === 'Grecia' && (
+          <div>
+            {spents
+              .filter((s) => s.user[0].name !== 'Grecia')
+              .map((s) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    width: '12rem',
+                    justifyContent: 'space-between',
+                    marginTop: '1.5rem',
+                  }}
+                  key={s._id}
+                >
+                  <span>{s.user[0].name}</span>
+
+                  <span
+                    style={{
+                      color: `${
+                        collects.find((c) => (c._id = s._id)).total - s.total >
+                        0
+                          ? 'green'
+                          : 'red'
+                      }`,
+                    }}
+                  >
+                    {numberFormat.format(
+                      collects.find((c) => (c._id = s._id)).total - s.total
+                    )}
+                  </span>
+                </div>
+              ))}
+          </div>
+        )}
         <div style={{ marginTop: '2rem' }}>
           {isLoading ? (
             <Spinner changeColor='blue' />
@@ -106,8 +149,8 @@ const CashflowsScreen = () => {
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'flex-end',
-                      justifyContent: 'flex-start',
-                      height: '3.5rem',
+                      justifyContent: !c?.from ? 'flex-end' : 'flex-start',
+                      height: '3rem',
                       width: '6rem',
                       textAlign: 'right',
                     }}
