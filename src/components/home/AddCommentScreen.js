@@ -8,7 +8,7 @@ import Appointment from '../clients/Appointment'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
 
-const baseUrl = 'https://appturnos.blob.core.windows.net'
+const baseUrl = process.env.REACT_APP_API_URL
 
 const AddCommentScreen = () => {
   const { loggedUser } = useSelector((state) => state.auth)
