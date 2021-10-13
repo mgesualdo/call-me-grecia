@@ -188,7 +188,7 @@ const CashflowsScreen = () => {
                       alignItems: 'flex-end',
                       justifyContent: !c?.from ? 'flex-end' : 'flex-start',
                       height: '3rem',
-                      width: '6rem',
+                      width: '8rem',
                       textAlign: 'right',
                     }}
                   >
@@ -196,7 +196,7 @@ const CashflowsScreen = () => {
                       style={{
                         color: 'red',
                         fontWeight: 'bold',
-                        fontSize: '1.1rem',
+                        fontSize: '1rem',
                       }}
                     >
                       {c?.from?.name}
@@ -205,7 +205,7 @@ const CashflowsScreen = () => {
                       style={{
                         color: 'green',
                         fontWeight: 'bold',
-                        fontSize: '1.1rem',
+                        fontSize: '1rem',
                       }}
                     >
                       {c?.to?.name}
