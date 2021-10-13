@@ -20,11 +20,36 @@ const CashflowsScreen = () => {
   const [personalCash, setPersonalCash] = useState(0)
   const [showOtherCashflows, setShowOtherCashflows] = useState(false)
   const [saldos, setSaldos] = useState([])
+  const [refresh, setRefresh] = useState(false)
 
   const history = useHistory()
 
   const handleClick = (e) => {
     history.push('/users/cashflows/create')
+  }
+
+  const handleCashflowClick = async (cashflowId) => {
+    if (loggedUser.name !== 'Grecia') return
+    const result = await Swal.fire({
+      title: 'Quieres eliminar el movimiento?',
+      icon: 'info',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    })
+    if (result.isConfirmed) {
+      const url = `${baseUrl}/cashflow/${cashflowId}`
+      fetch(url, {
+        method: 'DELETE',
+      })
+        .then(() => {
+          Swal.fire('Listo!', 'Movimiento eliminado con éxito!', 'success')
+          setRefresh(!refresh)
+        })
+        .catch(() => {
+          Swal.fire('Ups!', 'Hubo un error al eliminar el movimiento!', 'error')
+        })
+    }
   }
 
   useEffect(() => {
@@ -43,7 +68,7 @@ const CashflowsScreen = () => {
         setCashflows(data)
       })
       .catch(console.log)
-  }, [])
+  }, [refresh])
 
   console.log({ cashflows })
 
@@ -141,7 +166,12 @@ const CashflowsScreen = () => {
             cashflows
               .sort((a, b) => (a._id > b._id ? -1 : 1))
               .map((c) => (
-                <div className='cashflow-container' key={c._id}>
+                <div
+                  className='cashflow-container'
+                  key={c._id}
+                  onClick={() => handleCashflowClick(c._id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div style={{ width: '7rem' }}>
                     <span
                       style={{
