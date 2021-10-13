@@ -8,6 +8,7 @@ export const useForm = (initialState = {}) => {
   }
 
   const handleInputChange = (e) => {
+    console.log({ e })
     const { target } = e
 
     if (!target) {

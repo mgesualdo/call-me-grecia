@@ -22,6 +22,7 @@ export const LoginClientScreen = () => {
   })
 
   const { email, password } = formLoginValues
+  console.log({ email })
 
   const handleLogin = (e) => {
     e.preventDefault()

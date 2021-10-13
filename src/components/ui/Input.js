@@ -52,6 +52,8 @@ const Input = ({
             minLength={minLength}
             value={value}
             onChange={handleChange}
+            onBlur={handleChange}
+            onFocus={handleChange}
             required={required}
             id={id}
           />
