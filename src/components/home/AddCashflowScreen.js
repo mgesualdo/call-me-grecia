@@ -136,7 +136,7 @@ const AddCashflowScreen = () => {
               name='from'
               id=''
               onChange={({ target }) => setSelectedWalletFrom(target.value)}
-              style={{ padding: ' 0.5rem 1rem', marginBottom: '1rem' }}
+              style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
             >
               <option value=''></option>
               {wallets
