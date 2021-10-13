@@ -116,7 +116,7 @@ const AddCashflowScreen = () => {
           name='concept'
           id=''
           onChange={({ target }) => setSelectedConcept(target.value)}
-          style={{ padding: ' 0.5rem 1rem', marginBottom: '1rem' }}
+          style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
           placeholder='Concepto...'
           aria-placeholder='Concepto...'
         >
@@ -154,7 +154,7 @@ const AddCashflowScreen = () => {
               name='to'
               id=''
               onChange={({ target }) => setSelectedWalletTo(target.value)}
-              style={{ padding: ' 0.5rem 1rem', marginBottom: '1rem' }}
+              style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
             >
               <option value=''></option>
               {wallets
@@ -172,7 +172,7 @@ const AddCashflowScreen = () => {
           min='0'
           value={amount}
           onChange={({ target }) => setAmount(target.value)}
-          style={{ padding: '0.5rem 1rem', marginBottom: '1rem' }}
+          style={{ padding: '0.5rem', marginBottom: '1rem' }}
         />
         <label htmlFor='details'>Detalles</label>
         <textarea
@@ -180,7 +180,7 @@ const AddCashflowScreen = () => {
           name='details'
           onChange={(e) => setDetails(e.target.value)}
           rows={5}
-          style={{ width: '100%', padding: '0.5rem 1rem' }}
+          style={{ width: '100%', padding: '0.5rem' }}
         />
 
         <button
