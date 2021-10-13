@@ -85,7 +85,23 @@ const CashflowsScreen = () => {
               />
             )}
           </span>
-          <button onClick={handleClick}>Nuevo movimiento</button>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+            }}
+          >
+            {loggedUser.name === 'Grecia' && (
+              <button
+                onClick={() => history.push('/users/reports/cashflow')}
+                style={{ width: '100%', marginBottom: '1rem' }}
+              >
+                Reporte mensual
+              </button>
+            )}
+            <button onClick={handleClick}>Nuevo movimiento</button>
+          </div>
         </div>
         {showOtherCashflows && loggedUser.name === 'Grecia' && (
           <div
