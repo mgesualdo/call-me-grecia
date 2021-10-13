@@ -129,18 +129,14 @@ const CashflowsScreen = () => {
           </div>
         </div>
         {showOtherCashflows && loggedUser.name === 'Grecia' && (
-          <div
-            style={{
-              marginTop: '1.5rem',
-            }}
-          >
+          <div style={{ marginTop: '1.5rem' }}>
             {saldos
               .filter((s) => s._id.name !== 'Grecia')
               .map((s) => (
                 <div
                   style={{
                     display: 'flex',
-                    width: '12rem',
+                    width: '14rem',
                     justifyContent: 'space-between',
                     marginTop: '0.3rem',
                   }}
