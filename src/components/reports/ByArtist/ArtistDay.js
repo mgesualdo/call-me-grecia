@@ -22,7 +22,6 @@ const ArtistDay = ({ artistData }) => {
   }
 
   const handleClick = (start) => {
-    // console.log({ artistId })
     const formattedDate = format(start, 'yyyy-MM-dd')
     history.push(`/users/appointments/${formattedDate}?artistId=${artistId}`)
   }

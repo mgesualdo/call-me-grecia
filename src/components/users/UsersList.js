@@ -34,7 +34,6 @@ const UsersList = ({
     appointmentsLimitations,
     novelties,
   }) => {
-    console.log({ appointmentsLimitations })
     setAddingUser(false)
     setNewUser({
       _id,

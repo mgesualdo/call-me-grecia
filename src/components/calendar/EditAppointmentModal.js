@@ -40,7 +40,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       loggedUser?.services.find((s) => s.service._id === selectedService?._id)
     )
   }, [selectedService])
-  console.log({ userService, formValues })
+
   useEffect(() => {
     if (!!selectedDate) {
       setStartDateToUse(selectedDate)
@@ -79,7 +79,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('LA CONCHA DE TU MADRE!!!')
+
     dispatch(appointmentStartUpdate(formValues, activeAppointment._id, true))
   }
 

@@ -70,8 +70,6 @@ const CashflowsScreen = () => {
       .catch(console.log)
   }, [refresh])
 
-  console.log({ cashflows })
-
   return (
     <>
       <UserNavbar />

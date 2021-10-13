@@ -17,8 +17,6 @@ const AddCommentScreen = () => {
   const location = useLocation()
   const { appointment } = location.state
 
-  console.log({ appointment })
-
   const history = useHistory()
 
   const handleSumbit = (e) => {

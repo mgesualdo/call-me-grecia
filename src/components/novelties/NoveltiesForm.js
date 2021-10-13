@@ -62,7 +62,6 @@ const NoveltiesForm = ({
         if (response.ok) {
           Swal.fire('Listo!', response.message, 'success')
         } else {
-          console.log(response)
           Swal.fire('Error', response.message, 'warning')
         }
         dispatch(startRefreshLoggedUser(loggedUser._id))

@@ -16,7 +16,6 @@ const VerifyEmailScreen = () => {
   useEffect(() => {
     fetchSinToken(`client/verify/${secretToken}`, {}, 'POST')
       .then((resp) => {
-        console.log('No entra acá!!!')
         return resp.json()
       })
       .then((result) => {

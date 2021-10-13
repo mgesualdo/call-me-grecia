@@ -12,7 +12,6 @@ const UserMenu = ({ handleLogout }) => {
   const history = useHistory()
 
   const handleHeaderClick = (e) => {
-    console.log(e)
     setOptionsVisible(!optionsVisible)
   }
 

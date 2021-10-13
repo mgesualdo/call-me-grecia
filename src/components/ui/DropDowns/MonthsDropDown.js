@@ -22,10 +22,9 @@ const DaysDropDown = ({
 
   const handleOptionClick = (e, m) => {
     setSelectedMonth(m.number)
-    console.log({ m: m.number })
+
     const opcionSeleccionada = document.getElementById(m.number).innerHTML
 
-    console.log({ opcionSeleccionada })
     const contenidoSelect = document.getElementById('contenido-select-month')
 
     if (m === selectedMonth) {

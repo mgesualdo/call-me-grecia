@@ -2,7 +2,6 @@ import React from 'react'
 import Spinner from '../../ui/Spinner'
 
 const SubmitButton = ({ addingUser, loading }) => {
-  console.log({ loading })
   return (
     <div className='form-group text-center mt-4'>
       <button type='submit' className='btn btn-submit'>

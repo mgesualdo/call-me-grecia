@@ -21,10 +21,8 @@ const User = ({
   const { selectedUser } = useSelector((state) => state.user)
 
   const handleClick = () => {
-    console.log({ loggedClient: !!loggedClient })
     if (!!loggedClient || !!loggedUser) {
       if (selectedUser && selectedUser?._id === id) {
-        console.log('Entra acá o no?')
         dispatch(setSelectedUser({}))
       } else {
         dispatch(setSelectedUser(id))

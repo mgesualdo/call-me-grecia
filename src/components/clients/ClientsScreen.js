@@ -17,8 +17,6 @@ const ClientsScreen = () => {
   const { loading } = useSelector((state) => state.ui)
   const dispatch = useDispatch()
 
-  console.log({ clientAppointments })
-
   useEffect(() => {
     if (selectedClient) {
       dispatch(getClientAppointments(selectedClient._id))

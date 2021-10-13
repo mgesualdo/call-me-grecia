@@ -48,8 +48,6 @@ const ImagePreview = ({
       ? '/img/no-image.png'
       : previewImageUrls[imageIndex]
 
-  console.log({ imagePreview })
-
   return (
     <div
       className='d-flex justify-content-center'

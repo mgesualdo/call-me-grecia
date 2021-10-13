@@ -5,7 +5,6 @@ import ImageAndName from '../../ui/ImageAndName'
 
 const ArtistWeek = ({ artistData }) => {
   const { artist, data } = artistData
-  console.log({ artist })
 
   const isCurrentWeek = (start, end) => {
     const hoy = new Date()

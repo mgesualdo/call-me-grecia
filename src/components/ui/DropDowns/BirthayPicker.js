@@ -29,7 +29,7 @@ const BirthdayPicker = ({
       )
       const monthId = new Date(birthday).getMonth()
       const month = months[monthId]
-      console.log({ monthName: month.name, monthId })
+
       const birthdayMonth = document.getElementById(month.number)?.innerHTML
       contenidoSelectMonth.firstChild.innerHTML = month.name
       const contenidoSelectYear = document.getElementById(

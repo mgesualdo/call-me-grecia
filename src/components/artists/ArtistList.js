@@ -7,7 +7,6 @@ const ArtistList = () => {
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
-    console.log(e.target.value)
     dispatch(setSelectedUser(e.target.value))
     dispatch(getUserAppointments(e.target.value))
   }

@@ -22,7 +22,7 @@ export const createUser = (user) => {
     dispatch(uiLoading(true))
     const resp = await fetchSinToken('user/', user, 'POST')
     const body = await resp.json()
-    console.log(body)
+
     if (body.ok) {
       // Swal.fire('Excelente!', 'Usuario creado con éxito', 'success')
       dispatch(getUsers())
@@ -38,7 +38,7 @@ export const updateUser = (user) => {
     dispatch(uiLoading(true))
     const resp = await fetchSinToken(`user/${user._id}`, user, 'PUT')
     const body = await resp.json()
-    console.log(body)
+
     if (body.ok) {
       // Swal.fire('Excelente!', 'Usuario actualizado con éxito', 'success')
       dispatch(getUsers())

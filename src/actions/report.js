@@ -7,8 +7,6 @@ export const getAppointmentsPerArtist = () => {
     const resp = await fetchSinToken('report/appointments', {}, 'GET')
     const body = await resp.json()
 
-    console.log({ body })
-
     if (body.ok) {
       dispatch({
         type: types.getAppointmentsPerArtistReport,

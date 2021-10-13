@@ -19,7 +19,6 @@ export const getClientAppointments = (clientId) => {
     let appointments = prepareAppointments(body.appointments)
 
     if (!!loggedUser && !loggedUser.roles.includes('ADMIN')) {
-      console.log({ appointments })
       appointments = appointments.filter((a) => a.artist._id === loggedUser._id)
     }
 
@@ -61,7 +60,6 @@ export const updateClient = (formData, _id) => {
       dispatch(uiLoadingUpdatingClient(true))
       const resp = await fetchSinToken(`client/${_id}`, formData, 'PUT', true)
       const body = await resp.json()
-      console.log('QUE ONDA')
 
       if (body.ok) {
         dispatch(loginClient(body.updatedClient))

@@ -23,7 +23,7 @@ const AddAttachmentScreen = () => {
       const reader = new FileReader()
 
       let f = files.item(i)
-      console.log({ f })
+
       reader.onload = () => {
         if (reader.readyState === 2) {
           setFiles((prev) => [...prev, { file: f, name: f.name }])

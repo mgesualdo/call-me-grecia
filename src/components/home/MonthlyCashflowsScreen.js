@@ -28,7 +28,6 @@ const MonthlyCashflowsScreen = () => {
   }
 
   const handleSelectDate = ({ target }) => {
-    console.log(target.value)
     const date = new Date(target.value)
     const formattedDate = format(date, 'MM-yyyy')
     setSelectedDate(format(date, 'yyyy-MM-dd'))
@@ -53,8 +52,6 @@ const MonthlyCashflowsScreen = () => {
       })
       .catch(console.log)
   }, [])
-
-  console.log({ selectedDate })
 
   return (
     <>

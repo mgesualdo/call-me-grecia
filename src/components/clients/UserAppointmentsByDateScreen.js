@@ -40,8 +40,6 @@ const UserAppointmentsByDateScreen = () => {
       })
   }, [selectedDate])
 
-  console.log({ otherUsersAppointments: otherUsersAppointments?.length })
-
   return (
     <div>
       <UserNavbar />

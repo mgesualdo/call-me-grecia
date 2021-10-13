@@ -11,7 +11,6 @@ const ClientMenu = ({ name, handleLogout, avatarName }) => {
   const history = useHistory()
 
   const handleHeaderClick = (e) => {
-    console.log(e)
     setOptionsVisible(!optionsVisible)
   }
 

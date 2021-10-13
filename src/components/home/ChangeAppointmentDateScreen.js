@@ -43,7 +43,7 @@ const ChangeAppointmentDateScreen = () => {
       setSelectedUser(null)
     }
   }, [])
-  console.log({ activeAppointment })
+
   return (
     <>
       <UserNavbar />

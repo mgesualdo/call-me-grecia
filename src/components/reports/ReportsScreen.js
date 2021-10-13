@@ -13,7 +13,7 @@ const ReportsScreen = () => {
   const [frecuencia, setFrecuencia] = useState('dia')
   const { appointmentsPerArtist } = useSelector((state) => state.report)
   const { loggedUser } = useSelector((state) => state.auth)
-  console.log({ appointmentsPerArtist })
+
   const appointmentsGrouppedByArtist = appointmentsPerArtist.weeklyAppointments
     ?.filter((app) => {
       if (loggedUser.roles.includes('ADMIN')) return !app.artist.deleted
@@ -21,7 +21,6 @@ const ReportsScreen = () => {
     })
     .reduce(
       (accumulator, currentValue, index) => {
-        console.log({ currentWeekValue: currentValue })
         const currentArtistId = currentValue.artist._id
         const salesAmount = currentValue.salesAmount
         const gathered = currentValue.gathered
@@ -116,7 +115,6 @@ const ReportsScreen = () => {
       })
       .reduce(
         (accumulator, currentValue, index) => {
-          console.log({ currentValue })
           const currentArtistId = currentValue.artist._id
           const salesAmount = currentValue.salesAmount
           const gathered = currentValue.gathered

@@ -11,8 +11,6 @@ export const startLoginUser = (email, password) => {
     const resp = await fetchSinToken('user/login', { email, password }, 'POST')
     const body = await resp.json()
 
-    console.log(body.msg)
-
     if (body.ok) {
       dispatch(loginUser(body.user))
     } else {

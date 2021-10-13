@@ -17,10 +17,6 @@ export const appointmentStartAddNew = (appointment) => {
       dispatch(uiLoadingGoingToMercadoPago(true))
       dispatch(uiLoading(true))
 
-      console.log({
-        isValid: appointment.isValid,
-        cancelled: appointment.cancelled,
-      })
       const resp = await fetchSinToken('appointment', appointment, 'POST')
       const body = await resp.json()
 
@@ -79,14 +75,11 @@ export const appointmentStartUpdate = (
       const body = await resp.json()
       const updatedAppointment = body.appointment
 
-      console.log({ updatedAppointment })
-
       if (body.ok) {
         dispatch(getUserAppointments(updatedAppointment.artist._id))
         dispatch(appointmentSetActive(updatedAppointment))
         Swal.fire('Listo!', 'Turno actualizado con éxito!', 'success')
       } else {
-        console.log(body)
         Swal.fire('Error', 'Algo falló!', 'error')
       }
     } catch (error) {
