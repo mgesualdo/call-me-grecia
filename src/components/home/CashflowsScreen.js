@@ -17,7 +17,7 @@ const CashflowsScreen = () => {
   const { loggedUser } = useSelector((state) => state.auth)
   const [cashflows, setCashflows] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [currentCash, setCurrentCash] = useState(0)
+  const [personalCash, setPersonalCash] = useState(0)
   const [showOtherCashflows, setShowOtherCashflows] = useState(false)
   const [saldos, setSaldos] = useState([])
 
@@ -36,14 +36,16 @@ const CashflowsScreen = () => {
       .then(({ data, saldos }) => {
         setIsLoading(false)
         const { collected, spent } = saldos.find(
-          (s) => s._id.id === loggedUser._id
+          (s) => s._id.users[0] === loggedUser._id && s._id.kind === 'Personal'
         )
         setSaldos(saldos)
-        setCurrentCash(collected - spent)
+        setPersonalCash(collected - spent)
         setCashflows(data)
       })
       .catch(console.log)
   }, [])
+
+  console.log({ cashflows })
 
   return (
     <>
@@ -70,10 +72,10 @@ const CashflowsScreen = () => {
             Saldo{' '}
             <span
               style={{
-                color: `${currentCash > 0 ? 'green' : 'red'}`,
+                color: `${personalCash > 0 ? 'green' : 'red'}`,
               }}
             >
-              {numberFormat.format(currentCash)}
+              {numberFormat.format(personalCash)}
             </span>
             {loggedUser.name === 'Grecia' && (
               <i

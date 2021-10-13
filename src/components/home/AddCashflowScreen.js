@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { UserNavbar } from '../ui/UserNavbar'
 
@@ -12,18 +12,19 @@ import Spinner from '../ui/Spinner'
 const baseUrl = process.env.REACT_APP_API_URL
 
 const AddCashflowScreen = () => {
-  const { users } = useSelector((state) => state.user)
   const { loggedUser } = useSelector((state) => state.auth)
   const [details, setDetails] = useState('')
+  const [wallets, setWallets] = useState([])
+  const [userWallets, setUserWallets] = useState([])
   const [selectedConcept, setSelectedConcept] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [selectedTo, setSelectedTo] = useState('')
+  const [selectedWalletTo, setSelectedWalletTo] = useState('')
+  const [selectedWalletFrom, setSelectedWalletFrom] = useState('')
   const [amount, setAmount] = useState()
 
   const location = useLocation()
 
   const creatingCashflow = location.pathname.includes('create')
-  console.log({ creatingCashflow })
 
   const history = useHistory()
 
@@ -32,7 +33,8 @@ const AddCashflowScreen = () => {
     if (
       !selectedConcept ||
       !amount ||
-      (selectedConcept === 'GIRO' && !selectedTo) ||
+      !selectedWalletFrom ||
+      (selectedConcept === 'GIRO' && !selectedWalletTo) ||
       isLoading
     )
       return
@@ -47,8 +49,8 @@ const AddCashflowScreen = () => {
       method: creatingCashflow ? 'POST' : 'PUT',
       body: JSON.stringify({
         concept: selectedConcept,
-        from: loggedUser._id,
-        to: selectedConcept === 'GIRO' ? selectedTo : null,
+        from: userWallets.length > 1 ? selectedWalletFrom : userWallets[0]._id,
+        to: selectedConcept === 'GIRO' ? selectedWalletTo : null,
         details,
         amount,
         isSpending: cashflowConcepts.find((c) => c.name === selectedConcept)
@@ -77,6 +79,15 @@ const AddCashflowScreen = () => {
         )
       })
   }
+
+  useEffect(() => {
+    fetch(`${baseUrl}/wallet`)
+      .then((res) => res.json())
+      .then(({ wallets }) => {
+        setUserWallets(wallets.filter((w) => w.users.includes(loggedUser._id)))
+        setWallets(wallets)
+      })
+  }, [])
 
   return (
     <>
@@ -118,25 +129,38 @@ const AddCashflowScreen = () => {
             </>
           ))}
         </select>
-        {selectedConcept === 'GIRO' && (
+        {userWallets.length > 1 && (
           <>
-            <label htmlFor='to'>Girarle a...</label>
+            <label htmlFor='from'>Wallet de origen</label>
             <select
-              name='to'
+              name='from'
               id=''
-              onChange={({ target }) => setSelectedTo(target.value)}
+              onChange={({ target }) => setSelectedWalletFrom(target.value)}
               style={{ padding: ' 0.5rem 1rem', marginBottom: '1rem' }}
             >
               <option value=''></option>
-              {users
-                .filter(
-                  (user) =>
-                    !user.deleted &&
-                    user._id !== loggedUser._id &&
-                    user.name !== 'Martin'
-                )
-                .map((user) => (
-                  <option value={user._id}>{user.name}</option>
+              {wallets
+                .filter((wallet) => wallet._id !== selectedWalletTo)
+                .map((wallet) => (
+                  <option value={wallet._id}>{wallet.name}</option>
+                ))}
+            </select>
+          </>
+        )}
+        {selectedConcept === 'GIRO' && (
+          <>
+            <label htmlFor='to'>Wallet de destino</label>
+            <select
+              name='to'
+              id=''
+              onChange={({ target }) => setSelectedWalletTo(target.value)}
+              style={{ padding: ' 0.5rem 1rem', marginBottom: '1rem' }}
+            >
+              <option value=''></option>
+              {wallets
+                .filter((wallet) => wallet._id !== selectedWalletFrom)
+                .map((wallet) => (
+                  <option value={wallet._id}>{wallet.name}</option>
                 ))}
             </select>
           </>
