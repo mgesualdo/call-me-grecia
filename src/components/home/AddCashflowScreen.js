@@ -81,6 +81,7 @@ const AddCashflowScreen = () => {
         )
       })
   }
+  console.log({ kind })
 
   useEffect(() => {
     fetch(`${baseUrl}/wallet`)
@@ -121,13 +122,11 @@ const AddCashflowScreen = () => {
               id=''
               onChange={({ target }) => setKind(target.value)}
               style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
-              placeholder='Concepto...'
-              aria-placeholder='Concepto...'
+              placeholder='Tipo de caja...'
             >
-              <option value=''></option>
               {['CMG', 'Personal'].map((value) => (
                 <>
-                  <option value={kind} selected={value === kind}>
+                  <option value={value} selected={value === kind}>
                     {value}
                   </option>
                 </>
