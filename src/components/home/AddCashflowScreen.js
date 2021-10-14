@@ -18,8 +18,8 @@ const AddCashflowScreen = () => {
   const [userWallets, setUserWallets] = useState([])
   const [selectedConcept, setSelectedConcept] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [selectedWalletTo, setSelectedWalletTo] = useState('')
-  const [selectedWalletFrom, setSelectedWalletFrom] = useState('')
+  const [selectedWalletTo, setSelectedWalletTo] = useState(null)
+  const [selectedWalletFrom, setSelectedWalletFrom] = useState(null)
   const [amount, setAmount] = useState()
 
   const location = useLocation()
@@ -50,10 +50,7 @@ const AddCashflowScreen = () => {
       body: JSON.stringify({
         concept: selectedConcept,
         from: selectedWalletFrom,
-        to:
-          selectedConcept === 'GIRO' || selectedConcept === 'Saldo inicial'
-            ? selectedWalletTo
-            : null,
+        to: selectedWalletTo,
         details,
         amount,
         isSpending: cashflowConcepts.find((c) => c.name === selectedConcept)
