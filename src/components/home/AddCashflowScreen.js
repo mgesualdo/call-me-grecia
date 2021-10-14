@@ -34,7 +34,8 @@ const AddCashflowScreen = () => {
       !selectedConcept ||
       !amount ||
       !selectedWalletFrom ||
-      (selectedConcept === 'GIRO' && !selectedWalletTo) ||
+      ((selectedConcept === 'GIRO' || selectedConcept === 'Saldo inicial') &&
+        !selectedWalletTo) ||
       isLoading
     )
       return
