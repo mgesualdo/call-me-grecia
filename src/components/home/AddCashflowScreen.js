@@ -49,7 +49,7 @@ const AddCashflowScreen = () => {
       method: creatingCashflow ? 'POST' : 'PUT',
       body: JSON.stringify({
         concept: selectedConcept,
-        from: userWallets.length > 1 ? selectedWalletFrom : userWallets[0]._id,
+        from: selectedWalletFrom,
         to:
           selectedConcept === 'GIRO' || selectedConcept === 'Saldo inicial'
             ? selectedWalletTo
@@ -132,7 +132,7 @@ const AddCashflowScreen = () => {
             </>
           ))}
         </select>
-        {userWallets.length > 1 && (
+        {userWallets.length > 1 && selectedConcept !== 'Saldo inicial' && (
           <>
             <label htmlFor='from'>Wallet de origen</label>
             <select
