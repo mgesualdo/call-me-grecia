@@ -211,6 +211,17 @@ const CashflowsScreen = () => {
                       {c?.to?.name}
                     </span>
                   </div>
+                  {loggedUser.name === 'Grecia' && (
+                    <small
+                      style={{
+                        position: 'absolute',
+                        left: '1rem',
+                        bottom: '0',
+                      }}
+                    >
+                      {c.kind}
+                    </small>
+                  )}
                   <small
                     style={{ position: 'absolute', right: '1rem', bottom: '0' }}
                   >

@@ -18,6 +18,7 @@ const AddCashflowScreen = () => {
   const [userWallets, setUserWallets] = useState([])
   const [selectedConcept, setSelectedConcept] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [kind, setKind] = useState('CMG')
   const [selectedWalletTo, setSelectedWalletTo] = useState(null)
   const [selectedWalletFrom, setSelectedWalletFrom] = useState(null)
   const [amount, setAmount] = useState()
@@ -48,6 +49,7 @@ const AddCashflowScreen = () => {
       },
       method: creatingCashflow ? 'POST' : 'PUT',
       body: JSON.stringify({
+        kind,
         concept: selectedConcept,
         from: selectedWalletFrom,
         to: selectedWalletTo,
@@ -111,6 +113,28 @@ const AddCashflowScreen = () => {
         <h1 style={{ margin: '0 0 1rem 0', textAlign: 'center' }}>
           {creatingCashflow ? 'Creando' : 'Editando'} movimiento
         </h1>
+        {loggedUser.name === 'Grecia' && (
+          <>
+            <label htmlFor='concept'>Tipo de caja</label>
+            <select
+              name='kind'
+              id=''
+              onChange={({ target }) => setKind(target.value)}
+              style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
+              placeholder='Concepto...'
+              aria-placeholder='Concepto...'
+            >
+              <option value=''></option>
+              {['CMG', 'Personal'].map((value) => (
+                <>
+                  <option value={kind} selected={value === kind}>
+                    {value}
+                  </option>
+                </>
+              ))}
+            </select>
+          </>
+        )}
         <label htmlFor='concept'>Concepto</label>
         <select
           name='concept'
