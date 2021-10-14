@@ -50,7 +50,10 @@ const AddCashflowScreen = () => {
       body: JSON.stringify({
         concept: selectedConcept,
         from: userWallets.length > 1 ? selectedWalletFrom : userWallets[0]._id,
-        to: selectedConcept === 'GIRO' ? selectedWalletTo : null,
+        to:
+          selectedConcept === 'GIRO' || selectedConcept === 'Saldo inicial'
+            ? selectedWalletTo
+            : null,
         details,
         amount,
         isSpending: cashflowConcepts.find((c) => c.name === selectedConcept)
@@ -139,7 +142,7 @@ const AddCashflowScreen = () => {
               style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
             >
               <option value=''></option>
-              {wallets
+              {userWallets
                 .filter((wallet) => wallet._id !== selectedWalletTo)
                 .map((wallet) => (
                   <option value={wallet._id}>{wallet.name}</option>
@@ -147,24 +150,25 @@ const AddCashflowScreen = () => {
             </select>
           </>
         )}
-        {selectedConcept === 'GIRO' && (
-          <>
-            <label htmlFor='to'>Wallet de destino</label>
-            <select
-              name='to'
-              id=''
-              onChange={({ target }) => setSelectedWalletTo(target.value)}
-              style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
-            >
-              <option value=''></option>
-              {wallets
-                .filter((wallet) => wallet._id !== selectedWalletFrom)
-                .map((wallet) => (
-                  <option value={wallet._id}>{wallet.name}</option>
-                ))}
-            </select>
-          </>
-        )}
+        {selectedConcept === 'GIRO' ||
+          (selectedConcept === 'Saldo inicial' && (
+            <>
+              <label htmlFor='to'>Wallet de destino</label>
+              <select
+                name='to'
+                id=''
+                onChange={({ target }) => setSelectedWalletTo(target.value)}
+                style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
+              >
+                <option value=''></option>
+                {wallets
+                  .filter((wallet) => wallet._id !== selectedWalletFrom)
+                  .map((wallet) => (
+                    <option value={wallet._id}>{wallet.name}</option>
+                  ))}
+              </select>
+            </>
+          ))}
         <label htmlFor='amount'>Monto</label>
         <input
           type='number'
