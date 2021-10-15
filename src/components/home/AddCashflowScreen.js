@@ -59,7 +59,7 @@ const AddCashflowScreen = () => {
           .isSpending,
         isInvestment: cashflowConcepts.find((c) => c.name === selectedConcept)
           .isInvestment,
-        accepted: loggedUser.name === 'Grecia',
+        accepted: soyGrecia,
         createdBy: loggedUser._id,
       }),
     })
@@ -92,6 +92,8 @@ const AddCashflowScreen = () => {
       })
   }, [])
 
+  const soyGrecia = loggedUser.name === 'Grecia'
+
   return (
     <>
       <UserNavbar />
@@ -114,7 +116,7 @@ const AddCashflowScreen = () => {
         <h1 style={{ margin: '0 0 1rem 0', textAlign: 'center' }}>
           {creatingCashflow ? 'Creando' : 'Editando'} movimiento
         </h1>
-        {loggedUser.name === 'Grecia' && (
+        {soyGrecia && (
           <>
             <label htmlFor='concept'>Tipo de caja</label>
             <select
@@ -152,7 +154,8 @@ const AddCashflowScreen = () => {
             </>
           ))}
         </select>
-        {userWallets.length > 1 && selectedConcept !== 'Saldo inicial' && (
+        {((userWallets.length > 1 && selectedConcept !== 'Saldo inicial') ||
+          soyGrecia) && (
           <>
             <label htmlFor='from'>Wallet de origen</label>
             <select
@@ -170,25 +173,25 @@ const AddCashflowScreen = () => {
             </select>
           </>
         )}
-        {selectedConcept === 'GIRO' ||
-          (selectedConcept === 'Saldo inicial' && (
-            <>
-              <label htmlFor='to'>Wallet de destino</label>
-              <select
-                name='to'
-                id=''
-                onChange={({ target }) => setSelectedWalletTo(target.value)}
-                style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
-              >
-                <option value=''></option>
-                {wallets
-                  .filter((wallet) => wallet._id !== selectedWalletFrom)
-                  .map((wallet) => (
-                    <option value={wallet._id}>{wallet.name}</option>
-                  ))}
-              </select>
-            </>
-          ))}
+        {(selectedConcept === 'GIRO' ||
+          selectedConcept === 'Saldo inicial') && (
+          <>
+            <label htmlFor='to'>Wallet de destino</label>
+            <select
+              name='to'
+              id=''
+              onChange={({ target }) => setSelectedWalletTo(target.value)}
+              style={{ padding: ' 0.5rem', marginBottom: '1rem' }}
+            >
+              <option value=''></option>
+              {wallets
+                .filter((wallet) => wallet._id !== selectedWalletFrom)
+                .map((wallet) => (
+                  <option value={wallet._id}>{wallet.name}</option>
+                ))}
+            </select>
+          </>
+        )}
         <label htmlFor='amount'>Monto</label>
         <input
           type='number'
