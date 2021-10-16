@@ -51,7 +51,7 @@ const AddCashflowScreen = () => {
       body: JSON.stringify({
         kind,
         concept: selectedConcept,
-        from: selectedWalletFrom,
+        from: userWallets.length === 1 ? userWallets[0] : selectedWalletFrom,
         to: selectedWalletTo,
         details,
         amount,
