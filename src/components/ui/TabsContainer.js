@@ -2,6 +2,7 @@ import React from 'react'
 import Tab from './Tab'
 
 const TabsContainer = ({ selectedTab, setSelectedTab, tabsInfo, roles }) => {
+  console.log({ roles })
   return (
     <div className='d-flex text-center'>
       {tabsInfo.map(({ name, icon, index }) => (

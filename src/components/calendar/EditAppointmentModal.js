@@ -30,6 +30,8 @@ export const EditAppointmentModal = ({ selectedDate }) => {
   const { selectedService } = useSelector((state) => state.service)
   const dispatch = useDispatch()
 
+  console.log({ loggedUser })
+
   const [formValues, setFormValues] = useState({})
   const [userService, setUserService] = useState(selectedService ?? {})
   const [startDateToUse, setStartDateToUse] = useState(activeAppointment?.start)

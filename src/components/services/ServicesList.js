@@ -1,6 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteService } from '../../actions/services'
+import { useSelector } from 'react-redux'
 import { emptyService } from '../../utils/constants'
 import './servicesList.css'
 
@@ -12,9 +11,7 @@ const ServicesList = ({
   setNewService,
 }) => {
   const { services } = useSelector((state) => state.service)
-  const dispatch = useDispatch()
 
-  const handleDeleteService = (serviceId) => dispatch(deleteService(serviceId))
   const handleAddService = () => {
     setAddingService(true)
     setNewService(emptyService)
@@ -30,6 +27,7 @@ const ServicesList = ({
     images,
   }) => {
     setAddingService(false)
+    console.log('LA PUTA QUE TE PARIO!!')
     setNewService({
       _id,
       name,
@@ -46,8 +44,6 @@ const ServicesList = ({
     })
     setPreviewImageUrls(newPreviewImageUrls)
     setAvatarFiles([])
-    const serviceNameInput = document.getElementById('service-name')
-    serviceNameInput.focus()
   }
 
   return (
@@ -100,12 +96,6 @@ const ServicesList = ({
               onClick={() => handleEditService(service)}
             >
               <i className='fas fa-edit'></i>
-            </button>
-            <button
-              className='btn btn-danger'
-              onClick={() => handleDeleteService(service._id)}
-            >
-              <i className='fas fa-trash'></i>
             </button>
           </div>
         </div>

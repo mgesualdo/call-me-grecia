@@ -18,6 +18,7 @@ import Swal from 'sweetalert2'
 import AttentionHoursAndDays from './UserForm/AttentionHoursAndDays'
 import { toPropperCaseAndTrim } from '../../helpers/toPropperCase'
 import { uiLoading, uiRefreshImage } from '../../actions/ui'
+import { set } from 'date-fns'
 
 const baseUrl = process.env.REACT_APP_API_URL
 
@@ -28,16 +29,16 @@ const UserUsersScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const [avatarFiles, setAvatarFiles] = useState([])
   const [previewImageUrls, setPreviewImageUrls] = useState([])
-  const [newUser, setNewUser] = useState(emptyUser)
+  const [user, setUser] = useState(emptyUser)
 
-  const { roles, services, workWeek } = newUser
+  const { roles, services, workWeek } = user
 
   const handleInputChange = ({ target }) => {
     const value =
       target.type === 'number' ? parseInt(target.value) : target.value
 
-    setNewUser({
-      ...newUser,
+    setUser({
+      ...user,
       [target.name]: value,
     })
   }
@@ -45,44 +46,40 @@ const UserUsersScreen = () => {
   const handleServiceClick = ({ target }) => {
     const selectedServiceId = target.getAttribute('id')
 
-    if (newUser.services.some((s) => s.service === selectedServiceId)) {
-      setNewUser({
-        ...newUser,
-        services: newUser.services.filter(
+    if (user.services.some((s) => s.service === selectedServiceId)) {
+      setUser({
+        ...user,
+        services: user.services.filter(
           (service) => selectedServiceId !== service.service
         ),
       })
     } else {
-      setNewUser({
-        ...newUser,
-        services: [
-          ...newUser.services,
-          { service: selectedServiceId, price: 0 },
-        ],
+      setUser({
+        ...user,
+        services: [...user.services, { service: selectedServiceId, price: 0 }],
       })
     }
   }
 
   const handleRolesChange = ({ target }) => {
-    if (newUser.roles.includes(target.value)) {
-      setNewUser({
-        ...newUser,
-        services: target.value === 'USER' ? [] : newUser.services,
-        workWeek:
-          target.value === 'USER' ? emptyUser.workWeek : newUser.workWeek,
-        roles: newUser.roles.filter((r) => r !== target.value),
+    if (user.roles.includes(target.value)) {
+      setUser({
+        ...user,
+        services: target.value === 'USER' ? [] : user.services,
+        workWeek: target.value === 'USER' ? emptyUser.workWeek : user.workWeek,
+        roles: user.roles.filter((r) => r !== target.value),
       })
     } else {
-      setNewUser({
-        ...newUser,
-        roles: [...newUser.roles, target.value],
+      setUser({
+        ...user,
+        roles: [...user.roles, target.value],
       })
     }
   }
 
   const handlePriceChange = ({ target }, serviceId) => {
-    setNewUser({
-      ...newUser,
+    setUser({
+      ...user,
       services: [
         ...services.map((s) => ({
           service: s.service,
@@ -100,11 +97,11 @@ const UserUsersScreen = () => {
       formData.append('user-image', avatarFiles[0].file, avatarFiles[0].name)
     }
 
-    newUser.name = toPropperCaseAndTrim(newUser.name)
-    newUser.lastname = toPropperCaseAndTrim(newUser.lastname)
+    user.name = toPropperCaseAndTrim(user.name)
+    user.lastname = toPropperCaseAndTrim(user.lastname)
 
-    formData.append('user', JSON.stringify(newUser))
-    const url = `${baseUrl}/user${!addingUser ? '/' + newUser._id : ''}`
+    formData.append('user', JSON.stringify(user))
+    const url = `${baseUrl}/user${!addingUser ? '/' + user._id : ''}`
     dispatch(uiLoading(true))
     fetch(url, {
       method: addingUser ? 'POST' : 'PUT',
@@ -158,8 +155,8 @@ const UserUsersScreen = () => {
       }
     })
 
-    setNewUser({
-      ...newUser,
+    setUser({
+      ...user,
       workWeek: [...newWorkWeek],
     })
   }
@@ -180,7 +177,7 @@ const UserUsersScreen = () => {
             {selectedTab === 0 && (
               <div className='user-form-fields'>
                 <PersonalInfo
-                  userInfo={newUser}
+                  userInfo={user}
                   handleChange={handleInputChange}
                   addingUser={addingUser}
                 />
@@ -229,7 +226,7 @@ const UserUsersScreen = () => {
           setAddingUser={setAddingUser}
           setAvatarFiles={setAvatarFiles}
           setPreviewImageUrls={setPreviewImageUrls}
-          setNewUser={setNewUser}
+          setUser={setUser}
         />
       </div>
     </div>

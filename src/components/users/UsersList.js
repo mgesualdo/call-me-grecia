@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser } from '../../actions/users'
 import { emptyUser } from '../../utils/constants'
 import DeleteButton from '../ui/Buttons/DeleteButton'
-import Spinner from '../ui/Spinner'
 import './usersList.css'
 
 const UsersList = ({
   setAddingUser,
   setAvatarFiles,
   setPreviewImageUrls,
-  setNewUser,
+  setUser,
 }) => {
   const { users } = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -18,24 +17,26 @@ const UsersList = ({
   const handleDeleteUser = (userId) => dispatch(deleteUser(userId))
   const handleAddUser = () => {
     setAddingUser(true)
-    setNewUser(emptyUser)
+    setUser(emptyUser)
     setPreviewImageUrls([])
     setAvatarFiles([])
   }
-  const handleEditUser = ({
-    _id,
-    name,
-    lastname,
-    email,
-    phone = '',
-    roles,
-    services,
-    avatarName,
-    appointmentsLimitations,
-    novelties,
-  }) => {
+  const handleEditUser = (user) => {
+    const {
+      _id,
+      name,
+      lastname,
+      email,
+      phone = '',
+      roles,
+      services,
+      avatarName,
+      appointmentsLimitations,
+      novelties,
+    } = user
     setAddingUser(false)
-    setNewUser({
+
+    setUser({
       _id,
       name,
       lastname,
@@ -58,8 +59,6 @@ const UsersList = ({
       `https://appturnos.blob.core.windows.net/usuarios/${avatarName}?${new Date().getTime()}`,
     ])
     setAvatarFiles([])
-    const userNameInput = document.getElementById('user-name')
-    userNameInput && userNameInput.focus()
   }
 
   return (

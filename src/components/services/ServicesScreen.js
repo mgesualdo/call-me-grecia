@@ -13,6 +13,8 @@ const ServicesScreen = () => {
   const [avatarFiles, setAvatarFiles] = useState([])
   const [previewImageUrls, setPreviewImageUrls] = useState([])
 
+  console.log({ newService })
+
   return (
     <div>
       <UserNavbar />
