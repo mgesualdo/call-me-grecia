@@ -59,6 +59,7 @@ const CashflowsScreen = () => {
     fetch(url)
       .then((res) => res.json())
       .then(({ data, saldos }) => {
+        console.log({ data })
         setIsLoading(false)
         const { collected, spent } = saldos.find(
           (s) => s._id.users[0] === loggedUser._id && s._id.kind === 'Personal'
@@ -100,7 +101,7 @@ const CashflowsScreen = () => {
             >
               {numberFormat.format(personalCash)}
             </span>
-            {loggedUser.name === 'Grecia' && (
+            {['Grecia', 'Martin'].includes(loggedUser.name) && (
               <i
                 className={`far fa-eye${showOtherCashflows ? '' : '-slash'}`}
                 style={{ marginLeft: '1rem', cursor: 'pointer' }}
@@ -115,7 +116,7 @@ const CashflowsScreen = () => {
               alignItems: 'flex-end',
             }}
           >
-            {loggedUser.name === 'Grecia' && (
+            {['Grecia', 'Martin'].includes(loggedUser.name) && (
               <button
                 onClick={() => history.push('/users/reports/cashflow')}
                 style={{ width: '100%', marginBottom: '1rem' }}
