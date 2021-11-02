@@ -27,6 +27,8 @@ const MonthlyCashflowsScreen = () => {
     history.goBack()
   }
 
+  console.log({ monthlyCashflows })
+
   const handleSelectDate = ({ target }) => {
     const date = new Date(target.value)
     const formattedDate = format(date, 'MM-yyyy')
@@ -40,7 +42,7 @@ const MonthlyCashflowsScreen = () => {
     setSelectedDate(format(date, 'yyyy-MM-dd'))
     setFormattedDate(formattedDate)
 
-    const url = `${baseUrl}/report/cashflow`
+    const url = `${baseUrl}/report/cashflow?date=${selectedDate}&userId=${loggedUser._id}`
 
     setIsLoading(true)
     fetch(url)
@@ -51,7 +53,7 @@ const MonthlyCashflowsScreen = () => {
         setMonthlyCashflows(monthlyCashflows)
       })
       .catch(console.log)
-  }, [])
+  }, [selectedDate])
 
   return (
     <>
@@ -83,7 +85,14 @@ const MonthlyCashflowsScreen = () => {
               .sort((a, b) => (a.amount > b.amount ? -1 : 1))
               .map(({ _id, amount }) => (
                 <div className='cashflow-container' key={_id.month}>
-                  <div style={{ width: '12rem' }}>
+                  <div
+                    style={{
+                      width: '12rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <b>{_id.kind}</b>
                     <span
                       style={{
                         color: 'blue',
