@@ -60,7 +60,7 @@ export const CalendarModal = ({ selectedDate, whenWasOpened }) => {
     setFormValues(() => ({
       start: selectedDate,
       end: moment(selectedDate)
-        .add(Math.ceil(selectedService?.duration / 60) * 60, 'minutes')
+        .add(Math.ceil(selectedService?.duration / 30) * 60, 'minutes') //.add(Math.ceil(selectedService?.duration / 60) * 60, 'minutes')
         .toDate(),
       service: selectedService?._id,
       artist: selectedUser?._id,
