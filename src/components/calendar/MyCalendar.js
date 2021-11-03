@@ -214,7 +214,7 @@ export const MyCalendar = () => {
             dayPropGetter={dayStyleGetter}
             messages={messages}
             eventPropGetter={appointmentStyleGetter}
-            step={60}
+            step={30}
             popup={false}
             timeslots={1}
             longPressThreshold={lastView === 'month' ? 60 : 0}

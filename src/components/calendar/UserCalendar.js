@@ -43,7 +43,6 @@ export const UserCalendar = ({
   )
   const { selectedService } = useSelector((state) => state.service)
   const { selectedClient } = useSelector((state) => state.client)
-  const { selectedUser } = useSelector((state) => state.user)
   const { loggedUser } = useSelector((state) => state.auth)
   const [selectedDate, setSelectedDate] = useState(moment().toDate())
   const [whenWeGotToDayView, setWhenWeGotToDayView] = useState(null)
@@ -216,7 +215,7 @@ export const UserCalendar = ({
           messages={messages}
           eventPropGetter={appointmentStyleGetter}
           onSelectEvent={onSelectAppointment}
-          step={60}
+          step={30}
           popup={false}
           timeslots={1}
           longPressThreshold={20}
