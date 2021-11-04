@@ -48,7 +48,7 @@ export const EditAppointmentModal = ({ selectedDate }) => {
       setStartDateToUse(selectedDate)
       setEndDateToUse(
         moment(selectedDate)
-          .add(Math.ceil(selectedService?.duration / 30) * 30, 'minutes')
+          .add(Math.ceil(selectedService?.duration / 60) * 60, 'minutes')
           .toDate()
       )
     } else {
