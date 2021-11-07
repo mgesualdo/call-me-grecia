@@ -40,21 +40,24 @@ const ArtistWeek = ({ artistData }) => {
           >
             {!artist.roles.includes('ADMIN') && (
               <b>
-                ${(w.gathered - w.gatheredReservationsWithoutAssistance) * 0.5}
+                $
+                {Math.ceil(
+                  (w.gathered - w.gatheredReservationsWithoutAssistance) * 0.5
+                )}
               </b>
             )}
           </div>
           <div style={{ textAlign: 'right', width: '10rem' }}>
             <span style={{ fontWeight: 'bolder', color: '#1a8' }}>
-              {' '}
               $
               {artist.roles.includes('ADMIN')
-                ? w.gathered
-                : w.gathered - w.gatheredReservationsWithoutAssistance}
-            </span>{' '}
+                ? Math.ceil(w.gathered)
+                : Math.ceil(
+                    w.gathered - w.gatheredReservationsWithoutAssistance
+                  )}
+            </span>
             /
             <span style={{ fontWeight: 'bolder', color: '#333' }}>
-              {' '}
               ${w.salesAmount}
             </span>
           </div>

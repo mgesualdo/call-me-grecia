@@ -190,12 +190,6 @@ export const UserCalendar = ({
     }
   }
 
-  console.log({
-    areEquals: selectedService?._id === activeAppointment?.service?._id,
-    selectedService,
-    start: activeAppointment?.service?._id,
-  })
-
   return (
     <div
       className={`${show ? 'user-calendar-screen' : 'calendar-screen'} ${
