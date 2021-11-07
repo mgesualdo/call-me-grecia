@@ -82,7 +82,10 @@ const MonthlyCashflowsScreen = () => {
           ) : (
             monthlyCashflows
               .filter(({ _id }) => _id.month === formattedDate)
-              .sort((a, b) => (a.amount > b.amount ? -1 : 1))
+              .sort(
+                (a, b) =>
+                  a._id.kind.localeCompare(b._id.kind) || b.amount - a.amount
+              )
               .map(({ _id, amount }) => (
                 <div className='cashflow-container' key={_id.month}>
                   <div
