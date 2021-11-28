@@ -178,6 +178,8 @@ export const cashflowConcepts = [
   { name: 'Monotributo', isSpending: true, isInvestment: false },
   { name: 'Wifi', isSpending: true, isInvestment: false },
   { name: 'Insumos', isSpending: true, isInvestment: false },
+  { name: 'Inversión USD', isSpending: false, isInvestment: true },
+  { name: 'Inversión local', isSpending: false, isInvestment: true },
   { name: 'Inversiones', isSpending: false, isInvestment: true },
   { name: 'Comisiones', isSpending: true, isInvestment: false },
   { name: 'Tarjeta', isSpending: true, isInvestment: false },
