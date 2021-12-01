@@ -33,7 +33,9 @@ const AddCashflowScreen = () => {
     if (
       !selectedConcept ||
       !amount ||
-      ((selectedConcept === 'GIRO' || selectedConcept === 'Saldo inicial') &&
+      ((selectedConcept === 'GIRO' ||
+        selectedConcept === 'Saldo inicial' ||
+        selectedConcept === 'Venta productos') &&
         !selectedWalletTo) ||
       isLoading
     )
@@ -173,7 +175,8 @@ const AddCashflowScreen = () => {
           </>
         )}
         {(selectedConcept === 'GIRO' ||
-          selectedConcept === 'Saldo inicial') && (
+          selectedConcept === 'Saldo inicial' ||
+          selectedConcept === 'Venta productos') && (
           <>
             <label htmlFor='to'>Wallet de destino</label>
             <select
