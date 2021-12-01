@@ -165,6 +165,8 @@ export const cashflowConcepts = [
   { name: 'Gimnasio', isSpending: true, isInvestment: false },
   { name: 'Taxi', isSpending: true, isInvestment: false },
   { name: 'Daniel', isSpending: true, isInvestment: false },
+  { name: 'Venta productos', isSpending: false, isInvestment: false },
+  { name: 'Mercadería', isSpending: true, isInvestment: false },
   { name: 'Restaurante', isSpending: true, isInvestment: false },
   { name: 'Delivery', isSpending: true, isInvestment: false },
   { name: 'Verdulería', isSpending: true, isInvestment: false },
