@@ -66,7 +66,7 @@ const SearchableDropDownServices = ({ smaller = false, userServices }) => {
 
     setActive(!active)
   }
-
+  console.log({ servicesToShow })
   return (
     <div className={`contenedor ${smaller && 'smaller-dropdown'}`}>
       <form action=''>
@@ -113,39 +113,41 @@ const SearchableDropDownServices = ({ smaller = false, userServices }) => {
               active && selectedService ? 'something-selected' : ''
             }`}
           >
-            {servicesToShow.map((s) => (
-              <div
-                key={s._id}
-                id={s._id}
-                className={`opcion ${
-                  s._id === selectedService?._id ? 'opcion-selected' : ''
-                } option-container`}
-                onClick={(e) => handleOptionClick(e, s._id)}
-              >
-                <div className='option-image-and-name'>
-                  <img
-                    src={`https://appturnos.blob.core.windows.net/servicios/${
-                      s.images[0]
-                    }?${new Date().getTime()}`}
-                    alt=''
-                    style={{
-                      width: '2.5rem',
-                      height: '2.5rem',
-                      marginRight: '1rem',
-                      marginLeft: '1rem',
-                      borderRadius: '2.5rem',
-                      objectFit: 'contain',
-                    }}
-                  />
+            {servicesToShow
+              .sort((a, b) => a.order - b.order)
+              .map((s) => (
+                <div
+                  key={s._id}
+                  id={s._id}
+                  className={`opcion ${
+                    s._id === selectedService?._id ? 'opcion-selected' : ''
+                  } option-container`}
+                  onClick={(e) => handleOptionClick(e, s._id)}
+                >
+                  <div className='option-image-and-name'>
+                    <img
+                      src={`https://appturnos.blob.core.windows.net/servicios/${
+                        s.images[0]
+                      }?${new Date().getTime()}`}
+                      alt=''
+                      style={{
+                        width: '2.5rem',
+                        height: '2.5rem',
+                        marginRight: '1rem',
+                        marginLeft: '1rem',
+                        borderRadius: '2.5rem',
+                        objectFit: 'contain',
+                      }}
+                    />
 
-                  <h4 className='titulo-opcion'>{s.name}</h4>
+                    <h4 className='titulo-opcion'>{s.name}</h4>
+                  </div>
+
+                  <span className='appointment-date'>
+                    {s.duration} <small> min</small>
+                  </span>
                 </div>
-
-                <span className='appointment-date'>
-                  {s.duration} <small> min</small>
-                </span>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </form>
