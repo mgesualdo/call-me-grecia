@@ -17,10 +17,13 @@ const Client = ({
 }) => {
   const history = useHistory()
   const dispatch = useDispatch()
+  const { loggedUser } = useSelector((state) => state.auth)
   const { selectedClient } = useSelector((state) => state.client)
   const { loadingUpdatingClient } = useSelector((state) => state.ui)
 
   const [clientStatus, setClientStatus] = useState(active)
+
+  console.log({ loggedUser })
 
   const handleClick = () => {
     if (!!selectedService || history.location.pathname === '/users/clients') {
@@ -71,10 +74,14 @@ const Client = ({
 
           <div className=''>
             <h5 className='font-weight-bold client-name'>{`${lastname.toUpperCase()}, ${name}`}</h5>
-            <span>
-              <i className='fas fa-mobile-alt mr-2'></i>
-              {`${phones[0].number}`}
-            </span>
+            {['Gesualdo', 'Cadenas', 'Cardenas'].includes(
+              loggedUser.lastname
+            ) && (
+              <span>
+                <i className='fas fa-mobile-alt mr-2'></i>
+                {`${phones[0].number}`}
+              </span>
+            )}
           </div>
         </div>
       </div>
