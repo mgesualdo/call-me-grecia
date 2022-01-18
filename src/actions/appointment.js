@@ -9,6 +9,10 @@ import { getClientAppointments } from './client'
 export const appointmentStartAddNew = (appointment) => {
   return async (dispatch, getState) => {
     const { loggedClient, loggedUser } = getState().auth
+    const { loading } = getState().ui
+
+    if (loading) return
+
     if (appointment.createdByClient) {
       appointment.client = loggedClient._id
     }

@@ -92,6 +92,8 @@ export const UserCalendarModal = ({ selectedDate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (loading) return
+    console.log('Ejecutando')
     if (activeAppointment) {
       dispatch(appointmentStartUpdate(formValues, activeAppointment._id))
     } else {
