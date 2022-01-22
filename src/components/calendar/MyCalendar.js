@@ -2,7 +2,11 @@ import React, { useState, Children, cloneElement } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
-import { differenceInMinutes, parseISO } from 'date-fns'
+import {
+  differenceInMinutes,
+  parseISO,
+  differenceInMilliseconds,
+} from 'date-fns'
 import * as dates from '../../utils/dates'
 
 import { messages } from '../../helpers/calendar-messages-es'
@@ -16,7 +20,6 @@ import { availableHours } from '../../utils/constants'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es'
 import determineAvailability from '../../helpers/determineAvailability'
-import { differenceInMilliseconds } from 'date-fns/esm'
 
 moment.locale('es')
 

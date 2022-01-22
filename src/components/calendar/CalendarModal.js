@@ -89,6 +89,8 @@ export const CalendarModal = ({ selectedDate, whenWasOpened }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (loadingGoingToMercadoPago) return
+
     Swal.fire({
       title: '<b>¡Importante!</b>',
       html: `<div style="margin-top: 1rem; margin-bottom: 1rem;">

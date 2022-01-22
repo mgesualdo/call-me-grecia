@@ -52,7 +52,10 @@ const AddCashflowScreen = () => {
       body: JSON.stringify({
         kind,
         concept: selectedConcept,
-        from: userWallets.length === 1 ? userWallets[0] : selectedWalletFrom,
+        from:
+          userWallets.length === 1 && selectedConcept !== 'Venta productos'
+            ? userWallets[0]
+            : selectedWalletFrom,
         to: selectedWalletTo,
         details,
         amount,

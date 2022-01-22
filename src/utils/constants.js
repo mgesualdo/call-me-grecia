@@ -173,6 +173,7 @@ export const cashflowConcepts = [
   { name: 'Dietética', isSpending: true, isInvestment: false },
   { name: 'Ropa', isSpending: true, isInvestment: false },
   { name: 'Otros', isSpending: true, isInvestment: false },
+  { name: 'Publicidad', isSpending: true, isInvestment: false },
   { name: 'Alquiler', isSpending: true, isInvestment: false },
   { name: 'Expensas', isSpending: true, isInvestment: false },
   { name: 'Celular', isSpending: true, isInvestment: false },
