@@ -63,7 +63,18 @@ export const LoginClientScreen = () => {
         </div>
         <div className='go-to-register-section'>
           <h4>¿Todavía no estás registrad@?</h4>
-          <button onClick={handleClick} className='btn-go-to-register'>
+          <button
+            onClick={handleClick}
+            className='btn-go-to-register'
+            style={{
+              fontSize: '1.3rem',
+              borderRadius: '0.5rem',
+              backgroundColor: '#dabcb2',
+              color: '#333',
+              padding: '1rem 1.5rem',
+              boxShadow: '0 2px 8px #555',
+            }}
+          >
             Registrarme
           </button>
         </div>

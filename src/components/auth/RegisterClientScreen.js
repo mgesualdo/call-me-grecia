@@ -23,14 +23,8 @@ const RegisterClientScreen = () => {
     password1: '',
     password2: '',
   })
-  const {
-    name,
-    lastname,
-    email,
-    cellphone,
-    password1,
-    password2,
-  } = formRegisterValues
+  const { name, lastname, email, cellphone, password1, password2 } =
+    formRegisterValues
 
   const dispatch = useDispatch()
 
