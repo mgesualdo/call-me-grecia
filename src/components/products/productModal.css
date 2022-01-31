@@ -1,0 +1,88 @@
+.modal {
+  background: white;
+  border-radius: 0.5rem;
+  color: rgb(51, 51, 51);
+  display: inline;
+  height: auto;
+  max-height: 49rem;
+  width: 30rem;
+  max-width: 90vw;
+  outline: none;
+  padding: 1rem;
+}
+
+.no-client-img-icn {
+  width: 40px;
+  text-align: center;
+  margin-right: 1rem !important;
+}
+
+.service-modal-img {
+  width: var(--medium-img-size);
+  height: var(--medium-img-size);
+  padding: 2px;
+  margin-right: 1rem;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid #ddd;
+}
+
+.service-and-price-modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.service-img-and-name,
+.client-img-and-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modal-container {
+  display: flex;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.modal-button {
+  display: block;
+  color: var(--black);
+  font-weight: bolder;
+  border: none !important;
+  outline: none !important;
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.reservation-button {
+  background: var(--linear-gradient-primary-grey);
+}
+
+.full-payment-button {
+  background: var(--linear-gradient-primary-green);
+}
+
+img .user-image-modal {
+  width: var(--medium-img-size);
+  height: var(--medium-img-size);
+  padding: 5px;
+}
+
+.user-and-date-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

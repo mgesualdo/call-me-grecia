@@ -30,7 +30,10 @@ const Input = ({
         <>
           {type === 'email' && <i className='far fa-envelope input-icn'></i>}
           {type === 'number' &&
-            (name === 'reservationCost' || name === 'paymentAmount') && (
+            (name === 'reservationCost' ||
+              name === 'paymentAmount' ||
+              name === 'price' ||
+              name === 'unitPrice') && (
               <i className='fas fa-dollar-sign input-icn tel'></i>
             )}
           {type === 'number' && name === 'duration' && (
@@ -42,6 +45,9 @@ const Input = ({
           )}
           {(name === 'name' || name === 'lastname') && (
             <i className='far fa-id-card input-icn'></i>
+          )}
+          {name === 'quantity' && (
+            <i className='fas fa-shopping-cart input-icn'></i>
           )}
           <input
             type={type}

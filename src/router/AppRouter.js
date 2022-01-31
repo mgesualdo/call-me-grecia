@@ -25,9 +25,11 @@ import ActivationScreen from '../components/auth/ActivationScreen'
 import { getUsers, getUserAppointments } from '../actions/users'
 import { getClientAppointments, getClients } from '../actions/client'
 import { getServices } from '../actions/services'
+import { getProducts } from '../actions/products'
 import ProfileScreen from '../components/clients/ProfileScreen'
 import UserProfileScreen from '../components/users/UserProfileScreen'
 import ServicesScreen from '../components/services/ServicesScreen'
+import ProductsScreen from '../components/products/ProductsScreen'
 import VerifyEmailScreen from '../components/auth/VerifyEmailScreen'
 import ClientsScreen from '../components/clients/ClientsScreen'
 import RegisterClientScreen from '../components/auth/RegisterClientScreen'
@@ -52,6 +54,7 @@ export const AppRouter = () => {
     dispatch(getServices())
     dispatch(getClients())
     dispatch(getUsers())
+    dispatch(getProducts())
 
     !!loggedClient && dispatch(getClientAppointments(loggedClient._id))
     !!loggedUser && dispatch(getUserAppointments(loggedUser._id))
@@ -168,6 +171,13 @@ export const AppRouter = () => {
             exact
             path='/users/services'
             component={ServicesScreen}
+            isAuthenticated={!!loggedUser}
+            isUser
+          />
+          <PrivateRoute
+            exact
+            path='/users/products'
+            component={ProductsScreen}
             isAuthenticated={!!loggedUser}
             isUser
           />

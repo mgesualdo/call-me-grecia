@@ -49,6 +49,7 @@ export const weeksOfYearTillToday = Array.from(
 export const userRoles = ['ADMIN', 'USER']
 export const paymentTypes = ['SEÑA', 'PAGO TOTAL']
 export const paymentKinds = ['Efectivo', 'Transferencia', 'Mercado Pago']
+export const productNoveltyTypes = ['Compra', 'Devolución', 'Venta', 'Pérdida']
 export const emptyUser = {
   name: '',
   lastname: '',
@@ -75,6 +76,14 @@ export const emptyService = {
   duration: null,
   images: [],
   description: '',
+}
+
+export const emptyProduct = {
+  name: '',
+  price: 0,
+  images: [],
+  description: '',
+  stock: 0,
 }
 
 export const clientMenuOptions = [
@@ -140,6 +149,12 @@ export const userMenuOptions = [
     path: '/users/services',
     text: 'Servicios',
     icon: 'fas fa-concierge-bell',
+    allowedRoles: ['ADMIN'],
+  },
+  {
+    path: '/users/products',
+    text: 'Productos',
+    icon: 'fas fa-shopping-basket',
     allowedRoles: ['ADMIN'],
   },
   {

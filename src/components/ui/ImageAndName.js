@@ -6,6 +6,7 @@ const ImageAndName = ({
   name,
   client = false,
   user,
+  product = false,
   imageName,
   smallImage,
   bold,
@@ -14,9 +15,13 @@ const ImageAndName = ({
 }) => {
   let folderName = client ? 'clientes' : user ? 'usuarios' : 'servicios'
 
-  const imageUrl = `https://appturnos.blob.core.windows.net/${folderName}/${
+  let imageUrl = `https://appturnos.blob.core.windows.net/${folderName}/${
     imageName ? imageName : 'no-user.png'
   }`
+
+  if (product) {
+    imageUrl = `https://appturnos.blob.core.windows.net/productos/${imageName}`
+  }
 
   return (
     <div className={`img-and-name-container ${smallImage && 'small-image'}`}>

@@ -1,0 +1,26 @@
+.products-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 2rem;
+}
+
+.product-detail-container {
+  display: flex;
+  max-height: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 0.625rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 0.625rem;
+  box-shadow: 0.2rem 0.2rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 950px) {
+  .products-container {
+    margin-left: 0.5rem;
+    margin-top: 2rem;
+    padding-bottom: 6rem;
+  }
+}

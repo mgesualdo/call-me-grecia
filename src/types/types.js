@@ -35,6 +35,9 @@ export const types = {
   getServices: '[services] Get all services',
   serviceSelected: '[services] Set the selected service',
 
+  getProducts: '[products] Get all products',
+  productSelected: '[products] Set the selected product',
+
   getUsers: '[users] Get all users',
   userSelected: '[users] Set the selected user',
   userAppointments: '[users] Set the selected user appointments',
