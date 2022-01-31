@@ -29,26 +29,19 @@ const customStyles = {
 }
 Modal.setAppElement('#root')
 
-export const ProductNoveltyModal = ({ selectedProduct }) => {
+export const ProductNoveltyModal = ({
+  selectedProduct,
+  selectedNovelty,
+  setNovelties,
+}) => {
   const { modalOpen } = useSelector((state) => state.ui)
 
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
 
-  const [formValues, setFormValues] = useState({
-    type: 'Compra',
-    product: '',
-    quantity: 0,
-    unitPrice: 0,
-    totalCost: 0,
-    details: '',
-  })
+  const [formValues, setFormValues] = useState()
 
-  useEffect(() => {
-    setFormValues(() => ({
-      product: selectedProduct?._id,
-    }))
-  }, [selectedProduct])
+  console.log({ selectedProduct })
 
   const closeModal = () => {
     dispatch(uiCloseModal())
@@ -57,19 +50,46 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const res = await fetchSinToken('product/novelty', formValues, 'POST')
-    const body = await res.json()
-    setLoading(false)
-
-    console.log({ res, body })
-
-    if (body.ok) {
-      await Swal.fire('Listo', 'Novedad creada con éxito!', 'success')
-      dispatch(getProducts())
-      closeModal()
+    if (!selectedNovelty) {
+      const res = await fetchSinToken('product/novelty', formValues, 'POST')
+      const body = await res.json()
+      if (body.ok) {
+        await Swal.fire('Listo', 'Novedad creada con éxito!', 'success')
+        dispatch(getProducts())
+        closeModal()
+      } else {
+        await Swal.fire('UPS', 'Hubo un error al crear la novedad!', 'danger')
+      }
+      console.log({ res, body })
     } else {
-      await Swal.fire('UPS', 'Hubo un error al crear la novedad!', 'danger')
+      const res = await fetchSinToken(
+        `product/novelty/${selectedNovelty._id}`,
+        formValues,
+        'PUT'
+      )
+      const body = await res.json()
+      if (body.ok) {
+        await Swal.fire('Listo', 'Novedad actualizada con éxito!', 'success')
+        dispatch(getProducts())
+        const url = `product/novelty/${selectedNovelty.product}`
+        setLoading(true)
+        const res = await fetchSinToken(url)
+        const body = await res.json()
+        setLoading(false)
+        if (body.ok) {
+          setNovelties(body.data)
+        }
+        closeModal()
+      } else {
+        await Swal.fire(
+          'UPS',
+          'Hubo un error al actualizar la novedad!',
+          'danger'
+        )
+      }
+      console.log({ res, body })
     }
+    setLoading(false)
   }
 
   const handleSelectType = (type) => {
@@ -85,6 +105,31 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
       [target.name]: target.value,
     })
   }
+
+  console.log({ formValues })
+
+  useEffect(() => {
+    if (selectedProduct && !selectedNovelty) {
+      setFormValues(() => ({
+        product: selectedProduct?._id,
+        type: 'Compra',
+        quantity: 0,
+        unitPrice: 0,
+        totalCost: 0,
+        details: '',
+      }))
+    }
+    if (selectedProduct && selectedNovelty) {
+      setFormValues(() => ({
+        product: selectedNovelty?.product,
+        type: selectedNovelty.type,
+        quantity: selectedNovelty.quantity,
+        unitPrice: selectedNovelty.unitPrice,
+        totalCost: selectedNovelty.totalCost,
+        details: selectedNovelty.details,
+      }))
+    }
+  }, [selectedProduct, selectedNovelty])
 
   return (
     <Modal
@@ -118,7 +163,7 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
         <ProductNovelyTypes
           acceptedTypes={productNoveltyTypes}
           handleSelect={handleSelectType}
-          selectedType={formValues.type}
+          selectedType={formValues?.type}
         />
 
         <div style={{ marginTop: '1.5rem' }}>
@@ -129,6 +174,7 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
             type='number'
             placeholder=''
             name='quantity'
+            value={formValues?.quantity}
             handleChange={handleChange}
             required
             id='product-quantity'
@@ -141,6 +187,7 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
             type='number'
             placeholder=''
             name='unitPrice'
+            value={formValues?.unitPrice}
             handleChange={handleChange}
             required
             id='product-price'
@@ -148,6 +195,7 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
           <Input
             type='text-area'
             placeholder='Descripción'
+            value={formValues?.details}
             name='details'
             handleChange={handleChange}
             required
@@ -166,7 +214,9 @@ export const ProductNoveltyModal = ({ selectedProduct }) => {
             <Spinner />
           ) : (
             <div>
-              <span>Crear novedad </span>
+              <span>
+                {selectedNovelty ? 'Guardar cambios' : 'Crear novedad'}
+              </span>
             </div>
           )}
         </button>

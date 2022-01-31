@@ -17,6 +17,7 @@ const ProductsList = ({
 }) => {
   const { products } = useSelector((state) => state.product)
   const [selectedProduct, setSelectedProduct] = useState()
+  const [selectedNovelty, setSelectedNovelty] = useState()
   const [searchText, setSearchText] = useState()
   const [loading, setLoading] = useState()
   const [novelties, setNovelties] = useState()
@@ -69,10 +70,10 @@ const ProductsList = ({
 
   const handleAddProductNovelty = (product) => {
     dispatch(uiOpenModal())
+    setSelectedNovelty(null)
     setSelectedProduct(product)
   }
 
-  console.log({ selectedProduct })
   return (
     <div className='products-container'>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -185,6 +186,12 @@ const ProductsList = ({
                 </h4>
                 {novelties?.map((n) => (
                   <div
+                    key={n._id}
+                    onClick={() => {
+                      setSelectedNovelty(n)
+                      setSelectedProduct(product)
+                      dispatch(uiOpenModal())
+                    }}
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
@@ -194,6 +201,7 @@ const ProductsList = ({
                       borderRadius: '0.3rem',
                       padding: '0.5rem',
                       width: '100%',
+                      cursor: 'pointer',
                       marginBottom: '1rem',
                       boxShadow: '0 0 5px 2px rgba(0,0,0,0.2)',
                     }}
@@ -228,7 +236,11 @@ const ProductsList = ({
             )}
           </div>
         ))}
-      <ProductNoveltyModal selectedProduct={selectedProduct} />
+      <ProductNoveltyModal
+        selectedProduct={selectedProduct}
+        selectedNovelty={selectedNovelty}
+        setNovelties={setNovelties}
+      />
     </div>
   )
 }
