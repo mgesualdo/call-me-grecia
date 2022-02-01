@@ -39,7 +39,6 @@
 .service-img-and-name,
 .client-img-and-name {
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 
@@ -82,7 +81,6 @@ img .user-image-modal {
 
 .user-and-date-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between !important;
   align-items: center;
 }

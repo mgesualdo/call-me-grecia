@@ -37,7 +37,7 @@ input[type='checkbox'] + label::selection {
 }
 
 .price-input {
-  width: 6rem;
+  width: 6rem !important;
   padding: 0.06rem 0.33rem;
   border-radius: 0.19rem;
   border: 0.06rem solid #ddd;
