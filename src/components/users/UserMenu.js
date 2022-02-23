@@ -26,7 +26,11 @@ const UserMenu = ({ handleLogout }) => {
       loggedUser?.roles.includes('USER') &&
       !loggedUser?.roles.includes('ADMIN')
     ) {
-      return option.allowedRoles.includes('USER') && option
+      return (
+        option.allowedRoles.includes('USER') &&
+        option.allowedUsers.includes(loggedUser._id) &&
+        option
+      )
     } else if (
       loggedUser?.roles.includes('ADMIN') &&
       !loggedUser?.roles.includes('USER')
