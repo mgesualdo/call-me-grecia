@@ -97,7 +97,7 @@ export const CalendarModal = ({ selectedDate, whenWasOpened }) => {
              <span style="display: inline-block; margin-bottom: 1rem">Antes de reservar, queremos que sepas lo siguiente: </span>
         
              <ol style="font-size: 1.1rem; text-align: start; width: 100%; margin: 0; padding-left: 3.2rem">
-             <li style="margin-bottom: 0.5rem">En caso de inasistencia, si no avisas con <b style="color: #38f">24 horas</b> de anticipación a tu turno, perderás tu seña, <b>sin excepción</b>.</li>
+             <li style="margin-bottom: 0.5rem">En caso de inasistencia, si no avisas con <b style="color: #38f">24 horas</b> de anticipación a tu turno, perderás tu seña, <b style="color: #38f">sin excepción</b>.</li>
              <li style="margin-bottom: 0.5rem">Dentro de las primeras <b style="color: #38f">5 horas</b> de registrado tu pago, podrás cancelar tu turno desde la web y se te devolverá el dinero en Mercado pago.</li>
              <li style="margin-bottom: 0.5rem">Si pasados <b style="color: #38f">30 minutos</b> no se registra tu pago, el turno será anulado automáticamente.</li>
              <li style="margin-bottom: 0.5rem">El límite de tolerancia de espera es de <b style="color: #38f">10 minutos</b>, pasado ese tiempo, perderás tu turno.</li>
