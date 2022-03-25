@@ -56,14 +56,61 @@ const HomeScreen = () => {
     <>
       <Navbar />
       <div className='container-seleccion-turnos'>
-        <div className='servicios-usuarios'>
-          <SearchableDropDownServices />
-          {selectedService && <ServiceInfo service={selectedService} />}
-          <UsersToChoose />
+        <div
+          style={{
+            width: '90vw',
+            margin: '0 auto',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            borderRadius: '1rem',
+            boxShadow: '0 0 12px 5px rgba(0,0,0,0.1)',
+            padding: '1rem',
+          }}
+        >
+          <h1 style={{ textAlign: 'center' }}>¡Hola!</h1>
+          <h1 style={{ textAlign: 'center' }}>
+            Cambiamos de web de turnos para que te sea mucho más fácil y rápido.
+          </h1>
+          <h2 style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <b>Haz click en el siguiente enlace </b>
+          </h2>
+          <h1> &#128071;&#128071;</h1>
+          <div
+            style={{ display: 'flex', alignItems: 'center' }}
+            onClick={() =>
+              window.open(`https://tuturno.io/turnos/greciastudio`)
+            }
+          >
+            <h1 className='tuturno'>
+              <b style={{ color: 'blue', textDecoration: 'underline' }}>
+                www.tuturno.io{' '}
+              </b>
+            </h1>{' '}
+            <h1 style={{ marginLeft: '0.5rem', cursor: 'pointer' }}>
+              {' '}
+              &#128640;
+            </h1>
+          </div>
+
+          <h3 style={{ marginTop: '1rem' }}>Nos vemos por allá!</h3>
+          <h1 style={{ margin: '0.5rem' }}>&#129498;</h1>
         </div>
-        <div id='calendario'>
-          <MyCalendar />
-        </div>
+        {false && (
+          <>
+            <div className='servicios-usuarios'>
+              <SearchableDropDownServices />
+              {selectedService && <ServiceInfo service={selectedService} />}
+              <UsersToChoose />
+            </div>
+            <div id='calendario'>
+              <MyCalendar />
+            </div>
+          </>
+        )}
       </div>
     </>
   )
