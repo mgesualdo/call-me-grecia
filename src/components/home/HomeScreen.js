@@ -81,9 +81,7 @@ const HomeScreen = () => {
           <h1> &#128071;&#128071;</h1>
           <div
             style={{ display: 'flex', alignItems: 'center' }}
-            onClick={() =>
-              window.open(`https://tuturno.io/turnos/greciastudio`)
-            }
+            onClick={() => window.open(`https://tuturno.io/greciastudio`)}
           >
             <h1 className='tuturno'>
               <b style={{ color: 'blue', textDecoration: 'underline' }}>
